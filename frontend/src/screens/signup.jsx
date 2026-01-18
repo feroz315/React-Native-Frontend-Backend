@@ -25,7 +25,6 @@ const Signup = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigation = useNavigation();
 
@@ -134,7 +133,6 @@ const styles = StyleSheet.create({
     height: 120,
     marginBottom: 30,
     alignSelf: 'center',
-    // backgroundColor:'#000'
     
   },
   title: {

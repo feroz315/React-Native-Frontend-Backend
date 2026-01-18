@@ -65,9 +65,6 @@ app.use(cookieParser());
 // })
 
 
-// app.listen(PORT, () => {
-//     console.log("running successfully local host 3000");
-// });
 
 app.use("/api", router);
 
