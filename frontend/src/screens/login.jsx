@@ -8,7 +8,6 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
-  Alert,
   ScrollView,
 } from 'react-native';
 
@@ -22,6 +21,13 @@ const Login = () => {
 
   const navigation = useNavigation();
 
+
+  const Submit = async () => {
+
+   navigation.navigate("home")
+  
+  }
+
   return (
  
    <SafeAreaView style={styles.container}>
@@ -29,9 +35,7 @@ const Login = () => {
          {/* App Logo/Image */}
          <Image source={require('../assets/images/food.png')} style={styles.logo} resizeMode="contain" />
  
-         <Text style={styles.title}>Login </Text>
-         <Text style={styles.subtitle}>Create your account to order delicious food!</Text>
- 
+         <Text style={styles.title}>Login </Text>   
      
          {/* Email Input */}
          <View style={styles.inputContainer}>
@@ -58,7 +62,7 @@ const Login = () => {
  
          
          {/* Signup Button */}
-         <TouchableOpacity style={styles.signupButton}>
+         <TouchableOpacity style={styles.signupButton} onPress={Submit}>
            <Text style={styles.signupButtonText}>Login</Text>
          </TouchableOpacity>
  
@@ -91,7 +95,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 10,
+    marginBottom: 25,
     textAlign: 'center',
   },
   subtitle: {
