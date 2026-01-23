@@ -13,6 +13,10 @@ const BoardScreen = () => {
       <View key="2">
         <Text>Second page</Text>
       </View>
+      <View key="3">
+        <Text>Third page</Text>
+      </View>
+      
     </PagerView>
     
   );
