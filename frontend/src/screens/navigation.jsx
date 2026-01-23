@@ -7,6 +7,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Signup from '../screens/signup';
 import Login from '../screens/login';
 import Home from './home';
+import SplashScreen from './Splash';
+import BoardScreen from './boardscreen';
+
 
 
 const Stack = createStackNavigator();
@@ -37,9 +40,13 @@ const Navigation = () => {
 
    <NavigationContainer>
         
-         <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='signup'>
-              <Stack.Screen name='home' component={Home}/>
+         {/* <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='signup'> */}
+         <Stack.Navigator initialRouteName="Splash">
+           <Stack.Screen name="Splash" component={SplashScreen} screenOptions={{ headerShown: false }} />
+               <Stack.Screen name="Board" component={BoardScreen} />
+
                  <Stack.Screen name="signup" component={Signup}/>
+              <Stack.Screen name='home' component={Home}/>
                  <Stack.Screen name="login" component={Login}/>
         </Stack.Navigator>            
             </NavigationContainer>
