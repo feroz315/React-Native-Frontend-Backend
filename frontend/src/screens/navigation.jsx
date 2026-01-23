@@ -9,7 +9,7 @@ import Login from '../screens/login';
 import Home from './home';
 import SplashScreen from './Splash';
 import BoardScreen from './boardscreen';
-
+import BottomNavigator from './bottomNavigator';
 
 
 const Stack = createStackNavigator();
@@ -46,6 +46,7 @@ const Navigation = () => {
                <Stack.Screen name="Board" component={BoardScreen} />
                  <Stack.Screen name="signup" component={Signup}/>
               <Stack.Screen name='home' component={Home}/>
+               <Stack.Screen name="bottomNav" component={BottomNavigator} />
                  <Stack.Screen name="login" component={Login}/>
         </Stack.Navigator>            
             </NavigationContainer>

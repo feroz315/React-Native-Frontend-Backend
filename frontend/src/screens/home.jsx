@@ -1,6 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { COLORS } from '../const/colors';
 
+
+
+const { width, height } = Dimensions.get("window")
 
 
 const Home = () => {
@@ -28,8 +32,15 @@ const Home = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Clothes Store</Text>
+
+<View style={styles.container}>
+<StatusBar
+    translucent
+    backgroundColor={Platform.OS === "ios" ? COLORS.primary : COLORS.blue}
+    barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
+
+
+  <Text style={styles.header}>Clothes Store</Text>
       <FlatList
         data={clothesData}
         renderItem={renderItem}
@@ -55,6 +66,23 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: '#333',
   },
+  
+  topContainer:{
+    backgroundColor:COLORS.lightblue,
+    paddingHorizontal:width*0.03,
+    zIndex:99,
+    height:190,
+    borderBottomEndRadius:35,
+    borderBottomLeftRadius:35,
+    
+  },
+  topContainerImage:{
+    flexDirection:'row',
+    justifyContent:"space-between",
+    alignItems:'center',
+    marginTop:45,
+  },
+  
   listContainer: {
     paddingHorizontal: 10,
   },
