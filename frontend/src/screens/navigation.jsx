@@ -44,7 +44,6 @@ const Navigation = () => {
          <Stack.Navigator initialRouteName="Board">
            <Stack.Screen name="Splash" component={SplashScreen} screenOptions={{ headerShown: false }} />
                <Stack.Screen name="Board" component={BoardScreen} />
-
                  <Stack.Screen name="signup" component={Signup}/>
               <Stack.Screen name='home' component={Home}/>
                  <Stack.Screen name="login" component={Login}/>

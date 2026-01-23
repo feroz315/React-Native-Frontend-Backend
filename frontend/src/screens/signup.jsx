@@ -15,11 +15,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
-// Placeholder image URI (replace with your actual image asset or local require('./path/to/image.png'))
-const LOGO_IMAGE = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL06h0NhpM5UmUwMEY2G2P01x2rrCilap2-w&s';
-
-
-
 const Signup = () => {
 
   const [fullName, setFullName] = useState('');
@@ -31,7 +26,9 @@ const Signup = () => {
   
 
   const Submit = async () => {
-
+      
+    navigation.navigate("login")
+        
      fetch("http://192.168.1.8:3000/api/register",{
        method:"POST",
        headers: {
@@ -62,7 +59,7 @@ const Signup = () => {
   <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* App Logo/Image */}
-        <Image source={{ uri: LOGO_IMAGE }} style={styles.logo} resizeMode="contain" />
+        <Image source={require('../assets/images/food.png')} style={styles.logo} resizeMode="contain" />
 
         <Text style={styles.title}>Sign Up </Text>
         <Text style={styles.subtitle}>Create your account to order delicious food!</Text>
@@ -112,6 +109,7 @@ const Signup = () => {
         </Text>
       </ScrollView>
     </SafeAreaView>
+
   );
 };
 
