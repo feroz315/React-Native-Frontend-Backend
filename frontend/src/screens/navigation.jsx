@@ -2,6 +2,8 @@ import React, { useEffect,useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StatusBar } from 'react-native';
+import { COLORS } from '../const/colors';
 
 
 import Signup from '../screens/signup';
@@ -40,8 +42,8 @@ const Navigation = () => {
 
    <NavigationContainer>
         
-         {/* <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='signup'> */}
-         <Stack.Navigator initialRouteName="Board">
+        <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
+       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='signup'>
            <Stack.Screen name="Splash" component={SplashScreen} screenOptions={{ headerShown: false }} />
                <Stack.Screen name="Board" component={BoardScreen} />
                  <Stack.Screen name="signup" component={Signup}/>

@@ -8,8 +8,12 @@ const app = express();
 // const PORT = 3000;
 
 
-app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+
+// app.use(cookieParser());
 
 // require('./models/user')
 // const reqtoken = require('./middleware/reqToken');
@@ -18,10 +22,6 @@ app.use(cors());
 
 // app.use(bodyParser.json());
 // app.use(authRoutes)
-
-
-app.use(express.json());
-app.use(cookieParser());
 
 
 //  const mongoose = require("mongoose");

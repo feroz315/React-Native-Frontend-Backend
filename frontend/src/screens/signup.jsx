@@ -26,10 +26,8 @@ const Signup = () => {
   
 
   const Submit = async () => {
-      
-    navigation.navigate("login")
-        
-     fetch("http://192.168.1.8:3000/api/register",{
+   try {      
+     fetch("http://192.168.1.4:3000/api/register",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -44,13 +42,15 @@ const Signup = () => {
      .then(res=>res.json())
      .then(async (data)=> { 
       console.log(data)
-            try {
-              await AsyncStorage.setItem('token',data.token)
-              navigation.replace("login")
-            } catch (e) {
+      navigation.navigate("login")
+      
+        // await AsyncStorage.setItem('token',data.token)
+           
+     })
+
+      } catch (e) {
               console.log("error hai",e)
             }
-     })
   }
 
 
