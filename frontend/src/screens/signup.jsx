@@ -17,7 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const Signup = () => {
 
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -34,18 +34,17 @@ const Signup = () => {
       },
       body:JSON.stringify({
         "email":email,
-        "fullName":fullName,
+        "name":name,
         "password":password,
         
       })
      })
      .then(res=>res.json())
      .then(async (data)=> { 
-      console.log(data)
-      navigation.navigate("login")
-      
-        // await AsyncStorage.setItem('token',data.token)
-           
+       console.log(data)
+       navigation.navigate("login")
+       await AsyncStorage.setItem('token',data.token)
+       
      })
 
       } catch (e) {
@@ -68,9 +67,9 @@ const Signup = () => {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
-            placeholder="Full Name"
-            value={fullName}
-            onChangeText={setFullName}
+            placeholder="Name"
+            value={name}
+            onChangeText={setName}
             autoCapitalize="words"
           />
         </View>
