@@ -104,8 +104,12 @@ const Signup = () => {
         </TouchableOpacity>
 
         <Text style={styles.loginText}>
-          Already have an account? <Text style={styles.loginLink}>Log In</Text>
-        </Text>
+          Already have an account? 
+         <TouchableOpacity onPress={() => navigation.navigate("login")}>
+          <Text style={styles.loginLink}>Log In</Text>
+         </TouchableOpacity>
+          </Text>
+
       </ScrollView>
     </SafeAreaView>
 

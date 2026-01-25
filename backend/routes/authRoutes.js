@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
 // const { protect } = require('../middleware/protect.js');
+// const fs = require("fs");
 
 
 const router = express.Router();
@@ -145,6 +146,43 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out successfully" });
 });
 
+
+
+// Admin Endpoint to import products from JSON
+
+// router.post('/products', async (req, res) => {
+//   try {
+//     // Read the JSON file
+//     const data = fs.readFileSync('products.json', 'utf8');
+//     const products = JSON.parse(data);
+
+//     // Insert each product into the database
+//     for (const product of products) {
+//       await client.query(
+//         'INSERT INTO products (title, description, category, price, images, currency_code) VALUES ($1, $2, $3, $4, $5, $6)',
+//         [product.title, product.description,product.category,product.price,product.images,product.currency_code]
+//       );
+//     }
+//     res.status(200).json({ success: true, message:"Products imported successfully", data: products });
+//     } catch (error) {
+//     console.error(error);
+//     res.status(500).send('Error importing products');
+//   }
+// });
+
+
+
+// GET all products
+
+router.get('/allproducts', async (req, res) => {
+    try {
+        const result = await client.query('SELECT * FROM products ORDER BY id ASC');
+        console.log("fetched products", result);
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
 
 
 
