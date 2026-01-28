@@ -147,7 +147,6 @@ router.post("/logout", (req, res) => {
 });
 
 
-
 // Admin Endpoint to import products from JSON
 
 router.post('/products', async (req, res) => {
