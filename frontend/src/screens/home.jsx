@@ -17,7 +17,7 @@ const navigate = useNavigation();
 
   const getdata = async () => {
     try {
-      const res = await axios.get(`http://192.168.1.4:3000/api/allproducts`, dataItem);
+      const res = await axios.get(`http://192.168.1.9:3000/api/allproducts`, dataItem);
       console.log(res.data);
       setDataItem(res.data);
         
