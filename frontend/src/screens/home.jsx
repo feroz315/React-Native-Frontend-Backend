@@ -36,8 +36,11 @@ const navigate = useNavigation();
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.itemContainer}>
       <Image source={{ uri: item.image }} style={styles.itemImage} />
-      <Text style={styles.itemName}>{item.name}</Text>
-      <Text style={styles.itemPrice}>{item.price}</Text>
+      <Text style={styles.itemName}>{item.title}</Text>
+      <Text style={styles.itemCategory}>{item.category}</Text>
+      
+      <Text style={styles.itemPrice}>$ {item.price}</Text>
+
     </TouchableOpacity>
   );
 
@@ -116,14 +119,19 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   itemName: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 14,
+    fontWeight: "500",
     color: '#333',
     marginBottom: 5,
   },
   itemPrice: {
     fontSize: 14,
     color: '#888',
+  },
+  itemCategory: {
+    fontSize: 14,
+    color: '#888',
+    marginBottom:5
   },
 });
 
