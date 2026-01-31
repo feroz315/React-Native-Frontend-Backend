@@ -25,7 +25,7 @@ const Login = () => {
   const Submit = async () => {
 
    try {      
-     fetch("http://192.168.1.4:3000/api/login",{
+     fetch("http://192.168.1.8:3000/api/login",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const Login = () => {
    <SafeAreaView style={styles.container}>
        <ScrollView contentContainerStyle={styles.scrollContainer}>
          {/* App Logo/Image */}
-         <Image source={require('../assets/images/food.png')} style={styles.logo} resizeMode="contain" />
+         <Image source={require('../assets/images/fashion4.png')} style={styles.logo} resizeMode="contain" />
  
          <Text style={styles.title}>Login </Text>   
      
