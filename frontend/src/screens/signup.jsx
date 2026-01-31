@@ -27,7 +27,7 @@ const Signup = () => {
 
   const Submit = async () => {
    try {      
-     fetch("http://192.168.1.9:3000/api/register",{
+     fetch("http://192.168.1.7:3000/api/register",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ const Signup = () => {
   <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* App Logo/Image */}
-        <Image source={require('../assets/images/food.png')} style={styles.logo} resizeMode="contain" />
+        <Image source={require('../assets/images/fashion4.png')} style={styles.logo} resizeMode="contain" />
 
         <Text style={styles.title}>Sign Up </Text>
         <Text style={styles.subtitle}>Create your account to order delicious food!</Text>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
-    height: 120,
+    height: 150,
     marginBottom: 30,
     alignSelf: 'center',
     
