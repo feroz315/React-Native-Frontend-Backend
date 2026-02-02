@@ -27,7 +27,7 @@ const Signup = () => {
 
   const Submit = async () => {
    try {      
-     fetch("http://192.168.1.8:3000/api/register",{
+     fetch("http://192.168.1.13:3000/api/register",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
