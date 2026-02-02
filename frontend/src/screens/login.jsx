@@ -39,7 +39,7 @@ const Login = () => {
      .then(res=>res.json())
      .then(async (data)=> { 
        console.log("userlogin", data )
-       navigation.navigate("home")
+       navigation.navigate("bottomNav")
        await AsyncStorage.getItem('token',data.token)
      })
       } catch (e) {

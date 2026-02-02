@@ -52,6 +52,16 @@ const navigate = useNavigation();
     backgroundColor={Platform.OS === "ios" ? COLORS.primary : COLORS.blue}
     barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
 
+<View style={styles.topContainer}>
+   <View style={styles.topContainerImage}>
+    <Text>Hi User!</Text>
+    <TouchableOpacity>
+     <Image source={require('../assets/images/avatar.png')} style={{ width: 50,height:50}}/>
+      </TouchableOpacity>
+    </View>
+     
+ </View>
+
 
   <Text style={styles.header}>Clothes Store</Text>
       <FlatList
@@ -80,23 +90,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   
-  topContainer:{
-    backgroundColor:COLORS.lightblue,
-    paddingHorizontal:width*0.03,
-    zIndex:99,
-    height:190,
-    borderBottomEndRadius:35,
-    borderBottomLeftRadius:35,
-    
-  },
-  topContainerImage:{
-    flexDirection:'row',
-    justifyContent:"space-between",
-    alignItems:'center',
-    marginTop:45,
-  },
-  
-  listContainer: {
+   listContainer: {
     paddingHorizontal: 10,
   },
   itemContainer: {
@@ -132,6 +126,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#888',
     marginBottom:5
+  },
+  topContainer:{
+    backgroundColor:COLORS.lightyellow,     
+    paddingHorizontal:width*0.03,
+    zIndex:99,
+    height:80,
+    // borderBottomEndRadius:35,
+    // borderBottomLeftRadius:35, 
+  },
+
+  topContainerImage:{
+    flexDirection:'row',
+    justifyContent:"space-between",
+    alignItems:'center',
+    marginTop:10,
   },
 });
 
