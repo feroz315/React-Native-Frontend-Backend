@@ -169,8 +169,6 @@ router.post('/products', async (req, res) => {
   }
 });
 
-
-
 // GET all products
 
 router.get('/allproducts', async (req, res) => {
@@ -186,19 +184,36 @@ router.get('/allproducts', async (req, res) => {
 
 // productgetbyId
 
-router.get("/:id", async (req, res) => {
+// router.get("/product/:id", async (req, res) => {
 
-  const { id } = req.params;
+//   const { id } = req.params;
 
+//   try {
+//     const product = await client.query(`
+//      SELECT * FROM products WHERE id=${id}
+//     `);
+
+//     res.status(200).json({ success: true, data: product[0] });
+//   } catch (error) {
+//     console.log("Error in getProduct function", error);
+//     res.status(500).json({ success: false, message: "Internal Server Error" });
+//   }
+// });
+
+router.get('/product/:id', async (req, res) => {
+  const productId = req.params.id;
   try {
-    const product = await client.query(`
-     SELECT * FROM products WHERE id=${id}
-    `);
+    // Use parameterized query to prevent SQL injection
+    const result = await client.query('SELECT * FROM products WHERE id = $1', [productId]);
 
-    res.status(200).json({ success: true, data: product[0] });
-  } catch (error) {
-    console.log("Error in getProduct function", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json(result.rows[0]); // Return the single product
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

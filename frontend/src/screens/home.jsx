@@ -17,7 +17,7 @@ const navigate = useNavigation();
 
   const getdata = async () => {
     try {
-      const res = await axios.get(`http://192.168.1.13:3000/api/allproducts`, dataItem);
+      const res = await axios.get(`http://192.168.1.12:3000/api/allproducts`, dataItem);
       console.log(res.data);
       setDataItem(res.data);
         
@@ -79,8 +79,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    paddingTop: 50, // Adjust for status bar
+    paddingTop: 70, // Adjust for status bar
   },
+
   header: {
     fontSize:SIZES.h1,
     fontWeight: 'bold',

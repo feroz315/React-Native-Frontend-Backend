@@ -43,7 +43,7 @@ const Navigation = () => {
    <NavigationContainer>
         
         <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
-       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='login'>
+       <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='bottomNav'>
            {/* <Stack.Screen name="Splash" component={SplashScreen} screenOptions={{ headerShown: false }} /> */}
                <Stack.Screen name="Board" component={BoardScreen} />
                  <Stack.Screen name="signup" component={Signup}/>
