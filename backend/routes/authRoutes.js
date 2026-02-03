@@ -184,6 +184,78 @@ router.get('/allproducts', async (req, res) => {
 });
 
 
+// productgetbyId
+
+router.get("/:id", async (req, res) => {
+
+  const { id } = req.params;
+
+  try {
+    const product = await client.query(`
+     SELECT * FROM products WHERE id=${id}
+    `);
+
+    res.status(200).json({ success: true, data: product[0] });
+  } catch (error) {
+    console.log("Error in getProduct function", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
+// update product
+
+router.put("/:id", async (req, res) => {
+  
+  const { id } = req.params;
+  const { title, description, category, price, images, currency_code } = req.body;
+
+  try {
+    const updateProduct = await client.query(`
+      UPDATE products
+      SET title=${title}, price=${price}, images=${images}, description=${description}, category=${category}, currency_code=${currency_code}
+      WHERE id=${id}
+      RETURNING *
+    `);
+
+    if (updateProduct.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({ success: true, data: updateProduct[0] });
+  } catch (error) {
+    console.log("Error in updateProduct function", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
+// delete product
+
+router.delete("/:id", async (req, res) => {
+  
+ const { id } = req.params;
+
+  try {
+    const deletedProduct = await client.query(`
+      DELETE FROM products WHERE id=${id} RETURNING *
+    `);
+
+    if (deletedProduct.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    res.status(200).json({ success: true, data: deletedProduct[0] });
+  } catch (error) {
+    console.log("Error in deleteProduct function", error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+});
+
 
 module.exports = router;
 
