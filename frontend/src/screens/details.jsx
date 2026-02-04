@@ -12,7 +12,7 @@ const ProductDetail = ({ route }) => {
 
 const [product, setProduct] = useState(null); 
 const navigate = useNavigation();
-const productId = route.params;
+const { productId } = route.params;
 
 // Api productGetbyId
 
@@ -40,13 +40,11 @@ return (
     backgroundColor={Platform.OS === "ios" ? COLORS.primary : COLORS.green}
     barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
 
-    <View style={{ flex: 1, padding: 20 }}>
-        <View>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{product.title}</Text>
-          <Text>{product.description}</Text>
-          <Text>${product.price}</Text>
-        </View>
-     
+<View style={{ padding: 20 }}>
+      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{product.title}</Text>
+      <Text style={{ marginTop: 10 }}>Price: ${product.price}</Text>
+      <Text style={{ marginTop: 10 }}>{product.description}</Text>
+      {/* Add Image component for product image if available */}
     </View>
 </View>
 

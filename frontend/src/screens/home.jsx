@@ -30,12 +30,11 @@ const navigation = useNavigation();
   useEffect(() => {
     getdata();
   }, []);
-  
+
 
   // Render each clothing item
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} onPress={() => {navigation.navigate("detail", {...item})}}>
-
+    <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate('productdetail', { productId: item.id })}>
       <Image source={{ uri: item.image }} style={styles.itemImage} />
       <Text style={styles.itemName}>{item.title}</Text>
       <Text style={styles.itemCategory}>{item.category}</Text>
