@@ -12,7 +12,7 @@ const ProductDetail = ({ route }) => {
 
 const [product, setProduct] = useState(null); 
 const navigate = useNavigation();
-const { productId } = route.params;
+const productId = route.params;
 
 // Api productGetbyId
 
@@ -25,7 +25,6 @@ const { productId } = route.params;
       console.log("error", error);
     }
   };
-
  
   useEffect(() => {
     ProductgetID();

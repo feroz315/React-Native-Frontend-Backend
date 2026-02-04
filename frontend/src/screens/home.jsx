@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 
 const Home = () => {
 const [dataItem, setDataItem] = useState([]);
-const navigate = useNavigation();
+const navigation = useNavigation();
 
 // Api data for products Items
 
@@ -34,7 +34,8 @@ const navigate = useNavigation();
 
   // Render each clothing item
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} >
+    <TouchableOpacity style={styles.itemContainer} onPress={() => {navigation.navigate("detail", {...item})}}>
+
       <Image source={{ uri: item.image }} style={styles.itemImage} />
       <Text style={styles.itemName}>{item.title}</Text>
       <Text style={styles.itemCategory}>{item.category}</Text>

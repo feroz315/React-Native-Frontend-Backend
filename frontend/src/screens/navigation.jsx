@@ -12,6 +12,8 @@ import Home from './home';
 import SplashScreen from './Splash';
 import BoardScreen from './boardscreen';
 import BottomNavigator from './bottomNavigator';
+import ProductDetail from './details';
+
 
 
 const Stack = createStackNavigator();
@@ -50,6 +52,8 @@ const Navigation = () => {
               {/* <Stack.Screen name='home' component={Home}/> */}
                <Stack.Screen name="bottomNav" component={BottomNavigator} />
                  <Stack.Screen name="login" component={Login}/>
+                 <Stack.Screen name="detail" component={ProductDetail}/>
+                 
         </Stack.Navigator>            
             </NavigationContainer>
         
