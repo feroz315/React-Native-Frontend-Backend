@@ -22,7 +22,7 @@ const navigation = useNavigation();
       setDataItem(res.data);
         
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error)
     }
   };
 
