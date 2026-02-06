@@ -3,10 +3,11 @@ import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, Touchabl
 import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
+// import { Ionicons } from '@react-native-vector-icons/ionicons';
 
 
 
-const { width, height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window").width - 40
 
 
 const Home = () => {
@@ -15,9 +16,16 @@ const navigation = useNavigation();
 
 // Api data for products Items
 
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+
   const getdata = async () => {
+    const URL = `http://192.168.1.10:3000/api/allproducts`;
     try {
-      const res = await axios.get(`http://192.168.1.12:3000/api/allproducts`, products);
+      const res = await axios.get(URL);
       console.log(res.data);
       setProducts(res.data);
         
@@ -27,21 +35,6 @@ const navigation = useNavigation();
   };
 
  
-  useEffect(() => {
-    getdata();
-  }, []);
-
-
-  // Render each clothing item
-  // const renderItem = ({ item }) => (
-  //   <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate('productdetail', { productId: item.id })}>
-  //     <Image source={{ uri: item.image }} style={styles.itemImage} />
-  //     <Text style={styles.itemName}>{item.title}</Text>
-  //     <Text style={styles.itemCategory}>{item.category}</Text>
-  //     <Text style={styles.itemPrice}>$ {item.price}</Text>
-
-  //   </TouchableOpacity>
-  // );
 
   return (
 
@@ -62,20 +55,46 @@ const navigation = useNavigation();
  </View>
 
 
-  <Text style={styles.header}> Store</Text>
+  <Text style={styles.header}> Store </Text>
+  
       <FlatList
         data={products}
         // renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+        columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
         renderItem={({ index, item }) => ( 
-        <View>
+        
+        <View style={styles.Containerheader}>
          <Image source={{ uri: item.images }} style={styles.itemImage} />
-         <Text style={styles.itemName}>{item.title}</Text>
+        <View style={styles.productInfo}>
+           <Text style={styles.price}>${item.price}</Text>
+            <View style={styles.ratingWrapper}>
+           {/* <Ionicons name="star" size={20} color={"#D4AF37"} /> */}
+            <Text style={styles.rating}>4.7</Text>
+            
+           </View>
         </View>
+       <Text style={styles.itemCategory}>{item.category}</Text>
+         <Text style={styles.itemName}>{item.title}</Text>
+             
+    
+         </View>
+
+  // <TouchableOpacity style={styles.card} onPress={() => onPress(products)}>
+  //     <Image source={{ uri: item.images }} style={styles.image} />
+  //     <View style={styles.infoContainer}>
+  //       <Text style={styles.name}>{item.name}</Text>
+  //       <Text style={styles.price}>{item.price}</Text>
+  //     </View>
+  //   </TouchableOpacity>
+        
+        
         )}
+
         numColumns={2} // Display in a 2-column grid
         contentContainerStyle={styles.listContainer}
       />
+  
     </View>
   );
 };
@@ -84,9 +103,39 @@ const navigation = useNavigation();
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
-    paddingTop: 70, // Adjust for status bar
+    // backgroundColor: '#f5f5f5',
+    // paddingTop: 70, // Adjust for status bar
   },
+  // card: {
+  //   backgroundColor: COLORS.white,
+  //   borderRadius: 15,
+  //   width: "50%" ,
+  //   height:200,
+  //   marginVertical: 10,
+  //   marginHorizontal: 10,
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.25,
+  //   shadowRadius: 3.84,
+  //   elevation: 2, // for Android shadow
+  //   overflow: 'hidden', // for border radius on image
+  // },
+  // image: {
+  //   height: 120,
+  //   width: '100%',
+  // },
+  // infoContainer: {
+  //   padding: 10,
+  // },
+  // name: {
+  //   fontSize: 14,
+  //   fontWeight: 'bold',
+  // },
+  // price: {
+  //   fontSize: 14,
+  //   color: '#777',
+  //   paddingTop: 5,
+  // },
 
   header: {
     fontSize:SIZES.h1,
@@ -99,38 +148,59 @@ const styles = StyleSheet.create({
    listContainer: {
     paddingHorizontal: 10,
   },
-  itemContainer: {
-    flex: 1,
-    margin: 10,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3, // For Android shadow
+
+  Containerheader:{
+    width: width /  2 - 10
   },
+  // itemContainer: {
+  //   flex: 1,
+  //   margin: 10,
+  //   backgroundColor: 
+  //   borderRadius: 10,
+  //   padding: 10,
+  //   alignItems: 'center',
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.1,
+  //   shadowRadius: 5,
+  //   elevation: 3, // For Android shadow
+  // },
   itemImage: {
-    width: "100%",
-    height: 100,
+    width: "60%",
+    height: 120,
     borderRadius: 15,
     marginBottom: 10,
   },
   itemName: {
     fontSize: 14,
-    fontWeight: "500",
-    color: '#333',
+    fontWeight: "600",
+    color: COLORS.dark,
+    letterSpacing:0.6,
     marginBottom: 5,
   },
-  itemPrice: {
+  productInfo:{
+   flexDirection:'row',
+   justifyContent:'space-between',
+   marginBottom: 8
+  },
+  price: {
     fontSize: 14,
-    color: '#888',
+    fontWeight:"500",
+    color:COLORS.dark
+  },
+  ratingWrapper:{
+    flexDirection:'row',
+    alignItems:'center',
+    gap: 5 
+  },
+  rating:{
+    fontSize:14,
+    color:COLORS.dark
   },
   itemCategory: {
-    fontSize: 14,
-    color: '#888',
+    fontSize: 15,
+    fontWeight:"500",
+    color: COLORS.dark,
     marginBottom:5
   },
   topContainer:{
