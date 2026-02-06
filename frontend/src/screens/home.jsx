@@ -10,16 +10,16 @@ const { width, height } = Dimensions.get("window");
 
 
 const Home = () => {
-const [dataItem, setDataItem] = useState([]);
+const [products, setProducts] = useState([]);
 const navigation = useNavigation();
 
 // Api data for products Items
 
   const getdata = async () => {
     try {
-      const res = await axios.get(`http://192.168.1.12:3000/api/allproducts`, dataItem);
+      const res = await axios.get(`http://192.168.1.12:3000/api/allproducts`, products);
       console.log(res.data);
-      setDataItem(res.data);
+      setProducts(res.data);
         
     } catch (error) {
       console.log("error", error)
@@ -33,15 +33,15 @@ const navigation = useNavigation();
 
 
   // Render each clothing item
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate('productdetail', { productId: item.id })}>
-      <Image source={{ uri: item.image }} style={styles.itemImage} />
-      <Text style={styles.itemName}>{item.title}</Text>
-      <Text style={styles.itemCategory}>{item.category}</Text>
-      <Text style={styles.itemPrice}>$ {item.price}</Text>
+  // const renderItem = ({ item }) => (
+  //   <TouchableOpacity style={styles.itemContainer} onPress={() => navigation.navigate('productdetail', { productId: item.id })}>
+  //     <Image source={{ uri: item.image }} style={styles.itemImage} />
+  //     <Text style={styles.itemName}>{item.title}</Text>
+  //     <Text style={styles.itemCategory}>{item.category}</Text>
+  //     <Text style={styles.itemPrice}>$ {item.price}</Text>
 
-    </TouchableOpacity>
-  );
+  //   </TouchableOpacity>
+  // );
 
   return (
 
@@ -64,9 +64,15 @@ const navigation = useNavigation();
 
   <Text style={styles.header}> Store</Text>
       <FlatList
-        data={dataItem}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        data={products}
+        // renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ index, item }) => ( 
+        <View>
+         <Image source={{ uri: item.images }} style={styles.itemImage} />
+         <Text style={styles.itemName}>{item.title}</Text>
+        </View>
+        )}
         numColumns={2} // Display in a 2-column grid
         contentContainerStyle={styles.listContainer}
       />
@@ -107,9 +113,9 @@ const styles = StyleSheet.create({
     elevation: 3, // For Android shadow
   },
   itemImage: {
-    width: 100,
+    width: "100%",
     height: 100,
-    borderRadius: 10,
+    borderRadius: 15,
     marginBottom: 10,
   },
   itemName: {
