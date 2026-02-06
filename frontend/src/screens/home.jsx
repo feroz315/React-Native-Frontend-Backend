@@ -3,8 +3,6 @@ import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, Touchabl
 import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
-// import { Ionicons } from '@react-native-vector-icons/ionicons';
-
 
 
 const { width, height } = Dimensions.get("window").width - 40
@@ -36,7 +34,7 @@ const navigation = useNavigation();
 
  
 
-  return (
+return (
 
 <View style={styles.container}>
 <StatusBar
@@ -64,29 +62,29 @@ const navigation = useNavigation();
         columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
         renderItem={({ index, item }) => ( 
         
-        <View style={styles.Containerheader}>
-         <Image source={{ uri: item.images }} style={styles.itemImage} />
-        <View style={styles.productInfo}>
-           <Text style={styles.price}>${item.price}</Text>
-            <View style={styles.ratingWrapper}>
-           {/* <Ionicons name="star" size={20} color={"#D4AF37"} /> */}
-            <Text style={styles.rating}>4.7</Text>
+      //   <View style={styles.Containerheader}>
+      //    <Image source={{ uri: item.images }} style={styles.itemImage} />
+      //   <View style={styles.productInfo}>
+      //      <Text style={styles.price}>${item.price}</Text>
+      //       <View style={styles.ratingWrapper}>
+      //      {/* <Ionicons name="star" size={20} color={"#D4AF37"} /> */}
+      //       <Text style={styles.rating}>4.7</Text>
             
-           </View>
-        </View>
-       <Text style={styles.itemCategory}>{item.category}</Text>
-         <Text style={styles.itemName}>{item.title}</Text>
+      //      </View>
+      //   </View>
+      //  <Text style={styles.itemCategory}>{item.category}</Text>
+      //    <Text style={styles.itemName}>{item.title}</Text>
              
     
-         </View>
+        //  </View>
 
-  // <TouchableOpacity style={styles.card} onPress={() => onPress(products)}>
-  //     <Image source={{ uri: item.images }} style={styles.image} />
-  //     <View style={styles.infoContainer}>
-  //       <Text style={styles.name}>{item.name}</Text>
-  //       <Text style={styles.price}>{item.price}</Text>
-  //     </View>
-  //   </TouchableOpacity>
+  <TouchableOpacity style={styles.card}>
+      <Image source={{ uri: item.images }} style={styles.image} />
+      <View style={styles.infoContainer}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.price}>{item.price}</Text>
+      </View>
+    </TouchableOpacity>
         
         
         )}
@@ -106,36 +104,36 @@ const styles = StyleSheet.create({
     // backgroundColor: '#f5f5f5',
     // paddingTop: 70, // Adjust for status bar
   },
-  // card: {
-  //   backgroundColor: COLORS.white,
-  //   borderRadius: 15,
-  //   width: "50%" ,
-  //   height:200,
-  //   marginVertical: 10,
-  //   marginHorizontal: 10,
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: 2 },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 3.84,
-  //   elevation: 2, // for Android shadow
-  //   overflow: 'hidden', // for border radius on image
-  // },
+  card: {
+    backgroundColor: COLORS.white,
+    borderRadius: 15,
+    width: "50%" ,
+    height:200,
+    marginVertical: 10,
+    marginHorizontal: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 2, // for Android shadow
+    overflow: 'hidden', // for border radius on image
+  },
   // image: {
   //   height: 120,
   //   width: '100%',
   // },
-  // infoContainer: {
-  //   padding: 10,
-  // },
+  infoContainer: {
+    padding: 10,
+  },
   // name: {
   //   fontSize: 14,
   //   fontWeight: 'bold',
   // },
-  // price: {
-  //   fontSize: 14,
-  //   color: '#777',
-  //   paddingTop: 5,
-  // },
+  price: {
+    fontSize: 14,
+    color: '#777',
+    paddingTop: 5,
+  },
 
   header: {
     fontSize:SIZES.h1,
@@ -165,13 +163,13 @@ const styles = StyleSheet.create({
   //   shadowRadius: 5,
   //   elevation: 3, // For Android shadow
   // },
-  itemImage: {
+  image: {
     width: "60%",
     height: 120,
     borderRadius: 15,
     marginBottom: 10,
   },
-  itemName: {
+  title: {
     fontSize: 14,
     fontWeight: "600",
     color: COLORS.dark,
@@ -197,7 +195,7 @@ const styles = StyleSheet.create({
     fontSize:14,
     color:COLORS.dark
   },
-  itemCategory: {
+  category: {
     fontSize: 15,
     fontWeight:"500",
     color: COLORS.dark,
