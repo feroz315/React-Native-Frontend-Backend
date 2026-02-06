@@ -10,26 +10,29 @@ const { width, height } = Dimensions.get("window");
 
 const ProductDetail = ({ route }) => {
 
-const [product, setProduct] = useState(null); 
+const [product, setProduct] = useState({}); 
 const navigate = useNavigation();
-const { productId } = route.params;
+const { id } = route.params;
+
+
+  useEffect(() => {
+    ProductgetID();
+  }, []);
+   
 
 // Api productGetbyId
 
   const ProductgetID = async () => {
+    const URL = `http://192.168.1.10:3000/api/product/${id}`;
     try {
-      const res = await axios.get(`http://192.168.1.12:3000/api/product${productId}`);
-      console.log(res.data);
+      const res = await axios.get(URL);
+      console.log("product", res.data);
       setProduct(res.data);       
     } catch (error) {
       console.log("error", error);
     }
   };
  
-  useEffect(() => {
-    ProductgetID();
-  }, []);
-   
   
 
 return (
@@ -41,9 +44,15 @@ return (
     barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
 
 <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{product.title}</Text>
-      <Text style={{ marginTop: 10 }}>Price: ${product.price}</Text>
-      <Text style={{ marginTop: 10 }}>{product.description}</Text>
+
+
+      <Image source={{ uri: product.images }} style={styles.image}/>
+      <Text style={styles.title}>{product.title}</Text>
+      <Text style={styles.title}>{product.currency_code}</Text>
+      <Text style={styles.price}> ${product.price}</Text>
+      <Text style={{ marginTop: 10 }}>{product.category}</Text>
+      <Text style={styles.title}>{product.description}</Text>
+      
       {/* Add Image component for product image if available */}
     </View>
 </View>
@@ -60,66 +69,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     paddingTop: 50, // Adjust for status bar
   },
-  header: {
-    fontSize:SIZES.h1,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    // margin:20,
-    color: '#333',
-  },
-  
-   listContainer: {
-    paddingHorizontal: 10,
-  },
-  itemContainer: {
-    flex: 1,
-    margin: 10,
-    backgroundColor: '#fff',
+   image: {
+    width: "80%",
+    height: 270,
     borderRadius: 10,
-    padding: 10,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 3, // For Android shadow
+    marginHorizontal:15
   },
-  itemImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  itemName: {
-    fontSize: 14,
-    fontWeight: "500",
-    color: '#333',
+  title: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: COLORS.dark,
+    letterSpacing:0.6,
     marginBottom: 5,
   },
-  itemPrice: {
-    fontSize: 14,
-    color: '#888',
+  productInfo:{
+   flexDirection:'row',
+   justifyContent:'space-between',
+   marginBottom: 8
   },
-  itemCategory: {
+  price: {
     fontSize: 14,
-    color: '#888',
-    marginBottom:5
-  },
-  topContainer:{
-    // backgroundColor:COLORS.light,     
-    paddingHorizontal:width*0.03,
-    zIndex:99,
-    height:80,
-    // borderBottomEndRadius:35,
-    // borderBottomLeftRadius:35, 
+    fontWeight:"500",
+    color:COLORS.dark
   },
 
-  topContainerImage:{
-    flexDirection:'row',
-    justifyContent:"space-between",
-    alignItems:'center',
-    marginTop:20,
-  },
 });
 
 

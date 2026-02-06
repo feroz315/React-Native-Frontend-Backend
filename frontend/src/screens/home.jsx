@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View,StatusBar, Dimensions, Text, StyleSheet,FlatList, Image, TouchableOpacity } from 'react-native';
 import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,Link } from '@react-navigation/native';
 
 
 const { width, height } = Dimensions.get("window").width - 40
@@ -77,12 +77,17 @@ return (
              
     
         //  </View>
+          
+      
 
-  <TouchableOpacity style={styles.card}>
+  <TouchableOpacity style={styles.card} onPress={() => {
+      navigation.navigate("productdetail", {...item})
+      }}>
       <Image source={{ uri: item.images }} style={styles.image} />
       <View style={styles.infoContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.price}>{item.price}</Text>
+        <Text style={styles.category}>{item.category}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.price}>${item.price}</Text>
       </View>
     </TouchableOpacity>
         
@@ -105,30 +110,22 @@ const styles = StyleSheet.create({
     // paddingTop: 70, // Adjust for status bar
   },
   card: {
-    backgroundColor: COLORS.white,
-    borderRadius: 15,
-    width: "50%" ,
-    height:200,
+    backgroundColor: COLORS.secondary,
+    borderRadius: 10,
+    width: 160 ,
+    height:260,
     marginVertical: 10,
-    marginHorizontal: 10,
+    marginHorizontal: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.2,
+    shadowRadius: 3.8,
     elevation: 2, // for Android shadow
     overflow: 'hidden', // for border radius on image
   },
-  // image: {
-  //   height: 120,
-  //   width: '100%',
-  // },
-  infoContainer: {
+   infoContainer: {
     padding: 10,
   },
-  // name: {
-  //   fontSize: 14,
-  //   fontWeight: 'bold',
-  // },
   price: {
     fontSize: 14,
     color: '#777',
@@ -164,13 +161,14 @@ const styles = StyleSheet.create({
   //   elevation: 3, // For Android shadow
   // },
   image: {
-    width: "60%",
-    height: 120,
+    width: "70%",
+    height: 150,
     borderRadius: 15,
-    marginBottom: 10,
+    margin:4,
+    marginHorizontal:15
   },
   title: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: "600",
     color: COLORS.dark,
     letterSpacing:0.6,
