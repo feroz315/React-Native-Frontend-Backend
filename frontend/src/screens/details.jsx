@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
-import { COLORS,SIZES } from '../const/colors';
+import { COLORS,FONTS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 const { width, height } = Dimensions.get("window");
@@ -23,7 +24,7 @@ const { id } = route.params;
 // Api productGetbyId
 
   const ProductgetID = async () => {
-    const URL = `http://192.168.1.10:3000/api/product/${id}`;
+    const URL = `http://192.168.1.2:3000/api/product/${id}`;
     try {
       const res = await axios.get(URL);
       console.log("product", res.data);
@@ -43,23 +44,56 @@ return (
     backgroundColor={Platform.OS === "ios" ? COLORS.primary : COLORS.green}
     barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
 
-<View style={{ padding: 20 }}>
+   
+{product && (
+  <View> 
+  <Image source={{ uri: product.images }} style={styles.image}/>
+  
+ <View style={styles.middlecontainer}>
+   <View style={styles.ratingWrapper}>
 
-
-      <Image source={{ uri: product.images }} style={styles.image}/>
-      <Text style={styles.title}>{product.title}</Text>
-      <Text style={styles.title}>{product.currency_code}</Text>
-      <Text style={styles.price}> ${product.price}</Text>
-      <Text style={{ marginTop: 10 }}>{product.category}</Text>
-      <Text style={styles.title}>{product.description}</Text>
+ <View style={styles.ratingWrapper}>
+    <Ionicons name="star" size={30} color="#FFD700" />
+      <Text style={styles.rating}>4.7
+      <Text> (136)</Text>
+      </Text>
+   </View>    
+    <TouchableOpacity>
+      <Ionicons name="heart-outline" size={30} color= {COLORS.dark} />
+    </TouchableOpacity>
+       
+   </View>
+       <Text style={styles.title}>{product.title}</Text>
       
-      {/* Add Image component for product image if available */}
+    <View style={styles.priceWrapper}>
+       <Text style={styles.price}>${product.price}</Text> 
+    <View style={styles.priceDiscount}>
+    <Text style={styles.priceDiscountText}>7% off</Text>
+     </View>
     </View>
+       <Text style={styles.description}>{product.description}</Text> 
+    
+    <View style={styles.productVariationWrapper}>
+      <View style={styles.productVariationType}>
+      <Text style={styles.productVariationTitle}>Color</Text>
+    </View>
+      <View style={styles.productVariationType}>
+      <Text style={styles.productVariationTitle}>Size</Text>
+      </View>
+      
+    </View>
+    
+    </View>
+
+    </View>
+)}
+
+      
+    
 </View>
 
   );
 };
-
 
 
 
@@ -76,22 +110,83 @@ const styles = StyleSheet.create({
     marginHorizontal:15
   },
   title: {
-    fontSize: 12,
-    fontWeight: "600",
+    fontSize: 20,
+    fontWeight: "500",
     color: COLORS.dark,
     letterSpacing:0.6,
-    marginBottom: 5,
+    lineHeight:32,
+    
   },
   productInfo:{
    flexDirection:'row',
    justifyContent:'space-between',
    marginBottom: 8
   },
+  priceWrapper:{
+    flexDirection:"row",
+    alignItems:"center",
+    marginTop: 10,
+    gap: 5
+  },
   price: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight:"500",
     color:COLORS.dark
   },
+  priceDiscount:{
+    backgroundColor: COLORS.lightyellow,
+    padding: 5,
+    borderRadius: 5
+  },
+  priceDiscountText:{ 
+    fontSize: 14,
+    fontWeight: "500",
+    color: COLORS.dark
+  },
+  description: {
+    marginTop: 15,
+    fontSize: 14,
+    fontFamily:FONTS.body5.fontFamily,
+    fontWeight: "400",
+    color: COLORS.dark,
+    letterSpacing: 0.6,
+    lineHeight: 20
+  },
+
+  middlecontainer:{
+    paddingHorizontal: 20
+  },
+
+  ratingWrapper:{
+  flexDirection:"row",
+  alignItems:"center",
+  justifyContent:"space-between",
+  marginBottom: 5
+  },
+  rating:{
+    marginLeft: 5,
+    fontSize: 14,
+    fontWeight: "400",
+    color:COLORS.gray
+  },
+  productVariationWrapper:{
+    flexDirection:'row',
+    marginTop:20,
+    flexWrap:"wrap"
+  },
+  productVariationType:{
+    width:"50%",
+    gap: 5,
+    marginBottom: 10
+  },
+  productVariationTitle:{
+    fontSize:16,
+    fontWeight:"500",
+    color: COLORS.dark,
+    
+  },
+ 
+  
 
 });
 
