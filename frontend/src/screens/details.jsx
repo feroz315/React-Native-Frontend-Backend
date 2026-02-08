@@ -1,127 +1,191 @@
-import { useState, useEffect } from 'react';
-import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native';
-import { COLORS,FONTS,SIZES } from '../const/colors';
-import axios from "axios";
-import { useNavigation } from '@react-navigation/native';
+import {useState, useEffect} from 'react';
+import {
+  View,
+  StatusBar,
+  Dimensions,
+  Text,
+  StyleSheet,
+  FlatList,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import {COLORS, FONTS, SIZES} from '../const/colors';
+import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {back, star} from '../const/icons';
+import {StackView} from '@react-navigation/stack';
 
+const {width, height} = Dimensions.get('window');
 
-const { width, height } = Dimensions.get("window");
-
-
-const ProductDetail = ({ route }) => {
-
-const [product, setProduct] = useState({}); 
-const navigate = useNavigation();
-const { id } = route.params;
-
+const ProductDetail = ({route}) => {
+  const [product, setProduct] = useState({});
+  const navigation = useNavigation();
+  const {id} = route.params;
 
   useEffect(() => {
     ProductgetID();
   }, []);
-   
 
-// Api productGetbyId
+  // Api productGetbyId
 
   const ProductgetID = async () => {
     const URL = `http://192.168.1.8:3000/api/product/${id}`;
     try {
       const res = await axios.get(URL);
-      console.log("product", res.data);
-      setProduct(res.data);       
+      console.log('product', res.data);
+      setProduct(res.data);
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   };
- 
-  
 
-return (
-    <ScrollView>
-<View style={styles.container}>
-<StatusBar
-    translucent
-    backgroundColor={Platform.OS === "ios" ? COLORS.primary : COLORS.green}
-    barStyle={Platform.OS === "ios" ? "dark-content" : "light-content"} />
+  function renderHeader() {
+    return (
+      <View style={{flexDirection: 'row', height: 30, marginTop: 50}}>
+        {/* Go back */}
+        <TouchableOpacity
+          style={styles.go_back}
+          onPress={() => navigation.goBack()}>
+          <Image
+            source={back}
+            resizeMode="contain"
+            style={{
+              width: 18,
+              height: 18,
+              tintColor: COLORS.dark,
+            }}
+          />
+        </TouchableOpacity>
 
-   
-{product && (
-  <View> 
-  <Image source={{ uri: product.images }} style={styles.image}/>
-  
- <View style={styles.middlecontainer}>
-   <View style={styles.ratingWrapper}>
-
- <View style={styles.ratingWrapper}>
-    <Ionicons name="star" size={30} color="#FFD700" />
-      <Text style={styles.rating}>4.7
-      <Text> (136)</Text>
-      </Text>
-   </View>    
-    <TouchableOpacity>
-      <Ionicons name="heart-outline" size={30} color= {COLORS.dark} />
-    </TouchableOpacity>
-       
-   </View>
-       <Text style={styles.title}>{product.title}</Text>
-      
-    <View style={styles.priceWrapper}>
-       <Text style={styles.price}>${product.price}</Text> 
-    <View style={styles.priceDiscount}>
-    <Text style={styles.priceDiscountText}>7% off</Text>
-     </View>
-    </View>
-       <Text style={styles.description}>{product.description}</Text> 
-    
-    <View style={styles.productVariationWrapper}>
-      <View style={styles.productVariationType}>
-      <Text style={styles.productVariationTitle}>Color</Text>
-    <View style={styles.productVariationValueWrapper}>
-      <View style={[styles.productVariationColorValue, {backgroundColor: COLORS.blue}]}/>
-      
-      <View style={[styles.productVariationColorValue, {backgroundColor: COLORS.green}]}/>
-      <View style={[styles.productVariationColorValue, {backgroundColor: COLORS.red}]}/>
-     
-     </View>
+        {/* Category */}
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <View style={styles.category}>
+            <Text style={{...FONTS.h3, marginRight: 20, fontWeight: '600'}}>
+              {product.title}
+            </Text>
+          </View>
         </View>
-     
-     <View style={styles.productVariationType}>
-     <Text style={styles.productVariationTitle}>Size</Text>
-      
- 
-     <View style={styles.productVariationValueWrapper}>
-       <View style={[styles.productVariationSizeValue, {backgroundColor: COLORS.grey}]}>
-        <Text style={styles.productVariationSizeValueText}>S</Text>
       </View>
+    );
+  }
 
-     <View style={styles.productVariationSizeValue}>
-        <Text style={styles.productVariationSizeValueText}>M</Text>
-       </View>
+  return (
+    <>
+      {renderHeader()}
 
-      <View style={styles.productVariationSizeValue}>
-        <Text style={styles.productVariationSizeValueText}>L</Text>
-       </View>
+      <View style={styles.container}>
+        <StatusBar
+          translucent
+          backgroundColor={
+            Platform.OS === 'ios' ? COLORS.primary : COLORS.green
+          }
+          barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
+        />
 
-     <View style={styles.productVariationSizeValue}>
-        <Text style={styles.productVariationSizeValueText}>XL</Text>
-       </View>
+        <ScrollView>
+          {product && (
+            <View>
+              <Image source={{uri: product.images}} style={styles.image} />
 
+              <View style={styles.middlecontainer}>
+                <View style={styles.ratingWrapper}>
+                  <View style={styles.ratingWrapper}>
+                    <Ionicons name="star" size={30} color="#FFD700" />
+                    <Text style={styles.rating}>
+                      4.7
+                      <Text> (136)</Text>
+                    </Text>
+                  </View>
+                  <TouchableOpacity>
+                    <Ionicons
+                      name="heart-outline"
+                      size={30}
+                      color={COLORS.dark}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <Text style={styles.title}>{product.title}</Text>
+
+                <View style={styles.priceWrapper}>
+                  <Text style={styles.price}>${product.price}</Text>
+                  <View style={styles.priceDiscount}>
+                    <Text style={styles.priceDiscountText}>7% off</Text>
+                  </View>
+                </View>
+                <Text style={styles.description}>{product.description}</Text>
+
+                <View style={styles.productVariationWrapper}>
+                  <View style={styles.productVariationType}>
+                    <Text style={styles.productVariationTitle}>Color</Text>
+                    <View style={styles.productVariationValueWrapper}>
+                      <View
+                        style={[
+                          styles.productVariationColorValue,
+                          {backgroundColor: COLORS.blue},
+                        ]}
+                      />
+
+                      <View
+                        style={[
+                          styles.productVariationColorValue,
+                          {backgroundColor: COLORS.green},
+                        ]}
+                      />
+                      <View
+                        style={[
+                          styles.productVariationColorValue,
+                          {backgroundColor: COLORS.red},
+                        ]}
+                      />
+                    </View>
+                  </View>
+
+                  <View style={styles.productVariationType}>
+                    <Text style={styles.productVariationTitle}>Size</Text>
+
+                    <View style={styles.productVariationValueWrapper}>
+                      <View
+                        style={[
+                          styles.productVariationSizeValue,
+                          {backgroundColor: COLORS.grey},
+                        ]}>
+                        <Text style={styles.productVariationSizeValueText}>
+                          S
+                        </Text>
+                      </View>
+
+                      <View style={styles.productVariationSizeValue}>
+                        <Text style={styles.productVariationSizeValueText}>
+                          M
+                        </Text>
+                      </View>
+
+                      <View style={styles.productVariationSizeValue}>
+                        <Text style={styles.productVariationSizeValueText}>
+                          L
+                        </Text>
+                      </View>
+
+                      <View style={styles.productVariationSizeValue}>
+                        <Text style={styles.productVariationSizeValueText}>
+                          XL
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          )}
+          <Image source={{uri: product.images}} style={styles.image} />
+          <Image source={{uri: product.images}} style={styles.image} />
+        </ScrollView>
       </View>
-      </View>
-    </View>
-    
-    </View>
-
-    </View>
-)}  
-   
-  </View>
-</ScrollView>
-
+    </>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -129,160 +193,130 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
     paddingTop: 50, // Adjust for status bar
   },
-   image: {
-    width: "80%",
+  image: {
+    width: '80%',
     height: 270,
     borderRadius: 10,
-    marginHorizontal:15
+    marginHorizontal: 15,
   },
   title: {
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: '500',
     color: COLORS.dark,
-    letterSpacing:0.6,
-    lineHeight:32,
-    
+    letterSpacing: 0.6,
+    lineHeight: 32,
   },
-  productInfo:{
-   flexDirection:'row',
-   justifyContent:'space-between',
-   marginBottom: 8
+  productInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 8,
   },
-  priceWrapper:{
-    flexDirection:"row",
-    alignItems:"center",
+  priceWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 10,
-    gap: 5
+    gap: 5,
   },
   price: {
     fontSize: 15,
-    fontWeight:"500",
-    color:COLORS.dark
+    fontWeight: '500',
+    color: COLORS.dark,
   },
-  priceDiscount:{
+  priceDiscount: {
     backgroundColor: COLORS.lightyellow,
     padding: 5,
-    borderRadius: 5
+    borderRadius: 5,
   },
-  priceDiscountText:{ 
+  priceDiscountText: {
     fontSize: 14,
-    fontWeight: "500",
-    color: COLORS.dark
+    fontWeight: '500',
+    color: COLORS.dark,
   },
   description: {
     marginTop: 15,
     fontSize: 14,
-    fontFamily:FONTS.body5.fontFamily,
-    fontWeight: "400",
+    fontFamily: FONTS.body5.fontFamily,
+    fontWeight: '400',
     color: COLORS.dark,
     letterSpacing: 0.6,
-    lineHeight: 20
+    lineHeight: 20,
   },
 
-  middlecontainer:{
-    paddingHorizontal: 20
+  middlecontainer: {
+    paddingHorizontal: 20,
   },
 
-  ratingWrapper:{
-  flexDirection:"row",
-  alignItems:"center",
-  justifyContent:"space-between",
-  marginBottom: 5
+  ratingWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
   },
-  rating:{
+  rating: {
     marginLeft: 5,
     fontSize: 14,
-    fontWeight: "400",
-    color:COLORS.gray
+    fontWeight: '400',
+    color: COLORS.gray,
   },
-  productVariationWrapper:{
-    flexDirection:'row',
-    marginTop:20,
-    flexWrap:"wrap"
+  productVariationWrapper: {
+    flexDirection: 'row',
+    marginTop: 20,
+    flexWrap: 'wrap',
   },
-  productVariationType:{
-    width:"50%",
+  productVariationType: {
+    width: '50%',
     gap: 5,
-    marginBottom: 10
+    marginBottom: 10,
   },
-  productVariationTitle:{
-    fontSize:16,
-    fontWeight:"500",
+  productVariationTitle: {
+    fontSize: 16,
+    fontWeight: '500',
     color: COLORS.dark,
-    
   },
-   productVariationValueWrapper:{
-    flexDirection:"row",
-    alignItems:"center",
+  productVariationValueWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: 5,
-    flexWrap: "wrap"
+    flexWrap: 'wrap',
   },
 
-  productVariationColorValue:{
+  productVariationColorValue: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: COLORS.lightgary
+    backgroundColor: COLORS.lightgary,
   },
 
-  productVariationSizeValue:{
+  productVariationSizeValue: {
     width: 50,
-    height:30,
-    borderRadius:5,
-    backgroundColor:COLORS.lightgary,
-    justifyContent: "center",
-    alignItems:'center',
-    borderWidth: 1
-
+    height: 30,
+    borderRadius: 5,
+    backgroundColor: COLORS.lightgary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
   },
 
-  productVariationSizeValueText:{
+  productVariationSizeValueText: {
     fontSize: 12,
-    fontWeight: "500",
-    color:COLORS.dark
+    fontWeight: '500',
+    color: COLORS.dark,
   },
-
-
-
+  go_back: {
+    width: 30,
+    paddingLeft: SIZES.padding * 2,
+    justifyContent: 'center',
+  },
+  category: {
+    // height: '50%',
+    // width: '50%',
+    // // backgroundColor: COLORS.lightgary,
+    // paddingHorizontal: SIZES.padding * 3,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderRadius: SIZES.radius
+  },
 });
 
-
-
 export default ProductDetail;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// };
-//   // Render each clothing item
-//   const renderItem = ({ item }) => (
-//     <TouchableOpacity style={styles.itemContainer} >
-//       <Image source={{ uri: item.image }} style={styles.itemImage} />
-//       <Text style={styles.itemName}>{item.title}</Text>
-//       <Text style={styles.itemCategory}>{item.category}</Text>
-//       <Text style={styles.itemPrice}>$ {item.price}</Text>
-
-//     </TouchableOpacity>
-//   );
-
-
-  /* <Text style={styles.header}> Store</Text>
-      <FlatList
-        data={dataItem}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        numColumns={2} // Display in a 2-column grid
-        contentContainerStyle={styles.listContainer}
-      />
-    </View> */
-
 
