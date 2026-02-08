@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
+import { View,StatusBar, Dimensions, Text, StyleSheet, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { COLORS,FONTS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
@@ -37,7 +37,7 @@ const { id } = route.params;
   
 
 return (
-    
+    <ScrollView>
 <View style={styles.container}>
 <StatusBar
     translucent
@@ -76,21 +76,47 @@ return (
     <View style={styles.productVariationWrapper}>
       <View style={styles.productVariationType}>
       <Text style={styles.productVariationTitle}>Color</Text>
-    </View>
-      <View style={styles.productVariationType}>
-      <Text style={styles.productVariationTitle}>Size</Text>
+    <View style={styles.productVariationValueWrapper}>
+      <View style={[styles.productVariationColorValue, {backgroundColor: COLORS.blue}]}/>
+      
+      <View style={[styles.productVariationColorValue, {backgroundColor: COLORS.green}]}/>
+      <View style={[styles.productVariationColorValue, {backgroundColor: COLORS.red}]}/>
+     
+     </View>
+        </View>
+     
+     <View style={styles.productVariationType}>
+     <Text style={styles.productVariationTitle}>Size</Text>
+      
+ 
+     <View style={styles.productVariationValueWrapper}>
+       <View style={[styles.productVariationSizeValue, {backgroundColor: COLORS.grey}]}>
+        <Text style={styles.productVariationSizeValueText}>S</Text>
       </View>
-      
+
+     <View style={styles.productVariationSizeValue}>
+        <Text style={styles.productVariationSizeValueText}>M</Text>
+       </View>
+
+      <View style={styles.productVariationSizeValue}>
+        <Text style={styles.productVariationSizeValueText}>L</Text>
+       </View>
+
+     <View style={styles.productVariationSizeValue}>
+        <Text style={styles.productVariationSizeValueText}>XL</Text>
+       </View>
+
+      </View>
+      </View>
     </View>
     
     </View>
 
     </View>
-)}
-
-      
-    
-</View>
+)}  
+   
+  </View>
+</ScrollView>
 
   );
 };
@@ -185,8 +211,38 @@ const styles = StyleSheet.create({
     color: COLORS.dark,
     
   },
- 
-  
+   productVariationValueWrapper:{
+    flexDirection:"row",
+    alignItems:"center",
+    gap: 5,
+    flexWrap: "wrap"
+  },
+
+  productVariationColorValue:{
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: COLORS.lightgary
+  },
+
+  productVariationSizeValue:{
+    width: 50,
+    height:30,
+    borderRadius:5,
+    backgroundColor:COLORS.lightgary,
+    justifyContent: "center",
+    alignItems:'center',
+    borderWidth: 1
+
+  },
+
+  productVariationSizeValueText:{
+    fontSize: 12,
+    fontWeight: "500",
+    color:COLORS.dark
+  },
+
+
 
 });
 
