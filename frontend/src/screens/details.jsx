@@ -14,8 +14,11 @@ import {COLORS, FONTS, SIZES} from '../const/colors';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {back, star} from '../const/icons';
-import {StackView} from '@react-navigation/stack';
+import {back,star,cart } from '../const/icons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
+  const SPACING = 10;
+
 
 const {width, height} = Dimensions.get('window');
 
@@ -43,7 +46,7 @@ const ProductDetail = ({route}) => {
 
   function renderHeader() {
     return (
-      <View style={{flexDirection: 'row', height: 30, marginTop: 50}}>
+      <View style={{flexDirection: 'row', height: 30, marginTop: 50,marginBottom:15}}>
         {/* Go back */}
         <TouchableOpacity
           style={styles.go_back}
@@ -67,6 +70,26 @@ const ProductDetail = ({route}) => {
             </Text>
           </View>
         </View>
+
+        {/* Cart */}
+        <TouchableOpacity
+          source={cart}
+          style={{
+            height: SPACING * 4.7,
+            width: SPACING * 4.5,
+            backgroundColor: COLORS.white,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: SPACING * 2.5,
+          }}
+          onPress={() => navigation.navigate('cart')}>
+          <View>
+            <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
+              0
+            </Text>
+          </View>
+          
+        </TouchableOpacity>
       </View>
     );
   }
@@ -98,7 +121,7 @@ const ProductDetail = ({route}) => {
                       <Text> (136)</Text>
                     </Text>
                   </View>
-                  <TouchableOpacity>
+                  <TouchableOpacity source={star}>
                     <Ionicons
                       name="heart-outline"
                       size={30}
@@ -319,4 +342,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProductDetail;
-

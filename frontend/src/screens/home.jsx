@@ -53,7 +53,7 @@ return (
  </View>
 
 
-  <Text style={styles.header}> Store </Text>
+  <Text style={styles.header}> Store Product</Text>
   
       <FlatList
         data={products}
