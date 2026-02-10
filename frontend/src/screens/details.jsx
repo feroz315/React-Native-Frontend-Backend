@@ -202,6 +202,10 @@ const ProductDetail = ({route}) => {
               </View>
             </View>
           )}
+          <TouchableOpacity style={styles.AddtoCart}>
+           <Text style={styles.AddtoCartText}>Add to Cart</Text>
+          </TouchableOpacity>
+          
           <Image source={{uri: product.images}} style={styles.image} />
           <Image source={{uri: product.images}} style={styles.image} />
         </ScrollView>
@@ -339,6 +343,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // borderRadius: SIZES.radius
   },
+
+  AddtoCart: {
+    backgroundColor: COLORS.Danger,
+    borderRadius: 10,
+    margin: 20, 
+ },
+
+ AddtoCartText: {
+  fontSize: 16,
+  fontWeight:"500",
+  color: COLORS.white,
+  
+
+ }
+
+
 });
 
 export default ProductDetail;
