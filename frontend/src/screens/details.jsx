@@ -16,8 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {back,star,cart } from '../const/icons';
 import {  useDispatch, useSelector } from 'react-redux';
-import { addProducts } from '../ReduxFolder/HomeSlics';
-
+import { addToCart } from '../ReduxFolder/HomeSlics.js'
 
 
 const SPACING = 10;
@@ -31,8 +30,8 @@ const ProductDetail = ({route}) => {
   const {id} = route.params;
 
   const dispatch = useDispatch();
-  const CartItems = useSelector(state => state.product);
-
+  // const CartItems = useSelector(state => state.product);
+  const cartItems = useSelector(state => state.cart); //
 
 
 
@@ -55,9 +54,10 @@ const ProductDetail = ({route}) => {
     }
   };
 
-const AddtoCart = () => {
-  dispatch(addProducts(product))
-}
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product)); 
+  };
 
   function renderHeader() {
     return (
@@ -101,7 +101,7 @@ const AddtoCart = () => {
           onPress={() => navigation.navigate('cart')}>
           <View>
             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
-              {CartItems.length}
+              {cartItems.length}
             </Text>
           </View>
           
@@ -218,7 +218,7 @@ const AddtoCart = () => {
               </View>
             </View>
           )}
-          <TouchableOpacity style={styles.AddtoCart} onPress={AddtoCart}>
+          <TouchableOpacity style={styles.AddtoCart} onPress={handleAddToCart}>
            <Text style={styles.AddtoCartText}>Add to Cart</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -226,6 +226,7 @@ const AddtoCart = () => {
     </>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
