@@ -15,9 +15,12 @@ import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {back,star,cart } from '../const/icons';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {  useDispatch, useSelector } from 'react-redux';
+import { addProducts } from '../ReduxFolder/HomeSlics';
 
-  const SPACING = 10;
+
+
+const SPACING = 10;
 
 
 const {width, height} = Dimensions.get('window');
@@ -27,11 +30,19 @@ const ProductDetail = ({route}) => {
   const navigation = useNavigation();
   const {id} = route.params;
 
+  const dispatch = useDispatch();
+  const CartItems = useSelector(state => state.product);
+
+
+
+
   useEffect(() => {
     ProductgetID();
   }, []);
 
+  
   // Api productGetbyId
+
 
   const ProductgetID = async () => {
     const URL = `http://192.168.1.7:3000/api/product/${id}`;
@@ -43,6 +54,10 @@ const ProductDetail = ({route}) => {
       console.log('error', error);
     }
   };
+
+const AddtoCart = () => {
+  dispatch(addProducts(product))
+}
 
   function renderHeader() {
     return (
@@ -86,7 +101,7 @@ const ProductDetail = ({route}) => {
           onPress={() => navigation.navigate('cart')}>
           <View>
             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
-              0
+              {CartItems.length}
             </Text>
           </View>
           
@@ -203,7 +218,7 @@ const ProductDetail = ({route}) => {
               </View>
             </View>
           )}
-          <TouchableOpacity style={styles.AddtoCart}>
+          <TouchableOpacity style={styles.AddtoCart} onPress={AddtoCart}>
            <Text style={styles.AddtoCartText}>Add to Cart</Text>
           </TouchableOpacity>
         </ScrollView>
