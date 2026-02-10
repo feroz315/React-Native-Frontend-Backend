@@ -34,7 +34,7 @@ const ProductDetail = ({route}) => {
   // Api productGetbyId
 
   const ProductgetID = async () => {
-    const URL = `http://192.168.1.10:3000/api/product/${id}`;
+    const URL = `http://192.168.1.7:3000/api/product/${id}`;
     try {
       const res = await axios.get(URL);
       console.log('product', res.data);
@@ -46,7 +46,7 @@ const ProductDetail = ({route}) => {
 
   function renderHeader() {
     return (
-      <View style={{flexDirection: 'row', height: 30, marginTop: 50,marginBottom:15}}>
+      <View style={{flexDirection: 'row',justifyContent:'center',alignItems:'center', height: 30, marginTop: 40,marginBottom:10}}>
         {/* Go back */}
         <TouchableOpacity
           style={styles.go_back}
@@ -75,8 +75,9 @@ const ProductDetail = ({route}) => {
         <TouchableOpacity
           source={cart}
           style={{
-            height: SPACING * 4.7,
-            width: SPACING * 4.5,
+            height: SPACING * 4.2,
+            width: SPACING * 4.2,
+            marginRight:5,
             backgroundColor: COLORS.white,
             justifyContent: 'center',
             alignItems: 'center',
@@ -205,9 +206,6 @@ const ProductDetail = ({route}) => {
           <TouchableOpacity style={styles.AddtoCart}>
            <Text style={styles.AddtoCartText}>Add to Cart</Text>
           </TouchableOpacity>
-          
-          <Image source={{uri: product.images}} style={styles.image} />
-          <Image source={{uri: product.images}} style={styles.image} />
         </ScrollView>
       </View>
     </>
@@ -218,13 +216,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-    paddingTop: 50, // Adjust for status bar
+    paddingTop: 10, // Adjust for status bar
   },
   image: {
     width: '80%',
-    height: 270,
+    height: 350,
     borderRadius: 10,
-    marginHorizontal: 15,
+    marginHorizontal: 35,
   },
   title: {
     fontSize: 20,
@@ -351,7 +349,7 @@ const styles = StyleSheet.create({
     width: "60%",
     borderRadius: 8,
     alignItems: 'center',
-    marginVertical: 30,
+    marginVertical: 20,
   },
   
   AddtoCartText: {
