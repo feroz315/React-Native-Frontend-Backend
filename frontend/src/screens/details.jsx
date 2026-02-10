@@ -34,7 +34,7 @@ const ProductDetail = ({route}) => {
   // Api productGetbyId
 
   const ProductgetID = async () => {
-    const URL = `http://192.168.1.8:3000/api/product/${id}`;
+    const URL = `http://192.168.1.10:3000/api/product/${id}`;
     try {
       const res = await axios.get(URL);
       console.log('product', res.data);
@@ -345,19 +345,20 @@ const styles = StyleSheet.create({
   },
 
   AddtoCart: {
-    backgroundColor: COLORS.Danger,
-    borderRadius: 10,
-    margin: 20, 
- },
-
- AddtoCartText: {
-  fontSize: 16,
-  fontWeight:"500",
-  color: COLORS.white,
+    backgroundColor: '#ff9900', // Amazon-style orange
+    paddingVertical: 12,
+    marginHorizontal: 60,
+    width: "60%",
+    borderRadius: 8,
+    alignItems: 'center',
+    marginVertical: 30,
+  },
   
-
- }
-
+  AddtoCartText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '500',
+  },
 
 });
 
