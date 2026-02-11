@@ -23,7 +23,8 @@ const MyCartSlice = createSlice({
             state.items = newBasket
           },
         DeleteMyCart: (state,action ) => { 
-            return (state = state.filter(item => item.id !== action.payload));
+            state.items = state.items.filter(item => item.id !== action.payload);
+          
           },
         emptyCart:(state,action) => {
             state.items = []
@@ -37,6 +38,6 @@ const MyCartSlice = createSlice({
 export const { addMyCart,removetoCart,DeleteMyCart,emptyCart,addreserve } = MyCartSlice.actions;
 export const selectcartItems = state => state.cart.items;
 export const selectcartItemsbyId = (state,id) => state.cart.items.filter(item => item.id == id);
-export const selectTotal = state => state.cart.items.reduce((total, item) => total = total += item.price,0);
+export const selectTotal = state => state.cart.items.reduce((total,{price, quantity = 1 }) => total + (price * quantity),0);
 export const seltable = state => state.cart
 export default MyCartSlice.reducer;
