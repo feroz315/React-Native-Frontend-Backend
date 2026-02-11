@@ -16,7 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {back,star,cart } from '../const/icons';
 import {  useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../ReduxFolder/HomeSlics.js'
+import { addMyCart, selectcartItems } from '../state/CartSlics';
 
 
 const SPACING = 10;
@@ -30,8 +30,8 @@ const ProductDetail = ({route}) => {
   const {id} = route.params;
 
   const dispatch = useDispatch();
-  // const CartItems = useSelector(state => state.product);
-  const cartItems = useSelector(state => state.cart); //
+   const cartItems = useSelector(selectcartItems);
+  // const cartItems = useSelector(state => state.cart); //
 
 
 
@@ -39,6 +39,11 @@ const ProductDetail = ({route}) => {
     ProductgetID();
   }, []);
 
+
+  const handleAddToCart = () => {
+    dispatch(addMyCart(product)); 
+    console.log("add cart", product);
+  };
   
   // Api productGetbyId
 
@@ -55,13 +60,14 @@ const ProductDetail = ({route}) => {
   };
 
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(product)); 
-  };
-
   function renderHeader() {
     return (
-      <View style={{flexDirection: 'row',justifyContent:'center',alignItems:'center', height: 30, marginTop: 40,marginBottom:10}}>
+      <View style={{flexDirection: 'row',
+      justifyContent:'center',
+      alignItems:'center', 
+      height: 30,
+      marginTop: 40,
+      marginBottom:10}}>
         {/* Go back */}
         <TouchableOpacity
           style={styles.go_back}

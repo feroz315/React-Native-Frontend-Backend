@@ -13,6 +13,7 @@ import SplashScreen from './Splash';
 import BoardScreen from './boardscreen';
 import BottomNavigator from './bottomNavigator';
 import ProductDetail from './details';
+import Cart from './cart';
 
 
 
@@ -53,6 +54,7 @@ const Navigation = () => {
                <Stack.Screen name="bottomNav" component={BottomNavigator} />
                  <Stack.Screen name="login" component={Login}/>
                  <Stack.Screen name="productdetail" component={ProductDetail}/>
+                 <Stack.Screen name="cart" component={Cart}/>
                  
         </Stack.Navigator>            
             </NavigationContainer>

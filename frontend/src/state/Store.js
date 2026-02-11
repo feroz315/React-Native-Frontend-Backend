@@ -24,14 +24,14 @@
 
     
 import { configureStore } from '@reduxjs/toolkit'
-import MyCartSlice from  '../ReduxFolder/CartSlics';
-// import  MyProductSlice from '../ReduxFolder/HomeSlics';
-import cartReducer from '../ReduxFolder/HomeSlics.js';
+import MyCartSlice from  '../state/CartSlics';
+import  MyProductSlice from '../state/HomeSlics';
+
 
 export const store = configureStore({
   reducer: {
-    cart: cartReducer,
-    // cart: MyCartSlice,
+    product: MyProductSlice,
+    cart: MyCartSlice,
     
   },
 });

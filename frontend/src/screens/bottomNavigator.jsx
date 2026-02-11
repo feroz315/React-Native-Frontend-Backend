@@ -5,10 +5,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../const/colors';
 import Home from '../screens/home';
-import Signup from '../signup';
-import Chectout from './chectout';
-import Login from './login';
-
+import Signup from '../screens/signup';
+import Chectout from '../screens/chectout';
+import Login from '../screens/login';
+import Cart from '../screens/cart';
 
 
 
@@ -73,8 +73,8 @@ const BottomNavigator = () => {
         }}
       />
         <Tab.Screen
-        name="messge"
-        component={Chectout}
+        name="cart"
+        component={Cart}
         options={{
           tabBarStyle: {display: 'none'},
           tabBarActiveTintColor:COLORS.Teal,
