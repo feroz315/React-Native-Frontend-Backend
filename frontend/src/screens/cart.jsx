@@ -3,11 +3,8 @@ import React, { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { removetoCart, selectcartItems, selectTotal,addMyCart } from '../state/CartSlics';
 import { useNavigation } from '@react-navigation/native';
-import { s as tw } from "react-native-wind";
-import { customize } from "react-native-wind";
-
-// import * as Icon from "react-native-feather";
-import { themeColors } from '../Styles/theme';
+import { COLORS,SIZES } from '../const/colors';
+import {back,star,cart } from '../const/icons';
 
 
 
@@ -22,17 +19,6 @@ export default function Cart() {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    // customize({
-    //     theme: {
-    //       colors: {
-    //         primarycolor: "#bd2c3d",
-    //         secondary: {
-    //           light: "#f3f3f3", // Light shade
-    //           dark: "#212121", // Dark shade
-    //         },
-    //       },
-    //     },
-    //   });
 
     useMemo(() => {
         
@@ -51,20 +37,32 @@ export default function Cart() {
 
    
   return (
-    <View>
-      {/* top button */}
-      <View>
-        <TouchableOpacity 
-            onPress={navigation.goBack} 
-            >
-        </TouchableOpacity>
-        <View>
-            <Text>My Cart</Text>
-        </View>
-      </View>   
+    <View style={{ flex: 1, backgroundColor:"#fff" }}>
+     
+      <View style={{flexDirection:"row",justifyContent:"space-between", alignItems:'center', marginVertical:40 }}>
+     
+        {/* Go back */}
+             <TouchableOpacity
+               style={{
+                   width: 30,
+                   paddingLeft: SIZES.padding * 2,
+                   justifyContent: 'center',
+                     }}
+               onPress={() => navigation.goBack()}>
+               <Image
+                 source={back}
+                 resizeMode="contain"
+                 style={{
+                   width: 18,
+                   height: 18,
+                   tintColor: COLORS.dark,
+                 }}/>
+                                
+             </TouchableOpacity>  
+               <Text style={{fontSize:20,fontWeight:"500",color:COLORS.dark,letterSpacing:2,}}>My Cart</Text>
+          </View>   
 
-      {/* dishes */}
-      <ScrollView 
+    <ScrollView 
       showsVerticalScrollIndicator={false}
        contentContainerStyle={{
         paddingBottom: 50
@@ -109,7 +107,6 @@ export default function Cart() {
     </View>
   )
 }
-
 
 
 
