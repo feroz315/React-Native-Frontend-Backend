@@ -1,4 +1,4 @@
-import { View, Text,TouchableOpacity, Image, ScrollView } from 'react-native'
+import { View,StyleSheet, Text,TouchableOpacity, Image, FlatList,ScrollView } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { removetoCart, selectcartItems, selectTotal,addMyCart } from '../state/CartSlics';
@@ -39,7 +39,7 @@ export default function Cart() {
   return (
     <View style={{ flex: 1, backgroundColor:"#fff" }}>
      
-      <View style={{flexDirection:"row",justifyContent:"space-between", alignItems:'center', marginVertical:40 }}>
+      <View style={{flexDirection:"row", alignItems:'center', marginVertical:40 }}>
      
         {/* Go back */}
              <TouchableOpacity
@@ -53,13 +53,13 @@ export default function Cart() {
                  source={back}
                  resizeMode="contain"
                  style={{
-                   width: 18,
-                   height: 18,
+                   width: 16,
+                   height: 16,
                    tintColor: COLORS.dark,
                  }}/>
                                 
              </TouchableOpacity>  
-               <Text style={{fontSize:20,fontWeight:"500",color:COLORS.dark,letterSpacing:2,}}>My Cart</Text>
+               <Text style={{fontSize:20,fontWeight:"500",marginLeft:100,color:COLORS.dark,letterSpacing:2,}}>My Cart</Text>
           </View>   
 
     <ScrollView 
@@ -75,7 +75,7 @@ export default function Cart() {
                                       
                             <Text>{items.length} x </Text>
                             <Image source={items[0]?.images} style={{width:300, height:100}}/>
-                            <Text> {items[0]?.title}</Text>
+                            <Text style={styles.itemName}>{items[0]?.title}</Text>
                             
                           <TouchableOpacity 
                                 onPress={()=> dispatch(removetoCart({id: items[0]?.id}))}>
@@ -91,7 +91,7 @@ export default function Cart() {
             }
         </ScrollView>
         
-     {/* total */}
+     
       <View>
             <View>
                 <Text>Subtotal</Text>
@@ -104,12 +104,43 @@ export default function Cart() {
                 </TouchableOpacity>
             </View>
        </View>
-    </View>
-  )
-}
+    </View>  
+    
+ )
+} 
 
 
 
+const styles = StyleSheet.create({
 
+  container: { flex: 1, backgroundColor: '#f5f5f5' },
+  listContainer: { padding: 10 },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 15,
+    marginVertical: 5,
+    borderRadius: 8,
+    elevation: 2,
+  },
+  itemName: { flex: 1, fontSize: 16, fontWeight: 'bold' },
+  itemPrice: { fontSize: 16, color: '#888' },
+  quantityContainer: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 10 },
+  quantity: { fontSize: 18, marginHorizontal: 10 },
+  removeButton: { marginLeft: 10 },
+  footer: {
+    padding: 20,
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderColor: '#ddd',
+  },
+  totalText: { fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 10 },
+  checkoutButton: { backgroundColor: '#007bff', padding: 15, borderRadius: 8 },
+  checkoutText: { color: '#fff', textAlign: 'center', fontSize: 18 },
+  emptyContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  emptyText: { fontSize: 18, marginBottom: 20 },
+  backText: { fontSize: 16, color: '#007bff' },
+});
 
 

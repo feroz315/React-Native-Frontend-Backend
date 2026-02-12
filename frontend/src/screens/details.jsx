@@ -49,7 +49,7 @@ const ProductDetail = ({route}) => {
 
 
   const ProductgetID = async () => {
-    const URL = `http://10.0.21.169:3000/api/product/${id}`;
+    const URL = `http://192.168.1.7:3000/api/product/${id}`;
     try {
       const res = await axios.get(URL);
       console.log('product', res.data);
