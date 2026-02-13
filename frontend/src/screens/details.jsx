@@ -86,7 +86,7 @@ const ProductDetail = ({route}) => {
         {/* Category */}
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
           <View style={styles.category}>
-            <Text style={{...FONTS.h3, marginRight: 20, fontWeight: '600'}}>
+            <Text style={{...FONTS.h3, fontWeight: '600'}}>
               {product.title}
             </Text>
           </View>

@@ -64,6 +64,7 @@ export default function Cart() {
 
     <ScrollView 
       showsVerticalScrollIndicator={false}
+      style={{ backgroundColor:COLORS.white, paddingTop: 10}}
        contentContainerStyle={{
         paddingBottom: 50
        }}>
@@ -71,17 +72,33 @@ export default function Cart() {
             {
                 Object.entries(groupedItems).map(([k, items])=>{
                     return (
-                        <View key={k}> 
-                                      
-                            <Text>{items.length} x </Text>
-                            <Image source={items[0]?.images} style={{width:300, height:100}}/>
-                            <Text style={styles.itemName}>{items[0]?.title}</Text>
+                        <View key={k}
+                        style={{
+                        flexDirection:'row',
+                        // justifyContent:'space-around',
+                        alignItems:'center',
+                        width:"95%",
+                        height:120,
+                        padding: 4,
+                        backgroundColor:COLORS.primary,
+                        borderRadius: 15,
+                        margin:10,
+                        
+                         }}>
+                        
+                        <Image source={{ uri: items[0].images }} style={{ width:50, height:50 }}/>
+                         <Text style={styles.itemtitle}>{items[0]?.title}</Text>
+                          <Text>{items.length} x </Text>
                             
-                          <TouchableOpacity 
+                          <TouchableOpacity
+                                style={{ padding:5,backgroundColor:COLORS.Darknavy,marginRight:5 }} 
                                 onPress={()=> dispatch(removetoCart({id: items[0]?.id}))}>
                             </TouchableOpacity>
-                           <Text>{items[0]?.price}</Text>                            
+
+                              <Text style={{fontSize:16, fontWeight:"500"}}>${items[0]?.price}</Text>                            
+                                          
                           <TouchableOpacity 
+                          style={{ padding:5,backgroundColor:COLORS.Darknavy,marginLeft:10 }}
                           onPress={()=> dispatch(addMyCart(items[0]))}>
                       </TouchableOpacity>
 
@@ -92,15 +109,16 @@ export default function Cart() {
         </ScrollView>
         
      
-      <View>
-            <View>
-                <Text>Subtotal</Text>
-                <Text>Rs.{basketTotal}</Text>
+      <View style={{ padding: 5, justifyContent:'space-around', backgroundColor:COLORS.white, marginBottom: 70 }}>
+            <View style={{ flexDirection:"row", justifyContent:'space-between', marginBottom:5 }}>
+                <Text style={{ fontSize:16, fontWeight: "600", color:COLORS.dark }}>Subtotal</Text>
+                <Text style={{fontSize:16, fontWeight: "600", color:COLORS.dark}}>${basketTotal}</Text>
             </View>
             <View>
                 <TouchableOpacity 
+                style={{ marginTop:10, padding:5, backgroundColor:COLORS.primary}}
                 onPress={()=> navigation.replace('OrderScreen')}>
-                 <Text>Order Summary</Text>
+                 <Text style={{ fontSize:16,fontWeight:"600",color:COLORS.dark,textAlign:'center' }}>Check Out</Text>
                 </TouchableOpacity>
             </View>
        </View>
@@ -124,7 +142,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     elevation: 2,
   },
-  itemName: { flex: 1, fontSize: 16, fontWeight: 'bold' },
+  itemtitle: {fontSize: 16, fontWeight: 'bold',color: COLORS.dark },
   itemPrice: { fontSize: 16, color: '#888' },
   quantityContainer: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 10 },
   quantity: { fontSize: 18, marginHorizontal: 10 },
