@@ -14,6 +14,8 @@ import BoardScreen from './boardscreen';
 import BottomNavigator from './bottomNavigator';
 import ProductDetail from './details';
 import Cart from './cart';
+import Chectout from './chectout';
+import Logout from './logout';
 
 
 
@@ -55,6 +57,8 @@ const Navigation = () => {
                  <Stack.Screen name="login" component={Login}/>
                  <Stack.Screen name="productdetail" component={ProductDetail}/>
                  <Stack.Screen name="cart" component={Cart}/>
+                 <Stack.Screen name="checkout" component={Chectout}/>
+                 <Stack.Screen name="logout" component={Logout}/>
                  
         </Stack.Navigator>            
             </NavigationContainer>

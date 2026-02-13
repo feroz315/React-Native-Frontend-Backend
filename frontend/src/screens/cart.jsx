@@ -78,7 +78,7 @@ export default function Cart() {
                         // justifyContent:'space-around',
                         alignItems:'center',
                         width:"95%",
-                        height:120,
+                        height:90,
                         padding: 4,
                         backgroundColor:COLORS.primary,
                         borderRadius: 15,
@@ -86,22 +86,23 @@ export default function Cart() {
                         
                          }}>
                         
-                        <Image source={{ uri: items[0].images }} style={{ width:50, height:50 }}/>
+                        <Image source={{ uri: items[0].images }} style={{ width:65,height:70 }}/>
                          <Text style={styles.itemtitle}>{items[0]?.title}</Text>
-                          <Text>{items.length} x </Text>
+                          <Text style={{marginLeft:5}}>{items.length} x </Text>
                             
                           <TouchableOpacity
-                                style={{ padding:5,backgroundColor:COLORS.Darknavy,marginRight:5 }} 
+                                style={{ padding:5, }}
                                 onPress={()=> dispatch(removetoCart({id: items[0]?.id}))}>
+                                <Text style={{fontSize: 20,color:COLORS.dark}}> - </Text> 
                             </TouchableOpacity>
 
                               <Text style={{fontSize:16, fontWeight:"500"}}>${items[0]?.price}</Text>                            
                                           
                           <TouchableOpacity 
-                          style={{ padding:5,backgroundColor:COLORS.Darknavy,marginLeft:10 }}
+                          style={{ padding:5, }}
                           onPress={()=> dispatch(addMyCart(items[0]))}>
-                      </TouchableOpacity>
-
+                          <Text style={{fontSize: 20,color:COLORS.dark}}> + </Text> 
+                         </TouchableOpacity>
                         </View>
                     )
                 })
@@ -111,13 +112,13 @@ export default function Cart() {
      
       <View style={{ padding: 5, justifyContent:'space-around', backgroundColor:COLORS.white, marginBottom: 70 }}>
             <View style={{ flexDirection:"row", justifyContent:'space-between', marginBottom:5 }}>
-                <Text style={{ fontSize:16, fontWeight: "600", color:COLORS.dark }}>Subtotal</Text>
+                <Text style={{ fontSize:16, fontWeight: "600", color:COLORS.dark }}>Total Amount</Text>
                 <Text style={{fontSize:16, fontWeight: "600", color:COLORS.dark}}>${basketTotal}</Text>
             </View>
             <View>
                 <TouchableOpacity 
                 style={{ marginTop:10, padding:5, backgroundColor:COLORS.primary}}
-                onPress={()=> navigation.replace('OrderScreen')}>
+                onPress={()=> navigation.replace('checkout')}>
                  <Text style={{ fontSize:16,fontWeight:"600",color:COLORS.dark,textAlign:'center' }}>Check Out</Text>
                 </TouchableOpacity>
             </View>
