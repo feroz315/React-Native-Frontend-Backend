@@ -1,13 +1,14 @@
 import React from 'react';
 import { View,Image } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { COLORS } from '../const/colors';
 import Home from '../screens/home';
-import Signup from '../screens/signup';
 import Login from '../screens/login';
 import Cart from '../screens/cart';
+import Profile from './profile';
+import Setting from './setting';
+
+
 
 
 
@@ -57,13 +58,13 @@ const BottomNavigator = () => {
       />
 
       <Tab.Screen
-        name="Signup"
-        component={Signup}
+        name="profile"
+        component={Profile}
         options={{
           tabBarActiveTintColor:COLORS.Teal,
           tabBarIcon: ({focused}) => (
               <View>
-                <Image source={require('../assets/images/home.png')} style={{width:24,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/user.png')} style={{width:24,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
               
@@ -79,28 +80,29 @@ const BottomNavigator = () => {
           tabBarActiveTintColor:COLORS.Teal,
           tabBarIcon: ({focused}) => (
             <View>
-                <Image source={require('../assets/images/home.png')} style={{width:22,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/cart.png')} style={{width:22,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
           ),
         }}
       />          
-      {/* <Tab.Screen
-        name="Settings"
-        component={Settings}
+   
+      <Tab.Screen
+        name="setting"
+        component={Setting}
         options={{
           tabBarStyle: {display: 'none'},
           tabBarActiveTintColor:COLORS.Teal,
           tabBarIcon: ({focused}) => (
             <View>
-                <Image source={require('../../assets/settings.png')} style={{width:20,height:20,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/settings.png')} style={{width:20,height:20,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
           ),headerShown: false
 
         }}
       />
-   */}
+   
 
     </Tab.Navigator>
   );
