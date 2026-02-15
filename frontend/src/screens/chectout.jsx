@@ -12,8 +12,8 @@ const Chectout = () => {
             <Text>check out</Text>
       
                {/* Signup Button */}
-               <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate("login")}>
-                 <Text style={styles.signupButtonText}>Logout</Text>
+               <TouchableOpacity style={styles.signupButton} onPress={() => navigation.navigate("logout")}>
+                 <Text style={styles.signupButtonText}>payment</Text>
                </TouchableOpacity>
       
       

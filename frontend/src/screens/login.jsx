@@ -25,7 +25,7 @@ const Login = () => {
   const Submit = async () => {
 
    try {      
-     fetch("http://192.168.1.13:3000/api/login",{
+     fetch("http://192.168.1.10:3000/api/login",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -84,7 +84,7 @@ const Login = () => {
          
          {/* Signup Button */}
          <TouchableOpacity style={styles.signupButton} onPress={Submit}>
-           <Text style={styles.signupButtonText}>Login</Text>
+           <Text style={styles.signupButtonText}>Login </Text>
          </TouchableOpacity>
  
        </ScrollView>

@@ -22,7 +22,7 @@ export default function Cart() {
 
     useMemo(() => {
         
-    const gItems = basketItems.reduce((group, item)=>{
+    const gItems = basketItems.reduce((group, item) => {
             if(group[item.id]){
               group[item.id].push(item);
             }else{
@@ -37,8 +37,8 @@ export default function Cart() {
 
    
   return (
+    
     <View style={{ flex: 1, backgroundColor:"#fff" }}>
-     
       <View style={{flexDirection:"row", alignItems:'center', marginVertical:40 }}>
      
         {/* Go back */}
@@ -123,7 +123,7 @@ export default function Cart() {
                 </TouchableOpacity>
             </View>
        </View>
-    </View>  
+     </View>  
     
  )
 } 
