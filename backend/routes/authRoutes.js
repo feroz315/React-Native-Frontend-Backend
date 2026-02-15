@@ -3,8 +3,21 @@ const express = require('express');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
+
 // const { protect } = require('../middleware/protect.js');
- const fs = require("fs");
+const fs = require("fs");
+const multer = require("multer");
+
+
+const storage = multer.diskStorage({
+  destination : (req, file, cb) => {
+    cb(null, "upload/")
+  },
+  filename: (req,file,cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+})
+
 
 
 const router = express.Router();
@@ -60,12 +73,40 @@ const generateToken = (id) => {
 //     }
 // })
 
+
+
+// Configure multer for file storage
+const upload = multer({ storage: storage })
+
+
+// Endpoint to handle upload
+router.post('/upload', upload.single('photo'), async (req, res) => {
+  
+  if (!req.file) return res.status(400).send('No file uploaded');
+
+  const { filename, path: filepath } = req.file;
+  try {
+    const query = 'INSERT INTO images (filename, filepath) VALUES ($1 )';
+    await client.query(query, [filename, filepath]);
+    res.status(200).send('Image uploaded successfully');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Database error');
+  }
+});
+
+// CREATE TABLE images (
+//   id SERIAL PRIMARY KEY,
+//   filename VARCHAR(255) NOT NULL,
+//   filepath VARCHAR(500) NOT NULL,
+//   uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+// );
 // Register
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
-
-  if (!name || !email || !password) {
+  
+  if (!name || !email || !password ) {
     return res
       .status(400)
       .json({ message: "Please provide all required fields" });
