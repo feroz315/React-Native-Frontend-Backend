@@ -62,23 +62,7 @@ return (
         columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
         renderItem={({ index, item }) => ( 
         
-      //   <View style={styles.Containerheader}>
-      //    <Image source={{ uri: item.images }} style={styles.itemImage} />
-      //   <View style={styles.productInfo}>
-      //      <Text style={styles.price}>${item.price}</Text>
-      //       <View style={styles.ratingWrapper}>
-      //      {/* <Ionicons name="star" size={20} color={"#D4AF37"} /> */}
-      //       <Text style={styles.rating}>4.7</Text>
-            
-      //      </View>
-      //   </View>
-      //  <Text style={styles.itemCategory}>{item.category}</Text>
-      //    <Text style={styles.itemName}>{item.title}</Text>
-             
-    
-        //  </View>
-          
-      
+           
 
   <TouchableOpacity style={styles.card} onPress={() => {
       navigation.navigate("productdetail", {...item})
@@ -273,3 +257,10 @@ export default Home;
 // };
 
 // export default ImageUpload;
+
+
+
+
+
+
+

@@ -3,20 +3,12 @@ const express = require('express');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
+const path = require('path');
 
 // const { protect } = require('../middleware/protect.js');
 const fs = require("fs");
 const multer = require("multer");
 
-
-const storage = multer.diskStorage({
-  destination : (req, file, cb) => {
-    cb(null, "upload/")
-  },
-  filename: (req,file,cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-})
 
 
 
@@ -39,54 +31,27 @@ const generateToken = (id) => {
 };
 
 
-// router.post('/signup', (req,res) => { 
-//     console.log(req.body)
-
-//     const { email, password } =  req.body;
-//     try {
-//         const user = new User({ email, password });
-//         user.save();
-//         const token = jwt.sign({userId:user._id}, "pak")
-//         res.send({token})
-//     } catch (err) {
-//         res.status(422).send(err.message);
-        
-//     }
-
-// })
-
-// router.post('/signin', async( req,res) => {
-//     const {email, password} = req.body
-//     if(!email || !password){
-//         return res.status(422).send({error: "must provide email or password"})
-//     }
-//     const user = await User.findOne({email})
-//     if(!user){
-//         return res.status(422).send({ error: "must provie email or password"})
-//     }
-//     try {
-//         await user.comparePassword(password);
-//         const token = jwt.sign({userId:user._id},"pak")
-//         res.send({token})
-//     } catch (err) {
-//         return res.status(422).send({error:" must provide email or password"})
-//     }
-// })
-
-
+const storage = multer.diskStorage({
+  destination : (req, file, cb) => {
+    cb(null, "uploads/")
+  },
+  filename: (req,file,cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+})
 
 // Configure multer for file storage
-const upload = multer({ storage: storage })
+const upload = multer({ storage })
 
 
 // Endpoint to handle upload
-router.post('/upload', upload.single('photo'), async (req, res) => {
+router.post('/upload', upload.single('image'), async (req, res) => {
   
   if (!req.file) return res.status(400).send('No file uploaded');
 
-  const { filename, path: filepath } = req.file;
+  const { filename, path: filepath  } = req.file;
   try {
-    const query = 'INSERT INTO images (filename, filepath) VALUES ($1 )';
+    const query = 'INSERT INTO images (filename, filepath) VALUES ($1 ,$2)';
     await client.query(query, [filename, filepath]);
     res.status(200).send('Image uploaded successfully');
   } catch (error) {
@@ -101,6 +66,8 @@ router.post('/upload', upload.single('photo'), async (req, res) => {
 //   filepath VARCHAR(500) NOT NULL,
 //   uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 // );
+
+
 // Register
 
 router.post("/register", async (req, res) => {
@@ -314,4 +281,39 @@ router.delete("/:id", async (req, res) => {
 
 
 module.exports = router;
+
+
+// router.post('/signup', (req,res) => { 
+//     console.log(req.body)
+
+//     const { email, password } =  req.body;
+//     try {
+//         const user = new User({ email, password });
+//         user.save();
+//         const token = jwt.sign({userId:user._id}, "pak")
+//         res.send({token})
+//     } catch (err) {
+//         res.status(422).send(err.message);
+        
+//     }
+
+// })
+
+// router.post('/signin', async( req,res) => {
+//     const {email, password} = req.body
+//     if(!email || !password){
+//         return res.status(422).send({error: "must provide email or password"})
+//     }
+//     const user = await User.findOne({email})
+//     if(!user){
+//         return res.status(422).send({ error: "must provie email or password"})
+//     }
+//     try {
+//         await user.comparePassword(password);
+//         const token = jwt.sign({userId:user._id},"pak")
+//         res.send({token})
+//     } catch (err) {
+//         return res.status(422).send({error:" must provide email or password"})
+//     }
+// })
 
