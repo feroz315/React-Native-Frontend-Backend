@@ -41,6 +41,9 @@ const storage = multer.diskStorage({
 })
 
 // Configure multer for file storage
+
+// const storage = multer.memoryStorage();
+
 const upload = multer({ storage })
 
 
@@ -50,6 +53,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   if (!req.file) return res.status(400).send('No file uploaded');
 
   const { filename, path: filepath  } = req.file;
+  
   try {
     const query = 'INSERT INTO images (filename, filepath) VALUES ($1 ,$2)';
     await client.query(query, [filename, filepath]);
