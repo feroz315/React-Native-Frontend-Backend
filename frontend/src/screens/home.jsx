@@ -3,7 +3,7 @@ import { View,StatusBar, Dimensions, Text, StyleSheet,FlatList,Image,Alert,Touch
 import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation,Link } from '@react-navigation/native';
-import { launchImageLibrary } from 'react-native-image-picker';
+// import { launchImageLibrary } from 'react-native-image-picker';
 
 
 const { width, height } = Dimensions.get("window").width - 40
