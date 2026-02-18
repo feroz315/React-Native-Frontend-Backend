@@ -16,6 +16,7 @@ import ProductDetail from './details';
 import Cart from './cart';
 import Chectout from './chectout';
 import Logout from './logout';
+import Profile from './profile';
 
 
 
@@ -59,6 +60,9 @@ const Navigation = () => {
                  <Stack.Screen name="cart" component={Cart}/>
                  <Stack.Screen name="checkout" component={Chectout}/>
                  <Stack.Screen name="logout" component={Logout}/>
+                <Stack.Screen name="profile" component={Profile}/>
+
+
                  
         </Stack.Navigator>            
             </NavigationContainer>

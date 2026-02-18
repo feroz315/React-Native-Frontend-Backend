@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { View,StatusBar, Dimensions, Text, StyleSheet,FlatList,Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View,StatusBar, Dimensions, Text, StyleSheet,FlatList,Image,Alert,TouchableOpacity, ScrollView } from 'react-native';
 import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation,Link } from '@react-navigation/native';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 
 const { width, height } = Dimensions.get("window").width - 40
@@ -21,7 +22,7 @@ const navigation = useNavigation();
 
 
   const getdata = async () => {
-    const URL = `http://192.168.1.10:3000/api/allproducts`;
+    const URL = `http://192.168.1.9:3000/api/allproducts`;
     try {
       const res = await axios.get(URL);
       console.log(res.data);
@@ -32,7 +33,36 @@ const navigation = useNavigation();
     }
   };
 
- 
+
+  const selectImage = () => {
+    launchImageLibrary({ mediaType: 'photo' }, (response) => {
+      if (response.didCancel) return;
+      if (response.errorMessage) {
+        Alert.alert('Error', response.errorMessage);
+        return;
+      }
+      uploadImage(response.assets[0]);
+    });
+  };
+
+  const uploadImage = async (asset) => {
+    const formData = new FormData();
+    formData.append('image', {
+      uri: asset.uri,
+      type: asset.type,
+      name: asset.fileName || 'image.jpg',
+    });
+
+    try {
+      const response = await axios.post('http://your-server-ip:3000/upload', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      Alert.alert('Success', 'Image uploaded!');
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    }
+  };
+
 
 return (
 
@@ -45,7 +75,8 @@ return (
 <View style={styles.topContainer}>
    <View style={styles.topContainerImage}>
     <Text>Hi User!</Text>
-    <TouchableOpacity>
+
+    <TouchableOpacity onPress={selectImage} >
      <Image source={require('../assets/images/avatar.png')} style={{ width: 50,height:50}}/>
       </TouchableOpacity>
     </View>
@@ -219,7 +250,8 @@ export default Home;
 // import { launchImageLibrary } from 'react-native-image-picker';
 // import axios from 'axios';
 
-// const ImageUpload = () => {
+
+
 //   const selectImage = () => {
 //     launchImageLibrary({ mediaType: 'photo' }, (response) => {
 //       if (response.didCancel) return;
@@ -255,8 +287,6 @@ export default Home;
 //     </View>
 //   );
 // };
-
-// export default ImageUpload;
 
 
 
