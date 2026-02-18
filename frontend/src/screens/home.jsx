@@ -11,6 +11,8 @@ const { width, height } = Dimensions.get("window").width - 40
 
 const Home = () => {
 const [products, setProducts] = useState([]);
+// const [userpic, setUserpic] = useState(null);
+
 const navigation = useNavigation();
 
 // Api data for products Items
@@ -34,34 +36,35 @@ const navigation = useNavigation();
   };
 
 
-  const selectImage = () => {
-    launchImageLibrary({ mediaType: 'photo' }, (response) => {
-      if (response.didCancel) return;
-      if (response.errorMessage) {
-        Alert.alert('Error', response.errorMessage);
-        return;
-      }
-      uploadImage(response.assets[0]);
-    });
-  };
+  // const selectImage = () => {
+  //   launchImageLibrary({ mediaType: 'photo' }, (response) => {
+  //     if (response.didCancel) return;
+  //     if (response.errorMessage) {
+  //       Alert.alert('Error', response.errorMessage);
+  //       return;
+  //     }
+  //     uploadImage(response.assets[0]);
+  //   });
+  // };
 
-  const uploadImage = async (asset) => {
-    const formData = new FormData();
-    formData.append('image', {
-      uri: asset.uri,
-      type: asset.type,
-      name: asset.fileName || 'image.jpg',
-    });
+  // const uploadImage = async (asset) => {
+  //   const formData = new FormData();
+  //   formData.append('image', {
+  //     uri: asset.uri,
+  //     type: asset.type,
+  //     name: asset.fileName || 'image.jpg',
+  //   });
 
-    try {
-      const response = await axios.post('http://your-server-ip:3000/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-      Alert.alert('Success', 'Image uploaded!');
-    } catch (error) {
-      Alert.alert('Error', error.message);
-    }
-  };
+  //   try {
+  //     const response = await axios.post('http://192.168.1.9:3000/api/upload', formData, {
+  //       headers: { 'Content-Type': 'multipart/form-data' },
+  //     });
+  //     setUserpic(response)
+  //     Alert.alert('Success', 'Image uploaded!');
+  //   } catch (error) {
+  //     Alert.alert('Error', error.message);
+  //   }
+  // };
 
 
 return (
@@ -76,7 +79,7 @@ return (
    <View style={styles.topContainerImage}>
     <Text>Hi User!</Text>
 
-    <TouchableOpacity onPress={selectImage} >
+    <TouchableOpacity>
      <Image source={require('../assets/images/avatar.png')} style={{ width: 50,height:50}}/>
       </TouchableOpacity>
     </View>
@@ -244,49 +247,6 @@ export default Home;
 
 
 
-
-// import React from 'react';
-// import { View, Button, Alert } from 'react-native';
-// import { launchImageLibrary } from 'react-native-image-picker';
-// import axios from 'axios';
-
-
-
-//   const selectImage = () => {
-//     launchImageLibrary({ mediaType: 'photo' }, (response) => {
-//       if (response.didCancel) return;
-//       if (response.errorMessage) {
-//         Alert.alert('Error', response.errorMessage);
-//         return;
-//       }
-//       uploadImage(response.assets[0]);
-//     });
-//   };
-
-//   const uploadImage = async (asset) => {
-//     const formData = new FormData();
-//     formData.append('image', {
-//       uri: asset.uri,
-//       type: asset.type,
-//       name: asset.fileName || 'image.jpg',
-//     });
-
-//     try {
-//       const response = await axios.post('http://your-server-ip:3000/upload', formData, {
-//         headers: { 'Content-Type': 'multipart/form-data' },
-//       });
-//       Alert.alert('Success', 'Image uploaded!');
-//     } catch (error) {
-//       Alert.alert('Error', error.message);
-//     }
-//   };
-
-//   return (
-//     <View>
-//       <Button title="Select Image" onPress={selectImage} />
-//     </View>
-//   );
-// };
 
 
 
