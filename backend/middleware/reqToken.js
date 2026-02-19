@@ -1,62 +1,75 @@
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
+// const mongoose = require('mongoose');
+// const User = mongoose.model('User');
 
 
-module.exports = (req,res,next) => {
-    const { authorization } = req.headers;
-    if(!authorization){
-        return res.status(401).send({error:"you must be logges in"});
-      }
-    const token = authorization.replace("Bearer ",""); 
-    jwt.verify(token,"pak",async (err,payload)=> {
-        if(err){
-            return res.status(401.).send({error:"you must be logged in"})
-        }
-        const {userId} = payload;
-        const user = await User.findById(userId)
-        req.user = user;
-        next()
-    })  
-    }
-
-
-
-
-
-
-    
-    // import jwt from "jsonwebtoken";
+// module.exports = (req,res,next) => {
+//     const { authorization } = req.headers;
+//     if(!authorization){
+//         return res.status(401).send({error:"you must be logges in"});
+//       }
+//     const token = authorization.replace("Bearer ",""); 
+//     jwt.verify(token,"pak",async (err,payload)=> {
+//         if(err){
+//             return res.status(401.).send({error:"you must be logged in"})
+//         }
+//         const {userId} = payload;
+//         const user = await User.findById(userId)
+//         req.user = user;
+//         next()
+//     })  
+//     }   
     
     
+    const authtoken = async(req,res,next) => {
+        console.log(req.headers["authorization"]);
+       try {
+           if(req.headers["authorization"]){
+               const token = req.headers["authorization"].split(" ");
+               console.log(token);
     
-    // const authtoken = async(req,res,next) => {
-    //     console.log(req.headers["authorization"]);
-    //    try {
-    //        if(req.headers["authorization"]){
-    //            const token = req.headers["authorization"].split(" ");
-    //            console.log(token);
-    
-    //            const isVerify = jwt.verify(token, "PRIVATEKEY");
-    //            console.log("isVerify", isVerify);
+               const isVerify = jwt.verify(token, "pak");
+               console.log("isVerify", isVerify);
                
-    //            if(!isVerify) return res.redirect("/signup")
+               if(!isVerify) return res.redirect("/api/register")
     
-    //            else if(isVerify){
-    //             next()
-    //            }
-    //        }else{
-    //            res.json({
-    //                message: "UNAUTH"
-    //            });
+               else if(isVerify){
+                next()
+               }
+           }else{
+               res.json({
+                   message: "UNAUTH"
+               });
               
-    //        }
-    //    } catch (error) {
-    //        res.json({
-    //            message: "UNAUTH"
-    //        });
-    //     }
-    //    }
+           }
+       } catch (error) {
+           res.json({
+               message: "UNAUTH"
+           });
+        }
+    
+    }
+    
+    
+module.exports = authtoken;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     // // const authtoken = async(req,res,next) => {
     // //     try {
