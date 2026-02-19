@@ -24,7 +24,7 @@ const navigation = useNavigation();
 
 
   const getdata = async () => {
-    const URL = `http://192.168.1.9:3000/api/allproducts`;
+    const URL = `http://192.168.1.12:3000/api/allproducts`;
     try {
       const res = await axios.get(URL);
       console.log(res.data);
@@ -56,7 +56,7 @@ const navigation = useNavigation();
   //   });
 
   //   try {
-  //     const response = await axios.post('http://192.168.1.9:3000/api/upload', formData, {
+  //     const response = await axios.post('http://192.168.1.12:3000/api/upload', formData, {
   //       headers: { 'Content-Type': 'multipart/form-data' },
   //     });
   //     setUserpic(response)
