@@ -101,7 +101,7 @@ return (
  <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F2F2" />
       
-      <ScrollView showsVerticalScrollIndicator={false}>
+  <ScrollView showsVerticalScrollIndicator={false}>
     
 
 {/* <View style={styles.topContainer}>
