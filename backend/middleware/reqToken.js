@@ -21,35 +21,49 @@ const jwt = require('jsonwebtoken');
 //     }   
     
     
-    const authtoken = async(req,res,next) => {
-        console.log(req.headers["authorization"]);
-       try {
-           if(req.headers["authorization"]){
-               const token = req.headers["authorization"].split(" ");
-               console.log(token);
+    // const authtoken = async(req,res,next) => {
+    //     console.log(req.headers["authorization"]);
+    //    try {
+    //        if(req.headers["authorization"]){
+    //            const token = req.headers["authorization"].split(" ");
+    //            console.log(token);
     
-               const isVerify = jwt.verify(token, "pak");
-               console.log("isVerify", isVerify);
+    //            const isVerify = jwt.verify(token, "pak");
+    //            console.log("isVerify", isVerify);
                
-               if(!isVerify) return res.redirect("/register")
+    //            if(!isVerify) return res.redirect("/register")
     
-               else if(isVerify){
-                next()
-               }
-           }else{
-               res.json({
-                   message: "UNAUTH"
-               });
+    //            else if(isVerify){
+    //             next()
+    //            }
+    //        }else{
+    //            res.json({
+    //                message: "UNAUTH"
+    //            });
               
-           }
-       } catch (error) {
-           res.json({
-               message: "UNAUTH"
-           });
-        }
+    //        }
+    //    } catch (error) {
+    //        res.json({
+    //            message: "UNAUTH"
+    //        });
+    //     }
     
-    }
-    
+    // }
+
+
+    const authtoken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token,"pak", (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+};
+ 
     
 module.exports = authtoken;
     

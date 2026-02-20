@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
 const path = require('path');
 
-// const authtoken = require('../middleware/reqToken.js');
+const authtoken = require('../middleware/reqToken.js');
 const fs = require("fs");
 const multer = require("multer");
 
@@ -72,6 +72,13 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 // );
 
 
+router.get('/protected-data', authtoken, (req, res) => {
+    // This code only runs if the token is valid
+    res.json({ message: `Hello, ${req.user.email}. is protected This data.` });
+});
+
+
+
 // Register
 
 router.post("/register", async (req, res) => {
@@ -107,7 +114,7 @@ router.post("/register", async (req, res) => {
 
 // Login
 
-router.post("/login", async (req, res) => {
+router.post("/login", authtoken, async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res
