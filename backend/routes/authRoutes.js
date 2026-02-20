@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
 const path = require('path');
 
-const authtoken = require('../middleware/reqToken.js');
+// const authtoken = require('../middleware/reqToken.js');
 const fs = require("fs");
 const multer = require("multer");
 
@@ -107,7 +107,7 @@ router.post("/register", async (req, res) => {
 
 // Login
 
-router.post("/login", authtoken, async (req, res) => {
+router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res

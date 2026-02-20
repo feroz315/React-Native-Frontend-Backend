@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 // const User = mongoose.model('User');
 
 
-// module.exports = (req,res,next) => {
+//  const authtoken = async = (req,res,next) => {
 //     const { authorization } = req.headers;
 //     if(!authorization){
 //         return res.status(401).send({error:"you must be logges in"});
@@ -31,7 +31,7 @@ const jwt = require('jsonwebtoken');
                const isVerify = jwt.verify(token, "pak");
                console.log("isVerify", isVerify);
                
-               if(!isVerify) return res.redirect("/api/register")
+               if(!isVerify) return res.redirect("/register")
     
                else if(isVerify){
                 next()
