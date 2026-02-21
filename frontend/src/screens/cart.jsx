@@ -40,7 +40,7 @@ export default function Cart() {
 
 
   useMemo(() => {
-    const gItems = basketItems.reduce((group, item) => {
+    const subtotal = basketItems.reduce((group, item) => {
       if (group[item.id]) {
         group[item.id].push(item);
       } else {
@@ -48,7 +48,7 @@ export default function Cart() {
       }
       return group;
     }, {});
-    setCartItems(gItems);
+    setCartItems(subtotal);
     // console.log('items: ',gItems);
   }, [basketItems]);
 
@@ -160,35 +160,6 @@ export default function Cart() {
     </SafeAreaView>
   );
 }
-
-{
-  /*      
-      <View style={{ padding: 5, justifyContent:'space-around', backgroundColor:COLORS.white, marginBottom: 70 }}>
-            <View style={{ flexDirection:"row", justifyContent:'space-between', marginBottom:5 }}>
-                <Text style={{ fontSize:16, fontWeight: "600", color:COLORS.dark }}>Total Amount</Text>
-                <Text style={{fontSize:16, fontWeight: "600", color:COLORS.dark}}>${basketTotal}</Text>
-            </View>
-            <View>
-                <TouchableOpacity 
-                style={{ marginTop:10, padding:5, backgroundColor:COLORS.primary}}
-                onPress={()=> navigation.replace('checkout')}>
-                 <Text style={{ fontSize:16,fontWeight:"600",color:COLORS.dark,textAlign:'center' }}>Check Out</Text>
-                </TouchableOpacity>
-            </View>
-       </View> */
-}
-
-
-  // // --- Render Empty State ---
-  // const renderEmpty = () => (
-  //   <View style={styles.emptyContainer}>
-  //     {/* <Icon name="cart-outline" size={80} color="#ccc" /> */}
-  //     <Text style={styles.emptyText}>Your cart is empty</Text>
-  //     <TouchableOpacity style={styles.shopBtn}>
-  //       <Text style={styles.shopBtnText}>Start Shopping</Text>
-  //     </TouchableOpacity>
-  //   </View>
-  // );
 
 
 const styles = StyleSheet.create({
