@@ -39,5 +39,5 @@ export const { addMyCart,removetoCart,DeleteMyCart,emptyCart,addreserve } = MyCa
 export const selectcartItems = state => state.cart.items;
 export const selectcartItemsbyId = (state,id) => state.cart.items.filter(item => item.id == id);
 export const selectTotal = state => state.cart.items.reduce((total,{price, quantity = 1 }) => total + (price * quantity),0);
-export const seltable = state => state.cart
+export const seltable = state => state.cart;
 export default MyCartSlice.reducer;

@@ -11,7 +11,7 @@ import {back,star,cart } from '../const/icons';
 export default function Cart() {
 
     // const [groupedItems, setGroupedItems] = useState([]);
-    const [cartItems, setCartItems] = useState(basketItems);
+    // const [cartItems, setCartItems] = useState([]);
     
     const basketItems = useSelector(selectcartItems);
     const basketTotal = useSelector(selectTotal);
@@ -20,35 +20,44 @@ export default function Cart() {
     const navigation = useNavigation();
 
 
+  // --- Calculations ---
+  // const subtotal = basketItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+  // const tax = subtotal * 0.08; // 8% tax
+  // const shipping = subtotal > 500 ? 0 : 15.00; // Free shipping over $500
+  // const total = subtotal + tax + shipping;
+
+
   // --- Render Item ---
   const renderItem = ({ item }) => (
     <View style={styles.card}>
-      <Image source={{ uri: item[0].images }} style={styles.image} />
+      <Image source={{ uri: item.images }} style={styles.image} />
       <View style={styles.detailsContainer}>
         <View style={styles.headerRow}>
-          <Text style={styles.title} numberOfLines={1}>{item[0]?.title}</Text>
+          <Text style={styles.title} numberOfLines={1}>{item.title}</Text>
+          
           <TouchableOpacity onPress={() => dispatch(DeleteMyCart(item.id))}>
             {/* <Icon name="trash-outline" size={20} color="#ff3b30" /> */}
           </TouchableOpacity>
         </View>
-        <Text style={styles.subtitle}>{item.size}</Text>
-        
+        <Text style={styles.subtitle}>{item.category}</Text>
         <View style={styles.footerRow}>
-          <Text style={styles.price}>${item[0]?.price.toFixed(2)}</Text>
+          <Text style={styles.price}>$ {item.price}</Text>
           
           {/* Quantity Stepper */}
           <View style={styles.stepper}>
             <TouchableOpacity 
               style={styles.stepperBtn} 
-              onPress={()=> dispatch(removetoCart({id: item[0]?.id}))}
+              onPress={()=> dispatch(removetoCart({id: item.id}))}
               >
+              <Text style={{fontSize: 20,color:COLORS.dark}}> - </Text> 
               {/* <Icon name="remove" size={16} color="#333" /> */}
             </TouchableOpacity>
-            <Text style={styles.qtyText}>{item.length}</Text>
+            <Text style={styles.qtyText}>{basketItems.length}</Text>
             <TouchableOpacity 
               style={styles.stepperBtn}
-               onPress={()=> dispatch(addMyCart(item[0]))} 
+               onPress={()=> dispatch(addMyCart(item.id))} 
                 >
+              <Text style={{fontSize: 20,color:COLORS.dark}}> + </Text> 
               {/* <Icon name="add" size={16} color="#333" /> */}
             </TouchableOpacity>
           </View>
@@ -68,20 +77,21 @@ export default function Cart() {
     </View>
   );
 
-    useMemo(() => {
+
+    // useMemo(() => {
         
-    const gItems = basketItems.reduce((group, item) => {
-            if(group[item.id]){
-              group[item.id].push(item);
-            }else{
-              group[item.id] = [item];
-            }
-            return group;
-          },{})
-        setCartItems(gItems);
-        // console.log('items: ',gItems);
+    // const gItems = basketItems.reduce((group, item) => {
+    //         if(group[item.id]){
+    //           group[item.id].push(item);
+    //         }else{
+    //           group[item.id] = [item];
+    //         }
+    //         return group;
+    //       },{})
+    //     setCartItems(gItems);
+    //     // console.log('items: ',gItems);
        
-    }, [basketItems])
+    // }, [basketItems])
 
    
   return (
@@ -99,7 +109,7 @@ export default function Cart() {
                 </TouchableOpacity>
       
              <Text style={styles.headerTitle}>My Cart</Text>
-              <Text style={styles.headerSubtitle}>Items</Text>
+              <Text style={styles.headerSubtitle}>{basketItems.length}Items</Text>
          
      
         {/* Go back
@@ -125,7 +135,7 @@ export default function Cart() {
           </View>
 
       <FlatList
-        data={cartItems}
+        data={basketItems}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         contentContainerStyle={styles.listContent}
@@ -198,25 +208,27 @@ export default function Cart() {
        </View> */}
 
 
-       {/* Footer / Checkout */}
-             {cartItems.length > 0 && (
+       
+                   {/* Footer / Checkout */}
+  
+             {basketItems.length > 0 && (
                <View style={styles.footer}>
                  <View style={styles.row}>
                    <Text style={styles.label}>Subtotal</Text>
-                   <Text style={styles.value}>${subtotal.toFixed(2)}</Text>
+                   <Text style={styles.value}>${basketTotal.toFixed(2)}</Text>
                  </View>
-                 <View style={styles.row}>
+                 {/* <View style={styles.row}>
                    <Text style={styles.label}>Shipping</Text>
                    <Text style={styles.value}>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</Text>
-                 </View>
-                 <View style={styles.row}>
+                 </View> */}
+                 {/* <View style={styles.row}>
                    <Text style={styles.label}>Tax (8%)</Text>
                    <Text style={styles.value}>${tax.toFixed(2)}</Text>
                  </View>
-                 
+                  */}
                  <View style={[styles.row, styles.totalRow]}>
                    <Text style={styles.totalLabel}>Total</Text>
-                   <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+                   <Text style={styles.totalValue}>${basketTotal.toFixed(2)}</Text>
                  </View>
        
                  <TouchableOpacity style={styles.checkoutBtn}>
@@ -293,6 +305,7 @@ header: {
     borderRadius: 12,
     padding: 12,
     marginBottom: 16,
+    marginTop:70,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -339,6 +352,23 @@ header: {
     color: '#333',
   },
 
+ // Stepper
+  stepper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 8,
+  },
+  stepperBtn: {
+    padding: 6,
+  },
+  qtyText: {
+    paddingHorizontal: 10,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  
   // Footer
   footer: {
     position: 'absolute',
