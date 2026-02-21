@@ -188,6 +188,7 @@ return (
       <FlatList
         data={products}
         numColumns={2}
+        scrollEnabled={false}
         // contentContainerStyle={styles.listContainer}
         keyExtractor={(item) => item.id.toString()}
         columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
