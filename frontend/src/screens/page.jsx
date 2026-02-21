@@ -549,6 +549,7 @@ const CartScreen = () => {
           </TouchableOpacity>
         </View>
       )}
+      
     </SafeAreaView>
   );
 };

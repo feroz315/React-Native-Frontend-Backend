@@ -132,10 +132,28 @@ const ProductDetail = ({route}) => {
             >
               <Text style={styles.iconText}>←</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <Text style={styles.iconText}>♡</Text>
-            </TouchableOpacity>
-          </View>
+  
+          {/* Cart */}
+           <TouchableOpacity
+           source={cart}
+           style={{
+             height: SPACING * 4.2,
+             width: SPACING * 4.2,
+             marginRight:5,
+             backgroundColor: COLORS.white,
+             justifyContent: 'center',
+             alignItems: 'center',
+             borderRadius: SPACING * 2.5,
+           }}
+           onPress={() => navigation.navigate('cart')}>
+           <View>
+             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
+               {cartItems.length}
+             </Text>
+           </View>         
+         </TouchableOpacity>
+  
+           </View>
 
     <ScrollView 
         showsVerticalScrollIndicator={false} 
@@ -160,6 +178,10 @@ const ProductDetail = ({route}) => {
               <Text style={styles.ratingText}>{product.rating}</Text>
               <Text style={styles.reviewCount}>({product.reviews})</Text>
             </View>
+                        <TouchableOpacity style={styles.iconButton}>
+              <Text style={styles.iconText}>♡</Text>
+            </TouchableOpacity>
+
           </View>
 
           <Text style={styles.title}>{product.title}</Text>
@@ -195,7 +217,6 @@ const ProductDetail = ({route}) => {
         </TouchableOpacity>
       </View>
       
-
 {/*     
         <ScrollView>
           {product && (
