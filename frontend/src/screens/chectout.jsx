@@ -181,11 +181,14 @@ const Checkout = ({ navigation }) => {
   );
 
   return (
+    
     <SafeAreaView style={styles.container}>
+     
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-back" size={24} color="#333" />
+           <Text style={styles.iconText}>←</Text>            
+          {/* <Icon name="arrow-back" size={24} color="#333" /> */}
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
         <View style={{ width: 24 }} />
@@ -381,9 +384,14 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: '600',
     color: '#333',
+  },
+  iconText: {
+    fontSize: 20,
+    color: '#333',
+    
   },
   scrollContent: {
     paddingBottom: 100,
