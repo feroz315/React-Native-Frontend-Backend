@@ -19,7 +19,7 @@ const USER_DATA = {
   name: 'Alex Johnson',
   email: 'alex.johnson@example.com',
   avatar: 'https://i.pravatar.cc/150?img=33', // Random placeholder image
-  memberSince: '2021',
+
 };
 
 

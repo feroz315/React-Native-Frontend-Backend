@@ -198,6 +198,17 @@ const Checkout = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
+        {/* Order Items */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Order Items</Text>
+          <FlatList
+            data={cartItems}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderCartItem}
+            scrollEnabled={false}
+          />
+        </View>
+
         {/* Delivery Address */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
@@ -235,17 +246,7 @@ const Checkout = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {/* Order Items */}
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Order Items</Text>
-          <FlatList
-            data={cartItems}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderCartItem}
-            scrollEnabled={false}
-          />
-        </View>
-
+        
         {/* Payment Method */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
