@@ -104,16 +104,6 @@ return (
   <ScrollView showsVerticalScrollIndicator={false}>
     
 
-{/* <View style={styles.topContainer}>
-   <View style={styles.topContainerImage}>
-    <Text>Hi User!</Text>
-
-    <TouchableOpacity>
-     <Image source={require('../assets/images/avatar.png')} style={{ width: 50,height:50}}/>
-      </TouchableOpacity>
-    </View>
-     
- </View> */}
 
       {/* --- HEADER --- */}
         <View style={styles.header}>
