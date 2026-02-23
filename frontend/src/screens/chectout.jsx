@@ -95,7 +95,7 @@ const Checkout = ({ navigation }) => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('OrderConfirmation'),
+            onPress: () => navigation.navigate('profile'),
           },
         ]
       );
@@ -362,6 +362,8 @@ const Checkout = ({ navigation }) => {
     </SafeAreaView>
   );
 };
+
+// --- STYLES ---
 
 const styles = StyleSheet.create({
   container: {

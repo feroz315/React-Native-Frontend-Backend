@@ -161,6 +161,7 @@ export default function Cart() {
   );
 }
 
+// --- STYLES ---
 
 const styles = StyleSheet.create({
   container: {

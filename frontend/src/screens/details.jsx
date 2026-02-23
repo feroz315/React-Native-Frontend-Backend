@@ -59,63 +59,6 @@ const ProductDetail = ({route}) => {
     }
   };
 
-
-  // function renderHeader() {
-  //   return (
-  //     <View style={{flexDirection: 'row',
-  //     justifyContent:'center',
-  //     alignItems:'center', 
-  //     height: 30,
-  //     marginTop: 40,
-  //     marginBottom:10}}>
-  //       {/* Go back */}
-  //       <TouchableOpacity
-  //         style={styles.go_back}
-  //         onPress={() => navigation.goBack()}>
-  //         <Image
-  //           source={back}
-  //           resizeMode="contain"
-  //           style={{
-  //             width: 18,
-  //             height: 18,
-  //             tintColor: COLORS.dark,
-  //           }}
-  //         />
-  //       </TouchableOpacity>
-
-  //       {/* Category */}
-  //       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-  //         <View style={styles.category}>
-  //           <Text style={{...FONTS.h3, fontWeight: '600'}}>
-  //             {product.title}
-  //           </Text>
-  //         </View>
-  //       </View>
-
-  //       {/* Cart */}
-  //       <TouchableOpacity
-  //         source={cart}
-  //         style={{
-  //           height: SPACING * 4.2,
-  //           width: SPACING * 4.2,
-  //           marginRight:5,
-  //           backgroundColor: COLORS.white,
-  //           justifyContent: 'center',
-  //           alignItems: 'center',
-  //           borderRadius: SPACING * 2.5,
-  //         }}
-  //         onPress={() => navigation.navigate('cart')}>
-  //         <View>
-  //           <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
-  //             {cartItems.length}
-  //           </Text>
-  //         </View>
-          
-  //       </TouchableOpacity>
-  //     </View>
-  //   );
-  // }
-
   return (
     <>
       {/* {renderHeader()} */}
@@ -657,3 +600,77 @@ scrollContent: {
 });
 
 export default ProductDetail;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // function renderHeader() {
+  //   return (
+  //     <View style={{flexDirection: 'row',
+  //     justifyContent:'center',
+  //     alignItems:'center', 
+  //     height: 30,
+  //     marginTop: 40,
+  //     marginBottom:10}}>
+  //       {/* Go back */}
+  //       <TouchableOpacity
+  //         style={styles.go_back}
+  //         onPress={() => navigation.goBack()}>
+  //         <Image
+  //           source={back}
+  //           resizeMode="contain"
+  //           style={{
+  //             width: 18,
+  //             height: 18,
+  //             tintColor: COLORS.dark,
+  //           }}
+  //         />
+  //       </TouchableOpacity>
+
+  //       {/* Category */}
+  //       <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+  //         <View style={styles.category}>
+  //           <Text style={{...FONTS.h3, fontWeight: '600'}}>
+  //             {product.title}
+  //           </Text>
+  //         </View>
+  //       </View>
+
+  //       {/* Cart */}
+  //       <TouchableOpacity
+  //         source={cart}
+  //         style={{
+  //           height: SPACING * 4.2,
+  //           width: SPACING * 4.2,
+  //           marginRight:5,
+  //           backgroundColor: COLORS.white,
+  //           justifyContent: 'center',
+  //           alignItems: 'center',
+  //           borderRadius: SPACING * 2.5,
+  //         }}
+  //         onPress={() => navigation.navigate('cart')}>
+  //         <View>
+  //           <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
+  //             {cartItems.length}
+  //           </Text>
+  //         </View>
+          
+  //       </TouchableOpacity>
+  //     </View>
+  //   );
+  // }

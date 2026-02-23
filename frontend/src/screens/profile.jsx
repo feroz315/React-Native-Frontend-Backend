@@ -1,28 +1,283 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+  StatusBar,
+  Alert,
+  Dimensions,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import LinearGradient from 'react-native-linear-gradient';
+
+// --- Mock Data ---
+const USER_DATA = {
+  name: 'Alex Johnson',
+  email: 'alex.johnson@example.com',
+  avatar: 'https://i.pravatar.cc/150?img=33', // Random placeholder image
+  memberSince: '2021',
+};
 
 
+const MENU_ITEMS = [
+  { id: '1', title: 'My Orders', icon: 'bag-outline', subtitle: 'Check your order status' },
+  { id: '2', title: 'Email', icon: 'heart-outline', subtitle: 'Email Address' },
+  { id: '3', title: 'Address Book', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
+  { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
+  { id: '5', title: 'Contact', icon: 'settings-outline', subtitle: 'Conatact Number' },
+  { id: '6', title: 'Update Password ', icon: 'help-circle-outline', subtitle: 'Change Password' },
+  { id: '7', title: 'Invite Friends', icon: 'people-outline', subtitle: 'Share the app' },
+];
 
-const Profile = ({ navigation }) => {
+const { width } = Dimensions.get('window');
+
+const Profile = () => {
+  
+  const handleMenuPress = (title) => {
+    Alert.alert('Navigation', `Navigating to ${title}`);
+  };
+
+  const handleLogout = () => {
+    Alert.alert('Logout', 'Are you sure you want to logout?', [
+      { text: 'Cancel', style: 'cancel' },
+      { text: 'Logout', style: 'destructive', onPress: () => console.log('Logged out') },
+    ]);
+  };
+
   return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" backgroundColor="#F2F5F8" />
+      
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* --- Header Section --- */}
+        <LinearGradient
+          colors={['#FFFFFF', '#F2F5F8']}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.headerContainer}
+        >
+          <View style={styles.profileInfo}>
+            <Image source={{ uri: USER_DATA.avatar }} style={styles.avatar} />
+            <View style={styles.textContainer}>
+              <Text style={styles.userName}>{USER_DATA.name}</Text>
+              <Text style={styles.userEmail}>{USER_DATA.email}</Text>
+              <Text style={styles.memberText}>Member since {USER_DATA.memberSince}</Text>
+            </View>
+            <TouchableOpacity style={styles.editButton}>
+              <Ionicons name="pencil" size={16} color="#4facfe" />
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
 
-    <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
-        <Text style={styles.buttonText}>Logout</Text>
-      </TouchableOpacity>
-    </View>
+
+        {/* --- Menu List Section --- */}
+        <View style={styles.menuContainer}>
+          <Text style={styles.sectionTitle}>Account Settings</Text>
+          
+          {MENU_ITEMS.map((item, index) => (
+            <TouchableOpacity 
+              key={item.id} 
+              style={[styles.menuItem, index === MENU_ITEMS.length - 1 && styles.lastMenuItem]}
+              onPress={() => handleMenuPress(item.title)}
+              activeOpacity={0.7}
+            >
+              <View style={styles.menuLeft}>
+                <View style={styles.menuIconContainer}>
+                  <Ionicons name={item.icon} size={22} color="#555" />
+                </View>
+                <View style={styles.menuTextContainer}>
+                  <Text style={styles.menuTitle}>{item.title}</Text>
+                  <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
+                </View>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color="#CCC" />
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {/* --- Logout Section --- */}
+        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout} activeOpacity={0.7}>
+          <Ionicons name="log-out-outline" size={22} color="#FF5252" />
+          <Text style={styles.logoutText}>Log Out</Text>
+        </TouchableOpacity>
+
+        <View style={{ height: 40 }} /> {/* Bottom Spacer */}
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
+// --- Styles ---
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
-  title: { fontSize: 24, marginBottom: 20 },
-  button: { backgroundColor: '#dc3545', padding: 15, borderRadius: 5, alignItems: 'center' },
-  buttonText: { color: '#fff', fontSize: 16 },
+  container: {
+    flex: 1,
+    backgroundColor: '#F2F5F8',
+  },
+  headerContainer: {
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
+    // Elevation for Android shadow
+    elevation: 4, 
+    // Shadow for iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+  },
+  profileInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 4,
+    borderColor: '#FFFFFF',
+  },
+  textContainer: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  userName: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#1A1A1A',
+  },
+  userEmail: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 2,
+  },
+  memberText: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 4,
+  },
+  editButton: {
+    backgroundColor: '#E0F7FA',
+    padding: 10,
+    borderRadius: 20,
+  },
+  
+  // Stats Section
+  statsContainer: {
+    marginTop: 24,
+    paddingHorizontal: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1A1A1A',
+    marginBottom: 16,
+  },
+  statsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  statCard: {
+    backgroundColor: '#FFFFFF',
+    width: (width - 60) / 4, // Responsive width
+    borderRadius: 16,
+    paddingVertical: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // Shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  statIconBackground: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 8,
+  },
+  statCount: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1A1A1A',
+  },
+  statLabel: {
+    fontSize: 11,
+    color: '#666',
+    marginTop: 2,
+  },
+
+  // Menu Section
+  menuContainer: {
+    marginTop: 24,
+    paddingHorizontal: 20,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#FFFFFF',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  lastMenuItem: {
+    marginBottom: 0,
+  },
+  menuLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  menuIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: '#F2F5F8',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  menuTextContainer: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  menuTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1A1A1A',
+  },
+  menuSubtitle: {
+    fontSize: 12,
+    color: '#999',
+    marginTop: 2,
+  },
+
+  // Logout
+  logoutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30,
+    marginHorizontal: 20,
+    paddingVertical: 14,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+  },
+  logoutText: {
+    color: '#FF5252',
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
 });
-
-
-
 
 export default Profile;
