@@ -103,8 +103,6 @@ return (
       
   <ScrollView showsVerticalScrollIndicator={false}>
     
-
-
       {/* --- HEADER --- */}
         <View style={styles.header}>
           <View>
