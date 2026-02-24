@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 const deliveryformSchema = new mongoose.Schema({
 
-userid: { type: String, required: true },
 name: { type: String, required: true },
 email:{ type: String, required: true, unique: true },
 phonenumber: { type: Number , required: true },

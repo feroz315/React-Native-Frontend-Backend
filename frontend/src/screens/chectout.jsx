@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -9,11 +9,14 @@ import {
   TextInput,
   Image,
   Alert,
+  Button,
   Modal,
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from "axios";
+
 
 const Checkout = ({ navigation }) => {
   const [selectedPayment, setSelectedPayment] = useState('card');
@@ -22,6 +25,16 @@ const Checkout = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [saveInfo, setSaveInfo] = useState(false);
   const [showAddressModal, setShowAddressModal] = useState(false);
+
+  const [formData, setFormData] = useState([]);
+    // name: '',
+    // email: '',
+    // address: '',
+    // phonenumber: '',
+    // city: '',
+    // postalCode: '',
+    // country: '',
+  
 
   // Sample cart items
   const cartItems = [
@@ -45,29 +58,29 @@ const Checkout = ({ navigation }) => {
     },
   ];
 
-  // Sample addresses
-  const addresses = [
-    {
-      id: 1,
-      type: 'Home',
-      name: 'John Doe',
-      street: '123 Main Street',
-      city: 'New York',
-      state: 'NY',
-      zip: '10001',
-      phone: '+1 234 567 8900',
-    },
-    {
-      id: 2,
-      type: 'Office',
-      name: 'John Doe',
-      street: '456 Business Ave',
-      city: 'New York',
-      state: 'NY',
-      zip: '10002',
-      phone: '+1 234 567 8901',
-    },
-  ];
+  // // Sample addresses
+  // const addresses = [
+  //   {
+  //     id: 1,
+  //     type: 'Home',
+  //     name: 'John Doe',
+  //     street: '123 Main Street',
+  //     city: 'New York',
+  //     state: 'NY',
+  //     zip: '10001',
+  //     phone: '+1 234 567 8900',
+  //   },
+  //   {
+  //     id: 2,
+  //     type: 'Office',
+  //     name: 'John Doe',
+  //     street: '456 Business Ave',
+  //     city: 'New York',
+  //     state: 'NY',
+  //     zip: '10002',
+  //     phone: '+1 234 567 8901',
+  //   },
+  // ];
 
   // Payment methods
   const paymentMethods = [
@@ -83,6 +96,34 @@ const Checkout = ({ navigation }) => {
   const tax = subtotal * 0.08; // 8% tax
   const discount = promoCode === 'SAVE10' ? subtotal * 0.1 : 0;
   const total = subtotal + shipping + tax - discount;
+
+
+
+
+  const handleInputChange = (name, value) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const res = await axios.post('http://192.168.1.4:3000/api/addresses', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+       });
+      // console.log(res.data);
+    // Handle form submission logic here (e.g., send to API)
+    console.log('Form Submitted:', res);
+    // Alert.alert(`Delivery to ${formData.fullName} in ${formData.city} has been initiated!`);
+      setFormData(res);
+        
+    } catch (error) {
+      console.log("error", error)
+    }
+    
+  };
+
 
   const handlePlaceOrder = () => {
     setIsLoading(true);
@@ -126,59 +167,63 @@ const Checkout = ({ navigation }) => {
     </View>
   );
 
-  const AddressModal = () => (
-    <Modal
-      visible={showAddressModal}
-      animationType="slide"
-      transparent={true}
-    >
-      <View style={styles.modalContainer}>
-        <View style={styles.modalContent}>
-          <View style={styles.modalHeader}>
-            <Text style={styles.modalTitle}>Select Delivery Address</Text>
-            <TouchableOpacity onPress={() => setShowAddressModal(false)}>
-              <Icon name="close" size={24} color="#333" />
-            </TouchableOpacity>
-          </View>
+  // const AddressModal = () => (
+  //   <Modal
+  //     visible={showAddressModal}
+  //     animationType="slide"
+  //     transparent={true}
+  //   >
+  //     <View style={styles.modalContainer}>
+  //       <View style={styles.modalContent}>
+  //         <View style={styles.modalHeader}>
+  //           <Text style={styles.modalTitle}>Select Delivery Address</Text>
+  //           <TouchableOpacity onPress={() => setShowAddressModal(false)}>
+  //             <Icon name="close" size={24} color="#333" />
+  //           </TouchableOpacity>
+  //         </View>
           
-          <FlatList
-            data={addresses}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item, index }) => (
-              <TouchableOpacity
-                style={[
-                  styles.addressItem,
-                  selectedAddress === index && styles.selectedAddress,
-                ]}
-                onPress={() => {
-                  setSelectedAddress(index);
-                  setShowAddressModal(false);
-                }}
-              >
-                <View style={styles.addressHeader}>
-                  <Text style={styles.addressType}>{item.type}</Text>
-                  {selectedAddress === index && (
-                    <Icon name="check-circle" size={20} color="#4CAF50" />
-                  )}
-                </View>
-                <Text style={styles.addressName}>{item.name}</Text>
-                <Text style={styles.addressText}>{item.street}</Text>
-                <Text style={styles.addressText}>
-                  {item.city}, {item.state} {item.zip}
-                </Text>
-                <Text style={styles.addressPhone}>{item.phone}</Text>
-              </TouchableOpacity>
-            )}
-          />
+  //         <FlatList
+  //           data={addresses}
+  //           keyExtractor={(item) => item.id.toString()}
+  //           renderItem={({ item, index }) => (
+  //             <TouchableOpacity
+  //               style={[
+  //                 styles.addressItem,
+  //                 selectedAddress === index && styles.selectedAddress,
+  //               ]}
+  //               onPress={() => {
+  //                 setSelectedAddress(index);
+  //                 setShowAddressModal(false);
+  //               }}
+  //             >
+  //               <View style={styles.addressHeader}>
+  //                 <Text style={styles.addressType}>{item.type}</Text>
+  //                 {selectedAddress === index && (
+  //                   <Icon name="check-circle" size={20} color="#4CAF50" />
+  //                 )}
+  //               </View>
+  //               <Text style={styles.addressName}>{item.name}</Text>
+  //               <Text style={styles.addressText}>{item.street}</Text>
+  //               <Text style={styles.addressText}>
+  //                 {item.city}, {item.state} {item.zip}
+  //               </Text>
+  //               <Text style={styles.addressPhone}>{item.phone}</Text>
+  //             </TouchableOpacity>
+  //           )}
+  //         />
           
-          <TouchableOpacity style={styles.addAddressButton}>
-            <Icon name="add" size={20} color="#FFF" />
-            <Text style={styles.addAddressText}>Add New Address</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
-  );
+  //         <TouchableOpacity style={styles.addAddressButton}>
+  //           <Icon name="add" size={20} color="#FFF" />
+  //           <Text style={styles.addAddressText}>Add New Address</Text>
+  //         </TouchableOpacity>
+  //       </View>
+  //     </View>
+  //   </Modal>
+  // );
+
+
+
+
 
   return (
     
@@ -210,7 +255,65 @@ const Checkout = ({ navigation }) => {
         </View>
 
         {/* Delivery Address */}
-        <View style={styles.section}>
+         
+      <View style = {styles.section}>
+        
+      
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={formData.name}
+          onChangeText={(text) => handleInputChange('Name', text)}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={formData.email}
+          onChangeText={(text) => handleInputChange('Email', text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Address"
+          value={formData.address}
+          onChangeText={(text) => handleInputChange('address', text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Phone Number"
+          value={formData.phonenumber}
+          onChangeText={(text) => handleInputChange('phone number', text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="City"
+          value={formData.city}
+          onChangeText={(text) => handleInputChange('city', text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Postal Code"
+          value={formData.postalCode}
+          onChangeText={(text) => handleInputChange('postalCode', text)}
+          keyboardType="numeric"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Country"
+          value={formData.country}
+          onChangeText={(text) => handleInputChange('country', text)}
+        />
+
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Submit Address"
+            onPress={handleSubmit}
+            color="#007BFF"
+          />
+        </View>
+      </View>
+  
+       {/* <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Delivery Address</Text>
             <TouchableOpacity onPress={() => setShowAddressModal(true)}>
@@ -244,7 +347,7 @@ const Checkout = ({ navigation }) => {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         
         {/* Payment Method */}
@@ -359,7 +462,7 @@ const Checkout = ({ navigation }) => {
       </View>
 
       {/* Address Modal */}
-      <AddressModal />
+      {/* <AddressModal /> */}
     </SafeAreaView>
   );
 };
@@ -728,6 +831,34 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 8,
   },
+  
+
+  // container: {
+  //   flex: 1,
+  //   paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+  // },
+  scrollContent: {
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    marginBottom: 15,
+    paddingHorizontal: 10,
+    borderRadius: 5,
+  },
+  buttonContainer: {
+    marginTop: 10,
+  },
+
+
 });
 
 export default Checkout;

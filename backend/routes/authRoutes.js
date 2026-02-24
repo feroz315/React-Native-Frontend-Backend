@@ -205,7 +205,6 @@ router.get('/allproducts', async (req, res) => {
 router.post('/addresses', async (req, res) => {
     try {
         const { 
-            userid, 
             name, 
             email,
             phonenumber,
@@ -217,10 +216,10 @@ router.post('/addresses', async (req, res) => {
 
         const newAddress = await client.query(
             `INSERT INTO delivery_addresses 
-            (userid, name, email, phonenumber, address, city, postalcode, country) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8 ) 
+            (name, email, phonenumber, address, city, postalcode, country) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7) 
             RETURNING * `,
-            [userid, name, email, phonenumber, address, city, postalcode, country]
+            [name, email, phonenumber, address, city, postalcode, country]
         );
 
         res.json(newAddress.rows[0]);
