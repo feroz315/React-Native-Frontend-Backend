@@ -201,6 +201,130 @@ router.get('/allproducts', async (req, res) => {
 });
 
 
+// 1. CREATE a new delivery address
+router.post('/addresses', async (req, res) => {
+    try {
+        const { 
+            userid, 
+            name, 
+            email,
+            phonenumber,
+            address, 
+            city, 
+            postalcode, 
+            country, 
+            } = req.body;
+
+        const newAddress = await client.query(
+            `INSERT INTO delivery_addresses 
+            (userid, name, email, phonenumber, address, city, postalcode, country) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8 ) 
+            RETURNING * `,
+            [userid, name, email, phonenumber, address, city, postalcode, country]
+        );
+
+        res.json(newAddress.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+// 2. GET all addresses for a specific user
+router.get('/addresses/user/:userid', async (req, res) => {
+    try {
+        const { userid } = req.params;
+        const allAddresses = await client.query(
+            "SELECT * FROM delivery_addresses WHERE userid = $1 ORDER BY created_at DESC",
+            [userid]
+        );
+
+        res.json(allAddresses.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+// 3. GET a single address by ID
+router.get('/addresses/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const address = await pool.query(
+            "SELECT * FROM delivery_addresses WHERE id = $1",
+            [id]
+        );
+
+        if (address.rows.length === 0) {
+            return res.status(404).json("Address not found");
+        }
+
+        res.json(address.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+// 4. UPDATE an address
+router.put('/addresses/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { 
+            name, 
+            email, 
+            address, 
+            phonenumber,
+            city, 
+            postalcode, 
+            country, 
+            } = req.body;
+
+        const updateAddress = await client.query(
+            `UPDATE delivery_addresses 
+            SET name = $1, email = $2, address = $3, city = $4, 
+            phonenumber = $5, postalcode = $6, country = $7, phone_number  =  
+            WHERE id = $10 
+            RETURNING *`,
+            [name, email, address, city, postalcode, country, phonenumber, id]
+        );
+
+        if (updateAddress.rows.length === 0) {
+            return res.status(404).json("Address not found");
+        }
+
+        res.json("Address was updated!");
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+// 5. DELETE an address
+router.delete('/addresses/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deleteAddress = await client.query(
+            "DELETE FROM delivery_addresses WHERE id = $1 RETURNING *",
+            [id]
+        );
+
+        if (deleteAddress.rows.length === 0) {
+            return res.status(404).json("Address not found");
+        }
+
+        res.json("Address was deleted!");
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
+
+
+
+
+
 // productgetbyId
 
 // router.get("/product/:id", async (req, res) => {
