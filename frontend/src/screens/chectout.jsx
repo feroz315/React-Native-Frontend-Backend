@@ -18,22 +18,38 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import axios from "axios";
 
 
+
+// ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
+const API_URL = 'http://192.168.1.2:3000/api/addresses';
+
+// ----- form state -----
+
 const Checkout = ({ navigation }) => {
   const [selectedPayment, setSelectedPayment] = useState('card');
-  const [selectedAddress, setSelectedAddress] = useState(0);
+  // const [selectedAddress, setSelectedAddress] = useState(0);
   const [promoCode, setPromoCode] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [Loading, setLoading] = useState(false);
   const [saveInfo, setSaveInfo] = useState(false);
-  const [showAddressModal, setShowAddressModal] = useState(false);
+  // const [showAddressModal, setShowAddressModal] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
+  const [city, setCity] = useState('');
+  const [postalcode, setPostalcode] = useState('');
+  const [country, setCountry] = useState('');
 
-  const [formData, setFormData] = useState([]);
-    // name: '',
-    // email: '',
-    // address: '',
-    // phonenumber: '',
-    // city: '',
-    // postalCode: '',
-    // country: '',
+
+// const [formData, setFormData] = useState({
+
+  //   name: '',
+  //   email: '',
+  //   address: '',
+  //   phonenumber: '',
+  //   city: '',
+  //   postalCode: '',
+  //   country: '',
+  // });
   
 
   // Sample cart items
@@ -96,40 +112,115 @@ const Checkout = ({ navigation }) => {
   const tax = subtotal * 0.08; // 8% tax
   const discount = promoCode === 'SAVE10' ? subtotal * 0.1 : 0;
   const total = subtotal + shipping + tax - discount;
-
-
-
-
-  const handleInputChange = (name, value) => {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
+  
+  
+  // ----- submit handler -----
+  
   const handleSubmit = async () => {
-    try {
-      const res = await axios.post('http://192.168.1.4:3000/api/addresses', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-       });
-      // console.log(res.data);
-    // Handle form submission logic here (e.g., send to API)
-    console.log('Form Submitted:', res);
-    // Alert.alert(`Delivery to ${formData.fullName} in ${formData.city} has been initiated!`);
-      setFormData(res);
-        
-    } catch (error) {
-      console.log("error", error)
+    // Basic validation
+    if (!name || !email || !address || !city || !phonenumber || !postalcode || !country) {
+      Alert.alert('Validation error', 'Please fill in all required fields.');
+      return;
     }
-    
+
+    setLoading(true);
+    try {
+      const payload = {
+        name,
+        email,
+        address,
+        phonenumber,
+        city,
+        postalcode,
+        country,
+      };
+
+      // POST the JSON to the Node backend
+      const { status, data } = await axios.post(API_URL, payload);
+
+      if (status === 201) {
+        Alert.alert('Success', 'Address saved!', [
+          { text: 'OK', onPress: clearForm },
+        ]);
+      }
+    } catch (err) {
+      console.error(err);
+      const msg = err.response?.data?.error || 'Network error – try again later.';
+      Alert.alert('Error', msg);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  const clearForm = () => {
+    setName('');
+    setEmail('');
+    setAddress('');
+    setPhonenumber('');
+    setCity('');
+    setPostalcode('');
+    setCountry('');
+  };
+
+
+  // const handleSubmit = async (text) => {
+  //  try {      
+  //    fetch("http://192.168.1.2:3000/api/addresses",{
+  //      method:"POST",
+  //      headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body:JSON.stringify({
+  //       "name":name,
+  //       "email":email,
+  //       "address":address,
+  //       "phonenumber":phonenumber,
+  //       "city":city,
+  //       "postalcode":postalcode,
+  //       "country":country,     
+  //      })
+  //    })
+  //    .then(res=>res.json())
+  //    .then(async (data)=> { 
+  //      console.log(data)
+  //     //  navigation.navigate("login")
+      
+  //   })
+
+  //     } catch (e) {
+  //             console.log("error hai",e)
+  //           }
+  // }
+
+
+  // const handleInputChange = (name, value) => {
+  //   setFormData({
+  //     ...formData,
+  //     [name]: value,
+  //   });
+  // };
+
+  // const handleSubmit = async () => {
+  //   try {
+  //     const res = await axios.post('http://192.168.1.6:3000/api/addresses', fromData, {
+  //       headers: { 'Content-Type': 'multipart/form-data' },
+  //      });
+  //       console.log('Form Submitted:', res.data);
+  //       setFormData(res.data);
+  //       // Alert.alert(`Delivery to ${formData.fullName} in ${formData.city} has been initiated!`);
+        
+  //   } catch (error) {
+  //     console.log("error", error)
+  //   }
+    
+  // };
 
 
   const handlePlaceOrder = () => {
-    setIsLoading(true);
+    setLoading(true);
     // Simulate API call
     setTimeout(() => {
-      setIsLoading(false);
+      setLoading(false);
       Alert.alert(
         'Order Placed Successfully!',
         'Your order has been placed. You will receive a confirmation soon.',
@@ -222,6 +313,9 @@ const Checkout = ({ navigation }) => {
   // );
 
 
+// useEffect(() => {
+// handleSubmit()
+// },[]);
 
 
 
@@ -262,46 +356,46 @@ const Checkout = ({ navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Name"
-          value={formData.name}
-          onChangeText={(text) => handleInputChange('Name', text)}
+          value={name}
+          onChangeText={setName()}
         />
 
         <TextInput
           style={styles.input}
           placeholder="Email"
-          value={formData.email}
-          onChangeText={(text) => handleInputChange('Email', text)}
+          value={email}
+          onChangeText={setEmail()}
         />
         <TextInput
           style={styles.input}
           placeholder="Address"
-          value={formData.address}
-          onChangeText={(text) => handleInputChange('address', text)}
+          value={address}
+          onChangeText={setAddress()}
         />
         <TextInput
           style={styles.input}
           placeholder="Phone Number"
-          value={formData.phonenumber}
-          onChangeText={(text) => handleInputChange('phone number', text)}
+          value={phonenumber}
+          onChangeText={setPhonenumber()}
         />
         <TextInput
           style={styles.input}
           placeholder="City"
-          value={formData.city}
-          onChangeText={(text) => handleInputChange('city', text)}
+          value={city}
+          onChangeText={setCity()}
         />
         <TextInput
           style={styles.input}
           placeholder="Postal Code"
-          value={formData.postalCode}
-          onChangeText={(text) => handleInputChange('postalCode', text)}
+          value={postalcode}
+          onChangeText={setPostalcode()}
           keyboardType="numeric"
         />
         <TextInput
           style={styles.input}
           placeholder="Country"
-          value={formData.country}
-          onChangeText={(text) => handleInputChange('country', text)}
+          value={country}
+          onChangeText={setCountry()}
         />
 
         <View style={styles.buttonContainer}>
@@ -311,6 +405,7 @@ const Checkout = ({ navigation }) => {
             color="#007BFF"
           />
         </View>
+        
       </View>
   
        {/* <View style={styles.section}>
@@ -451,12 +546,12 @@ const Checkout = ({ navigation }) => {
           <Text style={styles.totalAmount}>${total.toFixed(2)}</Text>
         </View>
         <TouchableOpacity
-          style={[styles.placeOrderButton, isLoading && styles.disabledButton]}
+          style={[styles.placeOrderButton, Loading && styles.disabledButton]}
           onPress={handlePlaceOrder}
-          disabled={isLoading}
+          disabled={Loading}
         >
           <Text style={styles.placeOrderText}>
-            {isLoading ? 'Processing...' : 'Place Order'}
+            {Loading ? 'Processing...' : 'Place Order'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -862,12 +957,6 @@ const styles = StyleSheet.create({
 });
 
 export default Checkout;
-
-
-
-
-
-
 
 
 
