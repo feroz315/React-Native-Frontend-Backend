@@ -186,7 +186,6 @@ useEffect(() =>{
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Order Items */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Order Items</Text>
           
@@ -279,45 +278,8 @@ useEffect(() =>{
           />
         </View>
         
-      </View>
-  
-       {/* <View style={styles.section}>
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionTitle}>Delivery Address</Text>
-            <TouchableOpacity onPress={() => setShowAddressModal(true)}>
-              <Text style={styles.changeText}>Change</Text>
-            </TouchableOpacity>
-          </View>
-          
-          <TouchableOpacity 
-            style={styles.addressCard}
-            onPress={() => setShowAddressModal(true)}
-          >
-            <View style={styles.addressIcon}>
-              <Icon 
-                name={addresses[selectedAddress].type === 'Home' ? 'home' : 'work'} 
-                size={20} 
-                color="#4A90E2" 
-              />
-            </View>
-            <View style={styles.addressInfo}>
-              <Text style={styles.addressTypeText}>
-                {addresses[selectedAddress].type}
-              </Text>
-              <Text style={styles.addressFull}>
-                {addresses[selectedAddress].street}
-              </Text>
-              <Text style={styles.addressFull}>
-                {addresses[selectedAddress].city}, {addresses[selectedAddress].state} {addresses[selectedAddress].zip}
-              </Text>
-              <Text style={styles.addressPhone}>
-                {addresses[selectedAddress].phone}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View> */}
-
-        
+        </View>
+               
         {/* Payment Method */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
@@ -375,7 +337,7 @@ useEffect(() =>{
           <Text style={styles.sectionTitle}>Order Summary</Text>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Subtotal</Text>
-            <Text style={styles.summaryValue}>${subtotal.toFixed(2)}</Text>
+            <Text style={styles.summaryValue}>${basketTotal.toFixed(2)}</Text>
           </View>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Shipping</Text>
@@ -394,7 +356,7 @@ useEffect(() =>{
           <View style={styles.divider} />
           <View style={styles.summaryRow}>
             <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>${total.toFixed(2)}</Text>
+            <Text style={styles.totalValue}>${basketTotal.toFixed(2)}</Text>
           </View>
         </View>
 
@@ -410,6 +372,7 @@ useEffect(() =>{
             Save this information for next time
           </Text>
         </TouchableOpacity>
+        
        </ScrollView>
 
       {/* Bottom Action Button */}
@@ -440,12 +403,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F8F9FA',
   },
+
+ // --- header ---
+
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 25,
     backgroundColor: '#FFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
@@ -465,6 +431,9 @@ const styles = StyleSheet.create({
     color: '#333',
     
   },
+
+  // --- section order ---
+
   scrollContent: {
     paddingBottom: 100,
   },
@@ -489,45 +458,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
     marginBottom: 15,
-  },
-  changeText: {
-    color: '#4A90E2',
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  addressCard: {
-    flexDirection: 'row',
-    backgroundColor: '#F8F9FA',
-    borderRadius: 10,
-    padding: 15,
-  },
-  addressIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#E8F0FE',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 12,
-  },
-  addressInfo: {
-    flex: 1,
-  },
-  addressTypeText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-    marginBottom: 4,
-  },
-  addressFull: {
-    fontSize: 13,
-    color: '#666',
-    marginBottom: 2,
-  },
-  addressPhone: {
-    fontSize: 12,
-    color: '#999',
-    marginTop: 4,
   },
   cartItem: {
     flexDirection: 'row',
@@ -570,6 +500,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#666',
   },
+
+  // --- payment ---
+
   paymentMethod: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -594,6 +527,9 @@ const styles = StyleSheet.create({
     color: '#4A90E2',
     fontWeight: '500',
   },
+
+  // --- promocode ---
+
   promoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -620,6 +556,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
+
+  // --- summary order ---
+
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -681,6 +620,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
+  
+  // --- bottom ---
+
   bottomContainer: {
     position: 'absolute',
     bottom: 0,
@@ -728,82 +670,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'flex-end',
-  },
-  modalContent: {
-    backgroundColor: '#FFF',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    padding: 20,
-    maxHeight: '80%',
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#333',
-  },
-  addressItem: {
-    padding: 15,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
-    borderRadius: 10,
-    marginBottom: 10,
-  },
-  selectedAddress: {
-    borderColor: '#4A90E2',
-    backgroundColor: '#F0F7FF',
-  },
-  addressHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 5,
-  },
-  addressType: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#333',
-  },
-  addressName: {
-    fontSize: 13,
-    color: '#666',
-    marginBottom: 2,
-  },
-  addressText: {
-    fontSize: 12,
-    color: '#999',
-    marginBottom: 2,
-  },
-  addAddressButton: {
-    backgroundColor: '#4A90E2',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 15,
-    borderRadius: 10,
-    marginTop: 10,
-  },
-  addAddressText: {
-    color: '#FFF',
-    fontSize: 14,
-    fontWeight: '600',
-    marginLeft: 8,
-  },
-  
-
-  // container: {
-  //   flex: 1,
-  //   paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
-  // },
   scrollContent: {
     padding: 20,
   },
