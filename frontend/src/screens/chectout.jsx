@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useMemo } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,6 +16,9 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from "axios";
+import { COLORS } from '../const/colors';
+import {  useSelector } from 'react-redux';
+import { selectcartItems, selectTotal } from '../state/CartSlics';
 
 
 
@@ -25,12 +28,11 @@ const API_URL = 'http://192.168.1.8:3000/api/addresses';
 // ----- form state -----
 
 const Checkout = ({ navigation }) => {
+  
   const [selectedPayment, setSelectedPayment] = useState('card');
-  // const [selectedAddress, setSelectedAddress] = useState(0);
   const [promoCode, setPromoCode] = useState('');
   const [Loading, setLoading] = useState(false);
   const [saveInfo, setSaveInfo] = useState(false);
-  // const [showAddressModal, setShowAddressModal] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -38,65 +40,12 @@ const Checkout = ({ navigation }) => {
   const [city, setCity] = useState('');
   const [postalcode, setPostalcode] = useState('');
   const [country, setCountry] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+  const basketItems = useSelector(selectcartItems);
+  const basketTotal = useSelector(selectTotal);
 
 
-// const [formData, setFormData] = useState({
-
-  //   name: '',
-  //   email: '',
-  //   address: '',
-  //   phonenumber: '',
-  //   city: '',
-  //   postalCode: '',
-  //   country: '',
-  // });
-  
-
-  // Sample cart items
-  const cartItems = [
-    {
-      id: 1,
-      name: 'Classic White T-Shirt',
-      size: 'M',
-      color: 'White',
-      price: 29.99,
-      quantity: 2,
-      image: 'https://via.placeholder.com/60x60',
-    },
-    {
-      id: 2,
-      name: 'Slim Fit Jeans',
-      size: '32',
-      color: 'Blue',
-      price: 79.99,
-      quantity: 1,
-      image: 'https://via.placeholder.com/60x60',
-    },
-  ];
-
-  // // Sample addresses
-  // const addresses = [
-  //   {
-  //     id: 1,
-  //     type: 'Home',
-  //     name: 'John Doe',
-  //     street: '123 Main Street',
-  //     city: 'New York',
-  //     state: 'NY',
-  //     zip: '10001',
-  //     phone: '+1 234 567 8900',
-  //   },
-  //   {
-  //     id: 2,
-  //     type: 'Office',
-  //     name: 'John Doe',
-  //     street: '456 Business Ave',
-  //     city: 'New York',
-  //     state: 'NY',
-  //     zip: '10002',
-  //     phone: '+1 234 567 8901',
-  //   },
-  // ];
 
   // Payment methods
   const paymentMethods = [
@@ -107,7 +56,7 @@ const Checkout = ({ navigation }) => {
   ];
 
   // Calculate totals
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const subtotal = basketItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const shipping = 5.99;
   const tax = subtotal * 0.08; // 8% tax
   const discount = promoCode === 'SAVE10' ? subtotal * 0.1 : 0;
@@ -162,60 +111,6 @@ const Checkout = ({ navigation }) => {
     setCountry('');
   };
 
-
-  // const handleSubmit = async (text) => {
-  //  try {      
-  //    fetch("http://192.168.1.2:3000/api/addresses",{
-  //      method:"POST",
-  //      headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body:JSON.stringify({
-  //       "name":name,
-  //       "email":email,
-  //       "address":address,
-  //       "phonenumber":phonenumber,
-  //       "city":city,
-  //       "postalcode":postalcode,
-  //       "country":country,     
-  //      })
-  //    })
-  //    .then(res=>res.json())
-  //    .then(async (data)=> { 
-  //      console.log(data)
-  //     //  navigation.navigate("login")
-      
-  //   })
-
-  //     } catch (e) {
-  //             console.log("error hai",e)
-  //           }
-  // }
-
-
-  // const handleInputChange = (name, value) => {
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const handleSubmit = async () => {
-  //   try {
-  //     const res = await axios.post('http://192.168.1.6:3000/api/addresses', fromData, {
-  //       headers: { 'Content-Type': 'multipart/form-data' },
-  //      });
-  //       console.log('Form Submitted:', res.data);
-  //       setFormData(res.data);
-  //       // Alert.alert(`Delivery to ${formData.fullName} in ${formData.city} has been initiated!`);
-        
-  //   } catch (error) {
-  //     console.log("error", error)
-  //   }
-    
-  // };
-
-
   const handlePlaceOrder = () => {
     setLoading(true);
     // Simulate API call
@@ -242,84 +137,37 @@ const Checkout = ({ navigation }) => {
     }
   };
 
-  const renderCartItem = ({ item }) => (
-    <View style={styles.cartItem}>
-      <Image source={{ uri: item.image }} style={styles.itemImage} />
-      <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item.name}</Text>
-        <Text style={styles.itemVariants}>
-          Size: {item.size} | Color: {item.color}
-        </Text>
-        <View style={styles.itemPriceRow}>
-          <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
-          <Text style={styles.itemQuantity}>Qty: {item.quantity}</Text>
-        </View>
-      </View>
-    </View>
-  );
 
-  // const AddressModal = () => (
-  //   <Modal
-  //     visible={showAddressModal}
-  //     animationType="slide"
-  //     transparent={true}
-  //   >
-  //     <View style={styles.modalContainer}>
-  //       <View style={styles.modalContent}>
-  //         <View style={styles.modalHeader}>
-  //           <Text style={styles.modalTitle}>Select Delivery Address</Text>
-  //           <TouchableOpacity onPress={() => setShowAddressModal(false)}>
-  //             <Icon name="close" size={24} color="#333" />
-  //           </TouchableOpacity>
-  //         </View>
-          
-  //         <FlatList
-  //           data={addresses}
-  //           keyExtractor={(item) => item.id.toString()}
-  //           renderItem={({ item, index }) => (
-  //             <TouchableOpacity
-  //               style={[
-  //                 styles.addressItem,
-  //                 selectedAddress === index && styles.selectedAddress,
-  //               ]}
-  //               onPress={() => {
-  //                 setSelectedAddress(index);
-  //                 setShowAddressModal(false);
-  //               }}
-  //             >
-  //               <View style={styles.addressHeader}>
-  //                 <Text style={styles.addressType}>{item.type}</Text>
-  //                 {selectedAddress === index && (
-  //                   <Icon name="check-circle" size={20} color="#4CAF50" />
-  //                 )}
-  //               </View>
-  //               <Text style={styles.addressName}>{item.name}</Text>
-  //               <Text style={styles.addressText}>{item.street}</Text>
-  //               <Text style={styles.addressText}>
-  //                 {item.city}, {item.state} {item.zip}
-  //               </Text>
-  //               <Text style={styles.addressPhone}>{item.phone}</Text>
-  //             </TouchableOpacity>
-  //           )}
-  //         />
-          
-  //         <TouchableOpacity style={styles.addAddressButton}>
-  //           <Icon name="add" size={20} color="#FFF" />
-  //           <Text style={styles.addAddressText}>Add New Address</Text>
-  //         </TouchableOpacity>
-  //       </View>
-  //     </View>
-  //   </Modal>
-  // );
-
-
-// useEffect(() => {
-// handleSubmit()
-// },[]);
+  useMemo(() => {
+    const subtotal = basketItems.reduce((group, item) => {
+      if (group[item.id]) {
+        group[item.id].push(item);
+      } else {
+        group[item.id] = [item];
+      }
+      return group;
+    }, {});
+    setCartItems(subtotal);
+    // console.log('items: ',gItems);
+  }, [basketItems]);
 
 
 
-  return (
+useEffect(() =>{
+
+    setName('');
+    setEmail('');
+    setAddress('');
+    setPhonenumber('');
+    setCity('');
+    setPostalcode('');
+    setCountry('');
+
+},[])
+
+
+
+ return (
     
     <SafeAreaView style={styles.container}>
      
@@ -332,7 +180,8 @@ const Checkout = ({ navigation }) => {
         <Text style={styles.headerTitle}>Checkout</Text>
         <View style={{ width: 24 }} />
       </View>
-
+   
+      {/* Order Items */}
       <ScrollView 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -340,12 +189,36 @@ const Checkout = ({ navigation }) => {
         {/* Order Items */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Order Items</Text>
-          <FlatList
-            data={cartItems}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderCartItem}
-            scrollEnabled={false}
-          />
+          
+                <ScrollView
+                  showsVerticalScrollIndicator={false}
+                  contentContainerStyle={{
+                    paddingBottom: 20,
+                  }}>
+                  {Object.entries(cartItems).map(([index, item]) => {
+                    return (
+                      <View key={index} style={styles.cartItem}>
+                        <Image source={{uri: item[0].images}} style={styles.itemImage} />
+                        <View style={styles.itemDetails}>
+                            <Text style={styles.itemName} numberOfLines={1}>
+                              {item[0]?.title}
+                            </Text>
+                            <Text style={styles.subtitle}>{item[0].category}</Text>
+          
+                            {/* Quantity Stepper */}
+                          <View style={styles.itemPriceRow}>
+                            <Text style={styles.itemPrice}>$ {item[0].price}</Text>
+                              <Text style={styles.itemQuantity}>{item.length}</Text>
+                            </View>
+                          
+                        </View>
+                      </View>
+
+                      
+                    );
+                  })}
+                 </ScrollView>
+          
         </View>
 
         {/* Delivery Address */}
@@ -357,45 +230,45 @@ const Checkout = ({ navigation }) => {
           style={styles.input}
           placeholder="Name"
           value={name}
-          onChangeText={setName()}
+          onChangeText={setName}
         />
 
         <TextInput
           style={styles.input}
           placeholder="Email"
           value={email}
-          onChangeText={setEmail()}
+          onChangeText={setEmail}
         />
         <TextInput
           style={styles.input}
           placeholder="Address"
           value={address}
-          onChangeText={setAddress()}
+          onChangeText={setAddress}
         />
         <TextInput
           style={styles.input}
           placeholder="Phone Number"
           value={phonenumber}
-          onChangeText={setPhonenumber()}
+          onChangeText={setPhonenumber}
         />
         <TextInput
           style={styles.input}
           placeholder="City"
           value={city}
-          onChangeText={setCity()}
+          onChangeText={setCity}
         />
         <TextInput
           style={styles.input}
           placeholder="Postal Code"
           value={postalcode}
-          onChangeText={setPostalcode()}
+          onChangeText={setPostalcode}
           keyboardType="numeric"
         />
         <TextInput
           style={styles.input}
           placeholder="Country"
           value={country}
-          onChangeText={setCountry()}
+          onChangeText={setCountry}
         />
 
         <View style={styles.buttonContainer}>
@@ -537,13 +410,13 @@ const Checkout = ({ navigation }) => {
             Save this information for next time
           </Text>
         </TouchableOpacity>
-      </ScrollView>
+       </ScrollView>
 
       {/* Bottom Action Button */}
       <View style={styles.bottomContainer}>
         <View style={styles.totalContainer}>
           <Text style={styles.totalAmountLabel}>Total Amount</Text>
-          <Text style={styles.totalAmount}>${total.toFixed(2)}</Text>
+          <Text style={styles.totalAmount}>${basketTotal.toFixed(2)}</Text>
         </View>
         <TouchableOpacity
           style={[styles.placeOrderButton, Loading && styles.disabledButton]}
@@ -556,8 +429,6 @@ const Checkout = ({ navigation }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Address Modal */}
-      {/* <AddressModal /> */}
     </SafeAreaView>
   );
 };
@@ -605,6 +476,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#F0F0F0',
+    borderRadius:10
   },
   sectionHeader: {
     flexDirection: 'row',
