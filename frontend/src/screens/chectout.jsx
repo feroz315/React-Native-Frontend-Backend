@@ -20,7 +20,7 @@ import axios from "axios";
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.2:3000/api/addresses';
+const API_URL = 'http://192.168.1.8:3000/api/addresses';
 
 // ----- form state -----
 
