@@ -4,6 +4,7 @@ import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
 import { useNavigation,Link } from '@react-navigation/native';
 // import { launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 
 // const { width, height } = Dimensions.get("window").width - 40
@@ -38,7 +39,7 @@ const CategoryItem = ({ item, active, onPress }) => (
 
 const Home = () => {
 const [products, setProducts] = useState([]);
-// const [userpic, setUserpic] = useState(null);
+const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
 
 
@@ -53,7 +54,7 @@ const navigation = useNavigation();
 
 
   const getdata = async () => {
-    const URL = `http://192.168.1.10:3000/api/allproducts`;
+    const URL = `http://192.168.1.19:3000/api/allproducts`;
     try {
       const res = await axios.get(URL);
       console.log(res.data);
@@ -96,6 +97,27 @@ const navigation = useNavigation();
   // };
 
 
+const options = {
+  mediaType: 'photo',
+  maxWidth: 300,
+  maxHeight: 400,
+  quality: 1,
+  includeBase64: false,
+};
+
+// // Launch camera to take a photo
+// const takePhoto = async () => {
+//   const result = await launchCamera(options);
+//   console.log(result.assets[0].uri); // Access the URI of the captured image
+// };
+
+// Launch image library to select a photo
+const selectImage = async () => {
+  const result = await launchImageLibrary(options);
+  setUserpic(result.assets[0].uri)
+  console.log(result.assets[0].uri); // Access the URI of the selected image
+};
+
 return (
 
  <SafeAreaView style={styles.container}>
@@ -109,9 +131,9 @@ return (
             <Text style={styles.greeting}>Hello, 👋</Text>
             <Text style={styles.username}>Alex </Text>
           </View>
-          <TouchableOpacity style={styles.profileButton}>
+          <TouchableOpacity style={styles.profileButton} onPress={selectImage}>
              <Image 
-               source={require('../assets/images/avatar.png')}
+               source={{uri: userpic}}
                style={styles.profileImage} 
              />
           </TouchableOpacity>
