@@ -8,7 +8,7 @@ import { COLORS } from '../const/colors';
 const Delivery = () => {
 
 return (
-        
+  <>      
 <View style={{flex:1}}>
   <MapView
   style={{flex:1}}
@@ -28,8 +28,11 @@ coordinate={{
 pinColor={COLORS.green}
 />
 </MapView>
-
+        
 </View>
+  
+    
+  </>
 
     );
 }

@@ -134,10 +134,10 @@ return (
           <TouchableOpacity style={styles.profileButton} onPress={selectImage}>
              <Image 
                source={{uri: userpic}}
-               style={styles.profileImage} 
-             />
-          </TouchableOpacity>
-        </View>
+               style={styles.profileImage}
+               />
+              </TouchableOpacity>
+           </View>
 
         {/* --- SEARCH BAR --- */}
         <View style={styles.searchContainer}>
