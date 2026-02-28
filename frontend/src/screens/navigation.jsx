@@ -17,6 +17,7 @@ import Cart from './cart';
 import Chectout from './chectout';
 import Logout from './logout';
 import Profile from './profile';
+import Delivery from './delivery';
 
 
 
@@ -61,6 +62,7 @@ const Navigation = () => {
                  <Stack.Screen name="checkout" component={Chectout}/>
                  <Stack.Screen name="logout" component={Logout}/>
                 <Stack.Screen name="profile" component={Profile}/>
+               <Stack.Screen name="delivery" component={Delivery}/>
 
 
                  

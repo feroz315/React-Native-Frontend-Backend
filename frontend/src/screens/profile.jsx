@@ -105,7 +105,7 @@ const Profile = () => {
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
 
-        <View style={{ height: 40 }} /> {/* Bottom Spacer */}
+        <View style={{ height: 40 }} /> 
       </ScrollView>
     </SafeAreaView>
   );

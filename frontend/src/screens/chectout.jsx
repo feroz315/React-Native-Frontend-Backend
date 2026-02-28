@@ -88,14 +88,14 @@ const Checkout = ({ navigation }) => {
       const { status, data } = await axios.post(API_URL, payload);
 
       if (status === 201) {
-        Alert.alert('Success', 'Address saved!', [
-          { text: 'OK', onPress: clearForm },
-        ]);
+        Alert.alert('Success', 'Address saved!');
+        console.log('Address saved!');
       }
     } catch (err) {
       console.error(err);
       const msg = err.response?.data?.error || 'Network error – try again later.';
       Alert.alert('Error', msg);
+     
     } finally {
       setLoading(false);
     }
@@ -122,11 +122,12 @@ const Checkout = ({ navigation }) => {
         [
           {
             text: 'OK',
-            onPress: () => navigation.navigate('profile'),
+            onPress: () => navigation.navigate('delivery'),
           },
         ]
       );
-    }, 2000);
+      clearForm()
+    }, 1000);
   };
 
   const applyPromoCode = () => {
@@ -140,31 +141,18 @@ const Checkout = ({ navigation }) => {
 
   useMemo(() => {
     const subtotal = basketItems.reduce((group, item) => {
+   
       if (group[item.id]) {
         group[item.id].push(item);
       } else {
         group[item.id] = [item];
       }
       return group;
+      
     }, {});
     setCartItems(subtotal);
     // console.log('items: ',gItems);
   }, [basketItems]);
-
-
-
-useEffect(() =>{
-
-    setName('');
-    setEmail('');
-    setAddress('');
-    setPhonenumber('');
-    setCity('');
-    setPostalcode('');
-    setCountry('');
-
-},[])
-
 
 
  return (
@@ -173,7 +161,8 @@ useEffect(() =>{
      
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.iconButton}
+         onPress={() => navigation.goBack()}>
            <Text style={styles.iconText}>←</Text>            
           {/* <Icon name="arrow-back" size={24} color="#333" /> */}
         </TouchableOpacity>
@@ -184,8 +173,8 @@ useEffect(() =>{
       {/* Order Items */}
       <ScrollView 
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
+        contentContainerStyle={styles.scrollContent}>
+      
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Order Items</Text>
           
@@ -207,7 +196,7 @@ useEffect(() =>{
                             {/* Quantity Stepper */}
                           <View style={styles.itemPriceRow}>
                             <Text style={styles.itemPrice}>$ {item[0].price}</Text>
-                              <Text style={styles.itemQuantity}>{item.length}</Text>
+                              <Text style={styles.itemQuantity}>Qty: {item.length}</Text>
                             </View>
                           
                         </View>
@@ -356,11 +345,11 @@ useEffect(() =>{
           <View style={styles.divider} />
           <View style={styles.summaryRow}>
             <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>${basketTotal.toFixed(2)}</Text>
+            <Text style={styles.totalValue}>${basketTotal + shipping}</Text>
           </View>
         </View>
 
-        {/* Save Information Checkbox */}
+        {/* Save Information Checkbox*/}
         <TouchableOpacity 
           style={styles.checkboxContainer}
           onPress={() => setSaveInfo(!saveInfo)}
@@ -371,15 +360,15 @@ useEffect(() =>{
           <Text style={styles.checkboxLabel}>
             Save this information for next time
           </Text>
-        </TouchableOpacity>
-        
+         </TouchableOpacity>
+         
        </ScrollView>
 
       {/* Bottom Action Button */}
       <View style={styles.bottomContainer}>
         <View style={styles.totalContainer}>
           <Text style={styles.totalAmountLabel}>Total Amount</Text>
-          <Text style={styles.totalAmount}>${basketTotal.toFixed(2)}</Text>
+          <Text style={styles.totalAmount}>${basketTotal + shipping }</Text>
         </View>
         <TouchableOpacity
           style={[styles.placeOrderButton, Loading && styles.disabledButton]}
@@ -390,7 +379,7 @@ useEffect(() =>{
             {Loading ? 'Processing...' : 'Place Order'}
           </Text>
         </TouchableOpacity>
-      </View>
+       </View>
 
     </SafeAreaView>
   );
@@ -426,6 +415,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
   },
+  iconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
   iconText: {
     fontSize: 20,
     color: '#333',
@@ -440,12 +442,13 @@ const styles = StyleSheet.create({
   section: {
     backgroundColor: '#FFF',
     marginTop: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 25,
     paddingVertical: 15,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#F0F0F0',
-    borderRadius:10
+    borderRadius:10,
+    
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -467,8 +470,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemImage: {
-    width: 60,
-    height: 60,
+    width: 65,
+    height: 65,
     borderRadius: 8,
     marginRight: 12,
   },
@@ -494,6 +497,7 @@ const styles = StyleSheet.create({
   itemPrice: {
     fontSize: 14,
     fontWeight: '600',
+    marginTop:5,
     color: '#4A90E2',
   },
   itemQuantity: {
