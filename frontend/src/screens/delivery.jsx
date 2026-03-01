@@ -25,7 +25,7 @@ coordinate={{
   latitude: 24.918803,
   longitude: 67.099762
 }} 
-pinColor={COLORS.green}
+pinColor={COLORS.lightOrange}
 />
 </MapView>
         

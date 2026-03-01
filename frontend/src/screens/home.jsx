@@ -54,7 +54,7 @@ const navigation = useNavigation();
 
 
   const getdata = async () => {
-    const URL = `http://192.168.1.19:3000/api/allproducts`;
+    const URL = `http://192.168.1.7:3000/api/allproducts`;
     try {
       const res = await axios.get(URL);
       console.log(res.data);
