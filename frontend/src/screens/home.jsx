@@ -41,12 +41,30 @@ const Home = () => {
 const [products, setProducts] = useState([]);
 const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
+const [search, setSearch] = useState('');
+const [filteredData, setFilteredData] = useState(products);
 
 
 const navigation = useNavigation();
 
-// Api data for products Items
 
+  const searchFilterFunction = (text) => {
+    if (text) {
+      const newData = products.filter((item) => {
+        const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+      setFilteredData(newData);
+      setSearch(text);
+    } else {
+      setFilteredData(products);
+      setSearch(text);
+    }
+  };
+
+    
+// Api data for products Items
 
   useEffect(() => {
     getdata();
@@ -145,13 +163,22 @@ return (
           <TextInput 
             placeholder="Search products..." 
             placeholderTextColor="#8D8D8D"
+            value={search}
+            onChangeText={(text) => searchFilterFunction(text)}
             style={styles.searchInput}
           />
           <View style={styles.filterButton}>
             {/* <Icon name="options-outline" size={20} color="#FFFFFF" /> */}
-          </View>
+          </View>        
         </View>
-
+        
+           <FlatList
+            data={filteredData}
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <Text>{item.title}</Text>}
+      />
+  
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
@@ -187,13 +214,11 @@ return (
              {/* <Icon name="gift" size={60} color="#FFFFFF" opacity={0.5} /> */}
           </View>
         </View>
-
       {/* --- PRODUCTS --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Popular Products</Text>
           <Text style={styles.seeAll}>See All</Text>
         </View>
-
 
       <FlatList
         data={products}
@@ -396,132 +421,6 @@ sectionHeader: {
     justifyContent: 'center',
   },
 
-  // card: {
-  //   // backgroundColor: COLORS.secondary,
-  //   // borderRadius: 10,
-  //   // width: 160 ,
-  //   // height:260,
-  //   // marginVertical: 10,
-  //   // marginHorizontal: 5,
-  //   // shadowColor: '#000',
-  //   // shadowOffset: { width: 0, height: 2 },
-  //   // shadowOpacity: 0.2,
-  //   // shadowRadius: 3.8,
-  //   // elevation: 2, // for Android shadow
-  //   // overflow: 'hidden', // for border radius on image
-  //   width: '48%',
-  //   backgroundColor: '#FFFFFF',
-  //   borderRadius: 20,
-  //   marginBottom: 20,
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: 2 },
-  //   shadowOpacity: 0.1,
-  //   shadowRadius: 5,
-  //   elevation: 4,
-  //   overflow: 'hidden',
-  // },
-  //  infoContainer: {
-  //   padding: 10,
-  // },
-  // price: {
-  //   fontSize: 14,
-  //   color: '#777',
-  //   paddingTop: 5,
-  // },
-
-  // // header: {
-  // //   fontSize:SIZES.h1,
-  // //   fontWeight: 'bold',
-  // //   textAlign: 'center',
-  // //   // margin:20,
-  // //   color: '#333',
-  // // },
-  
-  //  listContainer: {
-  //   paddingHorizontal: 10,
-  // },
-
-  // Containerheader:{
-  //   width: width /  2 - 10
-  // },
-  // // itemContainer: {
-  // //   flex: 1,
-  // //   margin: 10,
-  // //   backgroundColor: 
-  // //   borderRadius: 10,
-  // //   padding: 10,
-  // //   alignItems: 'center',
-  // //   shadowColor: '#000',
-  // //   shadowOffset: { width: 0, height: 2 },
-  // //   shadowOpacity: 0.1,
-  // //   shadowRadius: 5,
-  // //   elevation: 3, // For Android shadow
-  // // },
-  // image: {
-  //   width: "100%",
-  //   height: 150,
-  //   resizeMode:"cover",
-  //   // borderRadius: 15,
-  //   // margin:4,
-  //   // marginHorizontal:15
-  // },
-  // title: {
-  //   // fontSize: 12,
-  //   // fontWeight: "600",
-  //   // color: COLORS.dark,
-  //   // letterSpacing:0.6,
-  //   // marginBottom: 5,
-  //   fontSize: 14,
-  //   fontWeight: 'bold',
-  //   color: '#1A1A1A',
-  //   marginBottom: 8,
-  // },
-  // productInfo:{
-  //  flexDirection:'row',
-  //  justifyContent:'space-between',
-  //  marginBottom: 8
-  // },
-  // price: {
-  //   // fontSize: 14,
-  //   // fontWeight:"500",
-  //   // color:COLORS.dark
-  //   fontSize: 16,
-  //   fontWeight: 'bold',
-  //   color: '#FF6B6B',
-  // },
-  // ratingWrapper:{
-  //   flexDirection:'row',
-  //   alignItems:'center',
-  //   gap: 5 
-  // },
-  
-  // rating:{
-  //   fontSize:14,
-  //   color:COLORS.dark
-  // },
-  // category: {
-  //   fontSize: 14,
-  //   color: COLORS.dark,
-  //   // color: '#8D8D8D',
-  //   marginBottom: 4,
-
-  // },
-  // topContainer:{
-  //   // backgroundColor:COLORS.light,     
-  //   paddingHorizontal:width*0.03,
-  //   zIndex:99,
-  //   height:80,
-  //   // borderBottomEndRadius:35,
-  //   // borderBottomLeftRadius:35, 
-  // },
-
-  // topContainerImage:{
-  //   flexDirection:'row',
-  //   justifyContent:"space-between",
-  //   alignItems:'center',
-  //   marginTop:20,
-  // },
-
   // Product Styles
   productGrid: {
     flexDirection: 'row',
@@ -590,7 +489,6 @@ sectionHeader: {
 
 
 export default Home;
-
 
 
 
