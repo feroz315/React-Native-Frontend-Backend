@@ -7,7 +7,7 @@ import Login from '../screens/login';
 import Cart from '../screens/cart';
 import Profile from './profile';
 import Setting from './setting';
-
+import Search from './search';
 
 
 
@@ -25,7 +25,7 @@ const BottomNavigator = () => {
           elevation: 0,
         },
         showLabel: false,
-        activeTintColor: COLORS.Teal,
+        activeTintColor: COLORS.green,
         }}>
       <Tab.Screen
         name="Home"
@@ -39,21 +39,6 @@ const BottomNavigator = () => {
             </View>
 
           ),headerShown: false
-        }}
-      />
-
-      <Tab.Screen
-        name="Login"
-        component={Login}
-        options={{
-          tabBarStyle: {display: 'none'},  
-          tabBarActiveTintColor:COLORS.Teal,
-          tabBarIcon: ({focused}) => (
-            <View>
-                <Image source={require('../assets/images/home.png')} style={{width:22,height:22,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
-            </View>
-
-          ),
         }}
       />
 
@@ -72,6 +57,21 @@ const BottomNavigator = () => {
           ),headerShown: false
         }}
       />
+
+       <Tab.Screen
+        name="Search"
+        component={Search}
+        options={{
+          tabBarIcon: ({czolor}) => (
+            <View>
+                <Image source={require('../assets/images/search1.png')}
+                 style={{width:28,height:28,marginRight:5}}
+                 />
+            </View>
+          ),headerShown: false
+        }}
+      />
+     
         <Tab.Screen
         name="cart"
         component={Cart}
@@ -83,7 +83,7 @@ const BottomNavigator = () => {
                 <Image source={require('../assets/images/cart.png')} style={{width:22,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
-          ),
+          ),headerShown: false
         }}
       />          
    
@@ -108,6 +108,9 @@ const BottomNavigator = () => {
   );
 };
 
-// appiont
+
 export default BottomNavigator;
 
+    
+{/* style={{width:24,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }} */}
+    

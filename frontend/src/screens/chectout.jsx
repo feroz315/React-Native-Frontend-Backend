@@ -23,7 +23,7 @@ import { selectcartItems, selectTotal } from '../state/CartSlics';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.10:3000/api/addresses';
+const API_URL = 'http://192.168.1.3:3000/api/addresses';
 
 // ----- form state -----
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { View,StatusBar, Dimensions,SafeAreaView,Text,TextInput ,StyleSheet,FlatList,Image,Alert,TouchableOpacity, ScrollView } from 'react-native';
 import { COLORS,SIZES } from '../const/colors';
 import axios from "axios";
-import { useNavigation,Link } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 // import { launchImageLibrary } from 'react-native-image-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
@@ -72,7 +72,7 @@ const navigation = useNavigation();
 
 
   const getdata = async () => {
-    const URL = `http://192.168.1.7:3000/api/allproducts`;
+    const URL = `http://192.168.1.3:3000/api/allproducts`;
     try {
       const res = await axios.get(URL);
       console.log(res.data);
@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
+    backgroundColor:"#FF6B6B"
   },
 
   // Search Styles
@@ -348,6 +349,7 @@ sectionHeader: {
   },
   categoryList: {
     paddingHorizontal: 20,
+    marginVertical:5
   },
   categoryItem: {
     flexDirection: 'row',
