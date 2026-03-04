@@ -18,17 +18,17 @@ const navigation = useNavigation();
     <PagerView style={styles.pager} initialPage={0}>
     
       <View key="1">
-        <Image source={require('../assets/images/one.jpg')} style={styles.image}></Image>
+        <Image source={require('../assets/images/fashion4.png')} style={styles.image}></Image>
         <Text style={styles.text}>First</Text>
       </View>
 
       <View key="2">
-        <Image source={require('../assets/images/two.jpg')} style={styles.image}></Image>
+        <Image source={require('../assets/images/fashion4.png')} style={styles.image}></Image>
         <Text style={styles.text}>Second</Text>
       </View>
       
       <View key="3">
-        <Image source={require('../assets/images/three.jpg')} style={styles.image}></Image>
+        <Image source={require('../assets/images/fashion4.png')} style={styles.image}></Image>
         <Text style={styles.text}>Third</Text>
 
       <TouchableOpacity style={styles.Btn} onPress={() => navigation.navigate("signup")}>
