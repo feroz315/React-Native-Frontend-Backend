@@ -1,197 +1,107 @@
-import React, { useState } from 'react';
-import { Dimensions,TextInput,Image,FlatList,SafeAreaView,StyleSheet,Text,View } from 'react-native';
-// import Icon from 'react-native-vector-icons/MaterialIcons';
-import { COLORS } from '../const/colors';
-import {  useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import { selectcartItems } from '../state/CartSlics';
-
-
-
-const {width} = Dimensions.get('screen');
-const cardWidth = width / 2 - 20;
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, FlatList, SafeAreaView, StyleSheet } from 'react-native';
 
 const Search = () => {
-
-const [ filter,setFilterData ] = useState([]);
-const [ search,setSearch ] = useState('');
-
-const cartItems = useSelector(selectcartItems);
-
-const navigation = useNavigation();
-
-
-const SearchFilter = (text) => {
-if(text){
-  const searchData = cartItems.filter((item) => {
-    console.log("data",searchData)  
-   const itemData = item.name ? item.name.toUpperCase() : ''.toUpperCase(); 
-    const textData = text.toUpperCase();
-    return itemData.indexOf(textData) > -1;
-  });
-  setFilterData(searchData);
-  setSearch(text);
-}else{
-  setFilterData(null);
-  setSearch(text);
- }
-}
   
-  
+  const [searchQuery, setSearchQuery] = useState('');
+  const [fullData, setFullData] = useState([]); // Stores all products
+  const [filteredData, setFilteredData] = useState([]); // Stores filtered products
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Example dummy data for demonstration
+  const dummyProducts = [
+    { id: '1', name: 'Apple iPhone 13', description: 'A great phone.' },
+    { id: '2', name: 'Samsung Galaxy S21', description: 'An Android flagship.' },
+    { id: '3', name: 'Google Pixel 6', description: 'Pure Android experience.' },
+    { id: '4', name: 'Apple Watch Series 7', description: 'Wearable tech.' },
+  ];
+
+  useEffect(() => {
+    // In a real app, you would fetch data from an API here
+    // For this example, we use dummy data
+    setFullData(dummyProducts);
+    setFilteredData(dummyProducts);
+    setIsLoading(false);
+  }, []);
+
+  const handleSearch = (text) => {
+    setSearchQuery(text);
+    if (text) {
+      const formattedQuery = text.toLowerCase();
+      const newData = fullData.filter(item => {
+        // Filter by name or description
+        return item.name.toLowerCase().includes(formattedQuery) || 
+               item.description.toLowerCase().includes(formattedQuery);
+      });
+      setFilteredData(newData);
+    } else {
+      setFilteredData(fullData);
+    }
+  };
+
+  const renderProductItem = ({ item }) => (
+    <View style={styles.itemContainer}>
+      <Text style={styles.productName}>{item.name}</Text>
+      <Text style={styles.productDescription}>{item.description}</Text>
+    </View>
+  );
+
+  if (isLoading) {
+    return <Text>Loading products...</Text>;
+  }
+
   return (
-
-     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
-                {/* --- SEARCH BAR --- */}
-                <View style={styles.searchContainer}>
-                  {/* <Icon name="search" size={20} color="#8D8D8D" style={styles.searchIcon} /> */}
-                  <TextInput 
-                    placeholder="Search products..." 
-                    placeholderTextColor="#8D8D8D"
-                    value={search}
-                    onChangeText={(text) => SearchFilter(text)}
-                    style={styles.searchInput}
-                  />
-                  <View style={styles.filterButton}>
-                    {/* <Icon name="options-outline" size={20} color="#FFFFFF" /> */}
-                  </View>        
-                </View>
-                
-                    <FlatList
-                           data={filter}
-                           numColumns={2}
-                           scrollEnabled={false}
-                           // contentContainerStyle={styles.listContainer}
-                           keyExtractor={(item) => item.id.toString()}
-                           columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
-                           renderItem={({ index, item }) => (      
-                           
-                       //  <View style={styles.productGrid}>
-                        <TouchableOpacity style={styles.productCard} onPress={() => {
-                         navigation.navigate("productdetail", {...item})
-                         }}>
-                         <Image source={{ uri: item.images }} style={styles.productImage} />
-                         <View style={styles.productInfo}>
-                           <Text style={styles.productCategory}>{item.category}</Text>
-                             <Text style={styles.productTitle}>{item.title}</Text>
-                              <View style={styles.productFooter}>
-                           <Text style={styles.productPrice}>${item.price}</Text>
-                           <View style={styles.ratingContainer}>
-                             {/* <Icon name="star" size={12} color="#FFB800" /> */}
-                             <Text style={styles.ratingText}>{item.rating}</Text>
-                           </View>
-                         </View>
-                           
-                         </View>
-                       </TouchableOpacity>  
-                           // </View>
-                           )}/>
-                          
-                   
-    
+    <SafeAreaView style={styles.container}>
+      <TextInput
+        style={styles.searchInput}
+        placeholder="Search products..."
+        onChangeText={handleSearch}
+        value={searchQuery}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <FlatList
+        data={filteredData}
+        renderItem={renderProductItem}
+        keyExtractor={item => item.id}
+        ListEmptyComponent={<Text style={styles.noResults}>No products found.</Text>}
+      />
     </SafeAreaView>
-    
   );
 };
 
 const styles = StyleSheet.create({
- 
-  // Search Styles
-
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginVertical: 15,
-    borderRadius: 15,
-    paddingHorizontal: 15,
-    height: 55,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 3,
-  },
-  searchIcon: {
-    marginRight: 10,
+  container: {
+    flex: 1,
+    paddingTop: 20,
+    marginHorizontal: 10,
   },
   searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#1A1A1A',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 10,
   },
-  filterButton: {
-    backgroundColor: '#FF6B6B', // Primary Accent Color
-    padding: 10,
-    borderRadius: 12,
+  itemContainer: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
   },
-
-  // Product Styles
-  
-  productGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 20,
-    justifyContent: 'space-between',
-    paddingBottom: 20,
-  },
-  productCard: {
-    width: '48%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 4,
-    overflow: 'hidden',
-  },
-  productImage: {
-    width: '100%',
-    height: 150,
-    resizeMode: 'cover',
-  },
-  productInfo: {
-    padding: 12,
-  },
-  productCategory: {
-    fontSize: 12,
-    color: '#8D8D8D',
-    marginBottom: 4,
-  },
-  productTitle: {
+  productName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#1A1A1A',
-    marginBottom: 8,
   },
-  productFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  productDescription: {
+    fontSize: 14,
+    color: '#666',
   },
-  productPrice: {
+  noResults: {
+    textAlign: 'center',
+    marginTop: 20,
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FF6B6B',
-  },
-  ratingContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFF5E6',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 6,
-  },
-  ratingText: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#FFB800',
-    marginLeft: 2,
-  },
-
+  }
 });
 
 export default Search;

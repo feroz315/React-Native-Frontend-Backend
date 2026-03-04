@@ -41,30 +41,16 @@ const Home = () => {
 const [products, setProducts] = useState([]);
 const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
-const [search, setSearch] = useState('');
-const [filteredData, setFilteredData] = useState(products);
 
+const [searchQuery, setSearchQuery] = useState('');
+  
 
 const navigation = useNavigation();
 
 
-  const searchFilterFunction = (text) => {
-    if (text) {
-      const newData = products.filter((item) => {
-        const itemData = item.title ? item.title.toUpperCase() : ''.toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-      setFilteredData(newData);
-      setSearch(text);
-    } else {
-      setFilteredData(products);
-      setSearch(text);
-    }
-  };
 
     
-// Api data for products Items
+// // Api data for products Items
 
   useEffect(() => {
     getdata();
@@ -136,6 +122,24 @@ const selectImage = async () => {
   console.log(result.assets[0].uri); // Access the URI of the selected image
 };
 
+
+ const handleSearch = (text) => {
+    setSearchQuery(text);
+    if (text) {
+      const formattedQuery = text.toLowerCase();
+      const newData = fullData.filter(item => {
+        // Filter by name or description
+        return item.name.toLowerCase().includes(formattedQuery) || 
+               item.description.toLowerCase().includes(formattedQuery);
+      });
+      setProducts(newData);
+    } else {
+      setProducts(fullData);
+    }
+  };
+
+
+
 return (
 
  <SafeAreaView style={styles.container}>
@@ -163,21 +167,44 @@ return (
           <TextInput 
             placeholder="Search products..." 
             placeholderTextColor="#8D8D8D"
-            value={search}
-            onChangeText={(text) => searchFilterFunction(text)}
+            value={searchQuery}
+            autoCapitalize='none'
+            autoCorrect={false}
+            onChangeText={handleSearch}
             style={styles.searchInput}
           />
           <View style={styles.filterButton}>
             {/* <Icon name="options-outline" size={20} color="#FFFFFF" /> */}
           </View>        
         </View>
+
+              <FlatList
+                data={products}
+                keyExtractor={item => item.id}
+                renderItem={({ index, item }) => (      
         
-           <FlatList
-            data={filteredData}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <Text>{item.title}</Text>}
-      />
+    //  <View style={styles.productGrid}>
+     <TouchableOpacity style={styles.productCard} onPress={() => {
+      navigation.navigate("productdetail", {...item})
+      }}>
+      <Image source={{ uri: item.images }} style={styles.productImage} />
+      <View style={styles.productInfo}>
+        <Text style={styles.productCategory}>{item.category}</Text>
+          <Text style={styles.productTitle}>{item.title}</Text>
+           <View style={styles.productFooter}>
+        <Text style={styles.productPrice}>${item.price}</Text>
+        <View style={styles.ratingContainer}>
+          {/* <Icon name="star" size={12} color="#FFB800" /> */}
+          <Text style={styles.ratingText}>{item.rating}</Text>
+        </View>
+      </View>
+        
+      </View>
+    </TouchableOpacity>  
+        // </View>
+        )}/>
+              
+         
   
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
@@ -214,6 +241,7 @@ return (
              {/* <Icon name="gift" size={60} color="#FFFFFF" opacity={0.5} /> */}
           </View>
         </View>
+      
       {/* --- PRODUCTS --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Popular Products</Text>
@@ -486,6 +514,25 @@ sectionHeader: {
     color: '#FFB800',
     marginLeft: 2,
   },
+  itemContainer: {
+    padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  productName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  productDescription: {
+    fontSize: 14,
+    color: '#666',
+  },
+  noResults: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 16,
+  }
+
 });
 
 
