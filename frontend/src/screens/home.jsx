@@ -123,21 +123,6 @@ const selectImage = async () => {
 };
 
 
- const handleSearch = (text) => {
-    setSearchQuery(text);
-    if (text) {
-      const formattedQuery = text.toLowerCase();
-      const newData = fullData.filter(item => {
-        // Filter by name or description
-        return item.name.toLowerCase().includes(formattedQuery) || 
-               item.description.toLowerCase().includes(formattedQuery);
-      });
-      setProducts(newData);
-    } else {
-      setProducts(fullData);
-    }
-  };
-
 
 
 return (
@@ -169,8 +154,6 @@ return (
             placeholderTextColor="#8D8D8D"
             value={searchQuery}
             autoCapitalize='none'
-            autoCorrect={false}
-            onChangeText={handleSearch}
             style={styles.searchInput}
           />
           <View style={styles.filterButton}>
@@ -178,34 +161,7 @@ return (
           </View>        
         </View>
 
-              <FlatList
-                data={products}
-                keyExtractor={item => item.id}
-                renderItem={({ index, item }) => (      
-        
-    //  <View style={styles.productGrid}>
-     <TouchableOpacity style={styles.productCard} onPress={() => {
-      navigation.navigate("productdetail", {...item})
-      }}>
-      <Image source={{ uri: item.images }} style={styles.productImage} />
-      <View style={styles.productInfo}>
-        <Text style={styles.productCategory}>{item.category}</Text>
-          <Text style={styles.productTitle}>{item.title}</Text>
-           <View style={styles.productFooter}>
-        <Text style={styles.productPrice}>${item.price}</Text>
-        <View style={styles.ratingContainer}>
-          {/* <Icon name="star" size={12} color="#FFB800" /> */}
-          <Text style={styles.ratingText}>{item.rating}</Text>
-        </View>
-      </View>
-        
-      </View>
-    </TouchableOpacity>  
-        // </View>
-        )}/>
-              
-         
-  
+          
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>

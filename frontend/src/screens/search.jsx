@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList,TouchableOpacity,Image ,SafeAreaView, StyleSheet } from 'react-native';
+import axios from 'axios';
+
 
 const Search = () => {
   
@@ -9,19 +11,35 @@ const Search = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Example dummy data for demonstration
-  const dummyProducts = [
-    { id: '1', name: 'Apple iPhone 13', description: 'A great phone.' },
-    { id: '2', name: 'Samsung Galaxy S21', description: 'An Android flagship.' },
-    { id: '3', name: 'Google Pixel 6', description: 'Pure Android experience.' },
-    { id: '4', name: 'Apple Watch Series 7', description: 'Wearable tech.' },
-  ];
+  // const dummyProducts = [
+  //   { id: '1', name: 'Apple iPhone 13', description: 'A great phone.' },
+  //   { id: '2', name: 'Samsung Galaxy S21', description: 'An Android flagship.' },
+  //   { id: '3', name: 'Google Pixel 6', description: 'Pure Android experience.' },
+  //   { id: '4', name: 'Apple Watch Series 7', description: 'Wearable tech.' },
+  // ];
+  
+  const getproducts = async () => {
+    
+    const URL = `http://192.168.1.3:3000/api/allproducts`;
+    try {
+      const res = await axios.get(URL);
+      console.log(res.data);
+      setFullData(res.data);
+        
+    } catch (error) {
+      console.log("error", error)
+    }
+  };
+
+
 
   useEffect(() => {
     // In a real app, you would fetch data from an API here
     // For this example, we use dummy data
-    setFullData(dummyProducts);
-    setFilteredData(dummyProducts);
+    setFullData(fullData);
+    setFilteredData(fullData);
     setIsLoading(false);
+    getproducts();
   }, []);
 
   const handleSearch = (text) => {
@@ -30,7 +48,7 @@ const Search = () => {
       const formattedQuery = text.toLowerCase();
       const newData = fullData.filter(item => {
         // Filter by name or description
-        return item.name.toLowerCase().includes(formattedQuery) || 
+        return item.title.toLowerCase().includes(formattedQuery) || 
                item.description.toLowerCase().includes(formattedQuery);
       });
       setFilteredData(newData);
@@ -41,8 +59,11 @@ const Search = () => {
 
   const renderProductItem = ({ item }) => (
     <View style={styles.itemContainer}>
-      <Text style={styles.productName}>{item.name}</Text>
+      <Image source={{ uri: item.images }} style={styles.productImage} />
+      <Text style={styles.productName}>{item.title}</Text>
+      <Text style={styles.productDescription}>{item.category}</Text>
       <Text style={styles.productDescription}>{item.description}</Text>
+      
     </View>
   );
 
@@ -96,6 +117,11 @@ const styles = StyleSheet.create({
   productDescription: {
     fontSize: 14,
     color: '#666',
+  },
+  productImage: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
   },
   noResults: {
     textAlign: 'center',
