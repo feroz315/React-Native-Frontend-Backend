@@ -10,13 +10,6 @@ const Search = () => {
   const [filteredData, setFilteredData] = useState([]); // Stores filtered products
   const [isLoading, setIsLoading] = useState(true);
 
-  // Example dummy data for demonstration
-  // const dummyProducts = [
-  //   { id: '1', name: 'Apple iPhone 13', description: 'A great phone.' },
-  //   { id: '2', name: 'Samsung Galaxy S21', description: 'An Android flagship.' },
-  //   { id: '3', name: 'Google Pixel 6', description: 'Pure Android experience.' },
-  //   { id: '4', name: 'Apple Watch Series 7', description: 'Wearable tech.' },
-  // ];
   
   const getproducts = async () => {
     
@@ -40,6 +33,7 @@ const Search = () => {
     setFilteredData(fullData);
     setIsLoading(false);
     getproducts();
+    
   }, []);
 
   const handleSearch = (text) => {
@@ -53,7 +47,7 @@ const Search = () => {
       });
       setFilteredData(newData);
     } else {
-      setFilteredData(fullData);
+      setFilteredData('');     
     }
   };
 

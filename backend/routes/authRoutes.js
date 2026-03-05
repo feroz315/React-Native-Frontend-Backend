@@ -200,6 +200,36 @@ router.get('/allproducts', async (req, res) => {
     }
 });
 
+// Search Product
+
+router.get('/searchproduct', async (req, res) => {
+    try {
+        const { query, limit = 10, offset = 0 } = req.query;
+
+        if (!query) {
+            return res.status(400).json({ error: 'Search query is required' });
+        } 
+       const searchPattern = `%${query}%`;
+             const result = await client.query(
+            `SELECT id, title, description, price, category, images, currency_code 
+             FROM searchitem 
+             WHERE title ILIKE $1 OR description ILIKE $1
+             LIMIT $2 OFFSET $3`,
+            [searchPattern, limit, offset]
+        );
+
+        res.json({
+            success: true,
+            count: result.rows.length,
+            data: result.rows
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 
 // 1. CREATE a new delivery address
 router.post('/addresses', async (req, res) => {
