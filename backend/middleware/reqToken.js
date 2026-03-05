@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+
 // const mongoose = require('mongoose');
 // const User = mongoose.model('User');
 
@@ -48,24 +49,36 @@ const jwt = require('jsonwebtoken');
     //        });
     //     }
     
-    // }
 
 
-    const authtoken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+// // Middleware to verify Token
 
-    if (!token) return res.sendStatus(401);
-
-    jwt.verify(token,"pak", (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
+const authenticateToken = (req, res, next) => {
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) return res.sendStatus(401);
+  jwt.verify(token, "pak", (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+  });
 };
+
+
+//     const authtoken = (req, res, next) => {
+//     const authHeader = req.headers['authorization'];
+//     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+
+//     if (!token) return res.sendStatus(401);
+
+//     jwt.verify(token,"pak", (err, user) => {
+//         if (err) return res.sendStatus(403);
+//         req.user = user;
+//         next();
+//     });
+// };
  
     
-module.exports = authtoken;
+module.exports = authenticateToken;
     
     
     

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList,TouchableOpacity,Image ,SafeAreaView, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Search = () => {
@@ -10,7 +11,9 @@ const Search = () => {
   const [filteredData, setFilteredData] = useState([]); // Stores filtered products
   const [isLoading, setIsLoading] = useState(true);
 
-  
+  const navigation = useNavigation();
+
+
   const getproducts = async () => {
     
     const URL = `http://192.168.1.3:3000/api/allproducts`;
@@ -24,18 +27,6 @@ const Search = () => {
     }
   };
 
-
-
-  useEffect(() => {
-    // In a real app, you would fetch data from an API here
-    // For this example, we use dummy data
-    setFullData(fullData);
-    setFilteredData(fullData);
-    setIsLoading(false);
-    getproducts();
-    
-  }, []);
-
   const handleSearch = (text) => {
     setSearchQuery(text);
     if (text) {
@@ -47,19 +38,33 @@ const Search = () => {
       });
       setFilteredData(newData);
     } else {
-      setFilteredData('');     
+      setFilteredData('');
+           
     }
   };
 
   const renderProductItem = ({ item }) => (
-    <View style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer} 
+     onPress={() => navigation.navigate("productdetail", {...item})}>
       <Image source={{ uri: item.images }} style={styles.productImage} />
       <Text style={styles.productName}>{item.title}</Text>
       <Text style={styles.productDescription}>{item.category}</Text>
       <Text style={styles.productDescription}>{item.description}</Text>
       
-    </View>
+    </TouchableOpacity>
   );
+
+
+  useEffect(() => {
+    setFullData(fullData);
+    setFilteredData(fullData);
+    setIsLoading(false);
+    getproducts();
+    
+  }, []);
+
+
+
 
   if (isLoading) {
     return <Text>Loading products...</Text>;

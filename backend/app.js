@@ -75,9 +75,15 @@ app.listen(3000, () => {
 
 
 
-
-
-
+// CREATE TABLE users (
+//     id SERIAL PRIMARY KEY,
+//     username VARCHAR(50) NOT NULL,
+//     email VARCHAR(100) UNIQUE NOT NULL,
+//     password_hash VARCHAR(255) NOT NULL,
+//     theme_mode VARCHAR(20) DEFAULT 'light', -- 'light' or 'dark'
+//     notifications_enabled BOOLEAN DEFAULT TRUE,
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+// );
 
 
 

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
 const path = require('path');
 
-const authtoken = require('../middleware/reqToken.js');
+const authenticateToken = require('../middleware/reqToken.js');
 const fs = require("fs");
 const multer = require("multer");
 
@@ -64,22 +64,104 @@ router.post('/upload', upload.single('image'), async (req, res) => {
   }
 });
 
-// CREATE TABLE images (
-//   id SERIAL PRIMARY KEY,
-//   filename VARCHAR(255) NOT NULL,
-//   filepath VARCHAR(500) NOT NULL,
-//   uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-// );
 
-
-router.get('/protected-data', authtoken, (req, res) => {
-    // This code only runs if the token is valid
-    res.json({ message: `Hello, ${req.user.email}. is protected This data.` });
-});
+// router.get('/protected-data', authtoken, (req, res) => {
+//     // This code only runs if the token is valid
+//     res.json({ message: `Hello, ${req.user.email}. is protected This data.` });
+// });
 
 
 
 // Register
+
+
+// // 1. Login (Generates Token)
+// app.post('/api/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+//     if (result.rows.length === 0) return res.status(400).json({ message: 'User not found' });
+    
+//     const user = result.rows[0];
+//     const validPassword = await bcrypt.compare(password, user.password_hash);
+//     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
+
+//     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET);
+//     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// // 2. Get Settings
+// app.get('/api/settings', authenticateToken, async (req, res) => {
+//   try {
+//     const result = await pool.query('SELECT username, email, theme_mode, notifications_enabled FROM users WHERE id = $1', [req.user.id]);
+//     res.json(result.rows[0]);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// // 3. Update Settings
+// app.put('/api/settings', authenticateToken, async (req, res) => {
+//   const { theme_mode, notifications_enabled } = req.body;
+//   try {
+//     await pool.query(
+//       'UPDATE users SET theme_mode = $1, notifications_enabled = $2 WHERE id = $3',
+//       [theme_mode, notifications_enabled, req.user.id]
+//     );
+//     res.json({ message: 'Settings updated successfully' });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
+// // 1. Login (Generates Token)
+// app.post('/api/login', async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+//     if (result.rows.length === 0) return res.status(400).json({ message: 'User not found' });
+    
+//     const user = result.rows[0];
+//     const validPassword = await bcrypt.compare(password, user.password_hash);
+//     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
+
+//     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET);
+//     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// // 2. Get Settings
+// app.get('/api/settings', authenticateToken, async (req, res) => {
+//   try {
+//     const result = await pool.query('SELECT username, email, theme_mode, notifications_enabled FROM users WHERE id = $1', [req.user.id]);
+//     res.json(result.rows[0]);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+// // 3. Update Settings
+// app.put('/api/settings', authenticateToken, async (req, res) => {
+//   const { theme_mode, notifications_enabled } = req.body;
+//   try {
+//     await pool.query(
+//       'UPDATE users SET theme_mode = $1, notifications_enabled = $2 WHERE id = $3',
+//       [theme_mode, notifications_enabled, req.user.id]
+//     );
+//     res.json({ message: 'Settings updated successfully' });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
+
 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
@@ -112,44 +194,62 @@ router.post("/register", async (req, res) => {
   return res.status(201).json({ user: newUser.rows[0] });
 });
 
-// Login
 
-router.post("/login", authtoken, async (req, res) => {
+// Login (Generates Token)
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    return res
-      .status(400)
-      .json({ message: "Please provide all required fields" });
+  try {
+    const result = await client.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (result.rows.length === 0) return res.status(400).json({ message: 'User not found' });
+    
+    const user = result.rows[0];
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
+
+    const token = jwt.sign({ id: user.id, email: user.email }, "pak");
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
-
-  const user = await client.query("SELECT * FROM users WHERE email = $1", [
-    email,
-  ]);
-
-  if (user.rows.length === 0) {
-    return res.status(400).json({ message: "Invalid credentials" });
-  }
-
-  const userData = user.rows[0];
-
-  const isMatch = await bcrypt.compare(password, userData.password);
-
-  if (!isMatch) {
-    return res.status(400).json({ message: "Invalid credentials" });
-  }
-
-  const token = generateToken(userData.id);
-
-  res.cookie("token", token, cookieOptions);
-
-  res.json({
-    user: {
-      id: userData.id,
-      name: userData.name,
-      email: userData.email,
-    },
-  });
 });
+
+
+// router.post("/login", async (req, res) => {
+//   const { email, password } = req.body;
+//   if (!email || !password) {
+//     return res
+//       .status(400)
+//       .json({ message: "Please provide all required fields" });
+//   }
+
+//   const user = await client.query("SELECT * FROM users WHERE email = $1", [
+//     email,
+//   ]);
+
+//   if (user.rows.length === 0) {
+//     return res.status(400).json({ message: "Invalid credentials" });
+//   }
+
+//   const userData = user.rows[0];
+
+//   const isMatch = await bcrypt.compare(password, userData.password);
+
+//   if (!isMatch) {
+//     return res.status(400).json({ message: "Invalid credentials" });
+//   }
+
+//   const token = generateToken(userData.id);
+
+//   res.cookie("token", token, cookieOptions);
+
+//   res.json({
+//     user: {
+//       id: userData.id,
+//       name: userData.name,
+//       email: userData.email,
+//     },
+//   });
+// });
 
 // Me
 
@@ -200,35 +300,68 @@ router.get('/allproducts', async (req, res) => {
     }
 });
 
-// Search Product
 
-router.get('/searchproduct', async (req, res) => {
-    try {
-        const { query, limit = 10, offset = 0 } = req.query;
+// // Search Product
 
-        if (!query) {
-            return res.status(400).json({ error: 'Search query is required' });
-        } 
-       const searchPattern = `%${query}%`;
-             const result = await client.query(
-            `SELECT id, title, description, price, category, images, currency_code 
-             FROM searchitem 
-             WHERE title ILIKE $1 OR description ILIKE $1
-             LIMIT $2 OFFSET $3`,
-            [searchPattern, limit, offset]
-        );
+// router.get('/searchproduct', async (req, res) => {
+//     try {
+//         const { query, limit = 10, offset = 0 } = req.query;
 
-        res.json({
-            success: true,
-            count: result.rows.length,
-            data: result.rows
-        });
+//         if (!query) {
+//             return res.status(400).json({ error: 'Search query is required' });
+//         } 
+//        const searchPattern = `%${query}%`;
+//              const result = await client.query(
+//             `SELECT id, title, description, price, category, images, currency_code 
+//              FROM searchitem 
+//              WHERE title ILIKE $1 OR description ILIKE $1
+//              LIMIT $2 OFFSET $3`,
+//             [searchPattern, limit, offset]
+//         );
 
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' });
-    }
+//         res.json({
+//             success: true,
+//             count: result.rows.length,
+//             data: result.rows
+//         });
+
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// });
+
+// Get Settings
+router.get('/settings', authenticateToken, async (req, res) => {
+  try {
+    const result = await client.query('SELECT name, email, FROM users WHERE id = $1', [req.user.id]);
+    res.json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
+
+
+// Update Settings
+
+// router.put('/update-settings', authenticateToken, async (req, res) => {
+//   const { theme_mode, notifications_enabled } = req.body;
+//   try {
+//     await client.query(
+//       'UPDATE users SET theme_mode = $1, notifications_enabled = $2 WHERE id = $3',
+//       [theme_mode, notifications_enabled, req.user.id]
+//     );
+//     res.json({ message: 'Settings updated successfully' });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// });
+
+
+
+
+
+
 
 
 // 1. CREATE a new delivery address
@@ -350,10 +483,6 @@ router.delete('/addresses/:id', async (req, res) => {
 });
 
 
-
-
-
-
 // productgetbyId
 
 // router.get("/product/:id", async (req, res) => {
@@ -447,37 +576,8 @@ router.delete("/:id", async (req, res) => {
 module.exports = router;
 
 
-// router.post('/signup', (req,res) => { 
-//     console.log(req.body)
 
-//     const { email, password } =  req.body;
-//     try {
-//         const user = new User({ email, password });
-//         user.save();
-//         const token = jwt.sign({userId:user._id}, "pak")
-//         res.send({token})
-//     } catch (err) {
-//         res.status(422).send(err.message);
-        
-//     }
 
-// })
 
-// router.post('/signin', async( req,res) => {
-//     const {email, password} = req.body
-//     if(!email || !password){
-//         return res.status(422).send({error: "must provide email or password"})
-//     }
-//     const user = await User.findOne({email})
-//     if(!user){
-//         return res.status(422).send({ error: "must provie email or password"})
-//     }
-//     try {
-//         await user.comparePassword(password);
-//         const token = jwt.sign({userId:user._id},"pak")
-//         res.send({token})
-//     } catch (err) {
-//         return res.status(422).send({error:" must provide email or password"})
-//     }
-// })
 
+// theme_mode, notifications_enabled
