@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
 // import { launchImageLibrary } from 'react-native-image-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 // const { width, height } = Dimensions.get("window").width - 40
@@ -48,7 +49,6 @@ const [searchQuery, setSearchQuery] = useState('');
 const navigation = useNavigation();
 
 
-
     
 // // Api data for products Items
 
@@ -63,7 +63,8 @@ const navigation = useNavigation();
       const res = await axios.get(URL);
       console.log(res.data);
       setProducts(res.data);
-        
+      await AsyncStorage.getItem('token',data.token)
+            
     } catch (error) {
       console.log("error", error)
     }

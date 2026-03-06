@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 // --- Mock Data ---
 const USER_DATA = {
@@ -48,6 +50,8 @@ const Profile = () => {
     ]);
   };
 
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F5F8" />
