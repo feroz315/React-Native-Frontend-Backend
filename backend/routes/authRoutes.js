@@ -1,5 +1,4 @@
 const express = require('express');
-// const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const client = require('../database/db.js');
@@ -8,7 +7,6 @@ const path = require('path');
 const authenticateToken = require('../middleware/reqToken.js');
 const fs = require("fs");
 const multer = require("multer");
-
 
 
 
@@ -24,11 +22,11 @@ const cookieOptions = {
 };
 
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, "pak", {
-    expiresIn: "1d",
-  });
-};
+// const generateToken = (id) => {
+//   return jwt.sign({ id }, "pak", {
+//     expiresIn: "1d",
+//   });
+// };
 
 
 const storage = multer.diskStorage({
@@ -65,7 +63,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 });
 
 
-// router.get('/protected-data', authtoken, (req, res) => {
+// router.get('/protected-data', authto, (req, res) => {
 //     // This code only runs if the token is valid
 //     res.json({ message: `Hello, ${req.user.email}. is protected This data.` });
 // });
@@ -73,96 +71,6 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
 
 // Register
-
-
-// // 1. Login (Generates Token)
-// app.post('/api/login', async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-//     if (result.rows.length === 0) return res.status(400).json({ message: 'User not found' });
-    
-//     const user = result.rows[0];
-//     const validPassword = await bcrypt.compare(password, user.password_hash);
-//     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
-
-//     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET);
-//     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// // 2. Get Settings
-// app.get('/api/settings', authenticateToken, async (req, res) => {
-//   try {
-//     const result = await pool.query('SELECT username, email, theme_mode, notifications_enabled FROM users WHERE id = $1', [req.user.id]);
-//     res.json(result.rows[0]);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// // 3. Update Settings
-// app.put('/api/settings', authenticateToken, async (req, res) => {
-//   const { theme_mode, notifications_enabled } = req.body;
-//   try {
-//     await pool.query(
-//       'UPDATE users SET theme_mode = $1, notifications_enabled = $2 WHERE id = $3',
-//       [theme_mode, notifications_enabled, req.user.id]
-//     );
-//     res.json({ message: 'Settings updated successfully' });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-
-// // 1. Login (Generates Token)
-// app.post('/api/login', async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-//     if (result.rows.length === 0) return res.status(400).json({ message: 'User not found' });
-    
-//     const user = result.rows[0];
-//     const validPassword = await bcrypt.compare(password, user.password_hash);
-//     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
-
-//     const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET);
-//     res.json({ token, user: { id: user.id, username: user.username, email: user.email } });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// // 2. Get Settings
-// app.get('/api/settings', authenticateToken, async (req, res) => {
-//   try {
-//     const result = await pool.query('SELECT username, email, theme_mode, notifications_enabled FROM users WHERE id = $1', [req.user.id]);
-//     res.json(result.rows[0]);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-// // 3. Update Settings
-// app.put('/api/settings', authenticateToken, async (req, res) => {
-//   const { theme_mode, notifications_enabled } = req.body;
-//   try {
-//     await pool.query(
-//       'UPDATE users SET theme_mode = $1, notifications_enabled = $2 WHERE id = $3',
-//       [theme_mode, notifications_enabled, req.user.id]
-//     );
-//     res.json({ message: 'Settings updated successfully' });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
-
-
-
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   
@@ -206,7 +114,7 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
 
-    const token = jwt.sign({ id: user.id, email: user.email }, "pak");
+    const token = jwt.sign({ id: user.id, email: user.email }, "pak", { expiresIn: '1h' });
     res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -340,6 +248,14 @@ router.get('/settings', authenticateToken, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// Profile
+router.post('/profile',authenticateToken,async (req, res) => {
+    res.json("Deshboard");
+ 
+});
+
+
 
 
 // Update Settings

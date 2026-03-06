@@ -25,7 +25,7 @@ const Login = () => {
   const Submit = async () => {
 
    try {      
-     fetch("http://192.168.1.10:3000/api/login",{
+     fetch("http://192.168.1.3:3000/api/login",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -38,12 +38,13 @@ const Login = () => {
      })
      .then(res=>res.json())
      .then(async (data)=> { 
-       console.log("userlogin", data )
+       console.log("login", data.token )
+       await AsyncStorage.setItem('token',data.token)
        navigation.navigate("bottomNav")
-       await AsyncStorage.getItem('token',data.token)
      })
       } catch (e) {
-              console.log("error hai",e)
+        console.log("error hai",e)
+        return { success: false, message: e.res?.data?.message || "Login failed" };
             }
 
   

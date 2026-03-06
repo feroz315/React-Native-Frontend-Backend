@@ -11,7 +11,6 @@ import {
   ScrollView,
 } from 'react-native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -27,7 +26,7 @@ const Signup = () => {
 
   const Submit = async () => {
    try {      
-     fetch("http://192.168.1.8:3000/api/register",{
+     fetch("http://192.168.1.3:3000/api/register",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -43,8 +42,7 @@ const Signup = () => {
      .then(async (data)=> { 
        console.log(data)
        navigation.navigate("login")
-       await AsyncStorage.setItem('token',data.token)
-       
+             
      })
 
       } catch (e) {

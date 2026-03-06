@@ -1,26 +1,4 @@
 const jwt = require('jsonwebtoken');
-
-// const mongoose = require('mongoose');
-// const User = mongoose.model('User');
-
-
-//  const authtoken = async = (req,res,next) => {
-//     const { authorization } = req.headers;
-//     if(!authorization){
-//         return res.status(401).send({error:"you must be logges in"});
-//       }
-//     const token = authorization.replace("Bearer ",""); 
-//     jwt.verify(token,"pak",async (err,payload)=> {
-//         if(err){
-//             return res.status(401.).send({error:"you must be logged in"})
-//         }
-//         const {userId} = payload;
-//         const user = await User.findById(userId)
-//         req.user = user;
-//         next()
-//     })  
-//     }   
-    
     
     // const authtoken = async(req,res,next) => {
     //     console.log(req.headers["authorization"]);
@@ -54,29 +32,21 @@ const jwt = require('jsonwebtoken');
 // // Middleware to verify Token
 
 const authenticateToken = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) return res.sendStatus(401);
-  jwt.verify(token, "pak", (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
+  const token = req.headers["authorization"].split(" ")[1]
+  console.log(token)
+  if(!token){
+           return res.status(401).json("Invaild token");
+      }
+      jwt.verify(token,"pak",async (err, decoded) => {
+          if(err){
+              return res.status(403).json("Token Expired")
+          }
+          next()   
+        });
 };
 
 
-//     const authtoken = (req, res, next) => {
-//     const authHeader = req.headers['authorization'];
-//     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
-//     if (!token) return res.sendStatus(401);
-
-//     jwt.verify(token,"pak", (err, user) => {
-//         if (err) return res.sendStatus(403);
-//         req.user = user;
-//         next();
-//     });
-// };
- 
     
 module.exports = authenticateToken;
     
