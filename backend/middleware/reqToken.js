@@ -32,19 +32,21 @@ const jwt = require('jsonwebtoken');
 // // Middleware to verify Token
 
 const authenticateToken = (req, res, next) => {
-  const token = req.headers["authorization"].split(" ")[1]
-  console.log(token)
-  if(!token){
-           return res.status(401).json("Invaild token");
-      }
-      jwt.verify(token,"pak",async (err, decoded) => {
-          if(err){
-              return res.status(403).json("Token Expired")
-          }
-          next()   
-        });
-};
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
 
+  const token = authHeader.split(' ')[1];
+  console.log(token)
+  try {
+    const decoded = jwt.verify(token, "pak");
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ error: 'Invalid or expired token' });
+  }
+};
 
 
 
@@ -66,51 +68,6 @@ module.exports = authenticateToken;
     
     
     
-    
-    
-    
-    // // const authtoken = async(req,res,next) => {
-    // //     try {
-    // //         const token = res.cookie?.token
-    // //         console.log("token",token)
-    // //         if(!token){
-    // //             res.json({
-    // //                 message: "Please Login...!",
-    // //                 error: true,
-    // //                 success: false,
-    // //             })
-    // //         }
-    // //         jwt.verify(token, "PAK", function(err,decoded) {
-    // //             console.log(err);
-    // //             console.log(decoded);
-    
-    // //             if(err){
-    // //                 console.log("error auth", err)
-    // //             }
-    // //             req._id = decoded?._id;
-                
-    // //             next();
-                
-    // //         });
-    
-            
-    // //     } catch (err) {
-    // //         res.status(400).json({
-    // //             message: err.message || err,
-    // //             data: [],
-    // //             error: true,
-    // //             success: false
-    
-    // //         });
-    // //     }
-    // // }
-    
-    
-    
-    //  export { 
-    //     // authMiddleware,
-    //     authtoken,
-    // };
     
     
     
