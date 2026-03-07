@@ -38,6 +38,7 @@ const CategoryItem = ({ item, active, onPress }) => (
 
 
 const Home = () => {
+
 const [products, setProducts] = useState([]);
 const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
@@ -48,7 +49,7 @@ const [searchQuery, setSearchQuery] = useState('');
 
 const navigation = useNavigation();
     
-// // Api data for products Items
+// Api data for products Items
 
   useEffect(() => {
     getdata();

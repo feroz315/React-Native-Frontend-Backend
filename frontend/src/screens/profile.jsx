@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../config/api';
 
 
 // --- Mock Data ---
@@ -26,7 +27,6 @@ const USER_DATA = {
 
 
 const MENU_ITEMS = [
-  { id: '1', title: 'My Orders', icon: 'bag-outline', subtitle: 'Check your order status' },
   { id: '2', title: 'Email', icon: 'heart-outline', subtitle: 'Email Address' },
   { id: '3', title: 'Address Book', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
   { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
@@ -37,8 +37,30 @@ const MENU_ITEMS = [
 
 const { width } = Dimensions.get('window');
 
+
 const Profile = () => {
-  
+const [user, setUser] = useState(null);
+
+
+
+// Api data for products Items
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+
+
+ // --- Fetch userdata ---
+  const fetchProfile = async () => {
+    try {
+      const res = await api.get('/profile');
+      setUser(res.data);
+    } catch (err) {
+      Alert.alert('Error', 'Failed to fetch profile');
+    }
+  };
+
   const handleMenuPress = (title) => {
     Alert.alert('Navigation', `Navigating to ${title}`);
   };
@@ -67,15 +89,14 @@ const Profile = () => {
           <View style={styles.profileInfo}>
             <Image source={{ uri: USER_DATA.avatar }} style={styles.avatar} />
             <View style={styles.textContainer}>
-              <Text style={styles.userName}>{USER_DATA.name}</Text>
-              <Text style={styles.userEmail}>{USER_DATA.email}</Text>
-              <Text style={styles.memberText}>Member since {USER_DATA.memberSince}</Text>
+              <Text style={styles.userName}>{user?.name}</Text>
+              <Text style={styles.userEmail}>{user?.email}</Text>
             </View>
             <TouchableOpacity style={styles.editButton}>
               <Ionicons name="pencil" size={16} color="#4facfe" />
             </TouchableOpacity>
           </View>
-        </LinearGradient>
+         </LinearGradient>
 
 
         {/* --- Menu List Section --- */}
@@ -85,7 +106,7 @@ const Profile = () => {
           {MENU_ITEMS.map((item, index) => (
             <TouchableOpacity 
               key={item.id} 
-              style={[styles.menuItem, index === MENU_ITEMS.length - 1 && styles.lastMenuItem]}
+              style={styles.menuItem}
               onPress={() => handleMenuPress(item.title)}
               activeOpacity={0.7}
             >
@@ -95,7 +116,7 @@ const Profile = () => {
                 </View>
                 <View style={styles.menuTextContainer}>
                   <Text style={styles.menuTitle}>{item.title}</Text>
-                  <Text style={styles.menuSubtitle}>{item.subtitle}</Text>
+                  <Text style={styles.menuSubtitle}>{user?.email}</Text>
                 </View>
               </View>
               <Ionicons name="chevron-forward" size={20} color="#CCC" />
@@ -111,11 +132,13 @@ const Profile = () => {
 
         <View style={{ height: 40 }} /> 
       </ScrollView>
-    </SafeAreaView>
+     </SafeAreaView>
   );
 };
 
-// --- Styles ---
+
+
+ // --- Styles ---
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -160,11 +183,7 @@ const styles = StyleSheet.create({
     color: '#666',
     marginTop: 2,
   },
-  memberText: {
-    fontSize: 12,
-    color: '#999',
-    marginTop: 4,
-  },
+  
   editButton: {
     backgroundColor: '#E0F7FA',
     padding: 10,
