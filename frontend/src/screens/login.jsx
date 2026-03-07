@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import api from '../config/api';
 
 
 const Login = () => {
@@ -32,14 +33,14 @@ const Login = () => {
       },
       body:JSON.stringify({
         "email":email,
-        "password":password,
-        
+        "password":password,  
       })
-     })
+    })
+     
      .then(res=>res.json())
-     .then(async (data)=> { 
-       console.log("login", data.token )
-       await AsyncStorage.setItem('token',data.token)
+     .then(async (data) => { 
+      console.log("login", data.token );
+       await AsyncStorage.setItem('authToken', data.token);
        navigation.navigate("bottomNav")
      })
       } catch (e) {

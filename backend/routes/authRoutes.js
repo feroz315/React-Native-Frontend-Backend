@@ -104,6 +104,7 @@ router.post("/register", async (req, res) => {
 
 
 // Login (Generates Token)
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -121,50 +122,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-
-// router.post("/login", async (req, res) => {
-//   const { email, password } = req.body;
-//   if (!email || !password) {
-//     return res
-//       .status(400)
-//       .json({ message: "Please provide all required fields" });
-//   }
-
-//   const user = await client.query("SELECT * FROM users WHERE email = $1", [
-//     email,
-//   ]);
-
-//   if (user.rows.length === 0) {
-//     return res.status(400).json({ message: "Invalid credentials" });
-//   }
-
-//   const userData = user.rows[0];
-
-//   const isMatch = await bcrypt.compare(password, userData.password);
-
-//   if (!isMatch) {
-//     return res.status(400).json({ message: "Invalid credentials" });
-//   }
-
-//   const token = generateToken(userData.id);
-
-//   res.cookie("token", token, cookieOptions);
-
-//   res.json({
-//     user: {
-//       id: userData.id,
-//       name: userData.name,
-//       email: userData.email,
-//     },
-//   });
-// });
-
-// Me
-
-router.get("/me", async (req, res) => {
-  res.json(req.user);
-  // return info of the logged in user from protect middleware
-});
 
 // Logout
 
@@ -209,7 +166,7 @@ router.get('/allproducts', async (req, res) => {
 });
 
 
-// // Search Product
+// Search Product
 
 // router.get('/searchproduct', async (req, res) => {
 //     try {
@@ -248,15 +205,6 @@ router.get('/settings', authenticateToken, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-//  Profile
-// router.get('/profile',authenticateToken,async (req, res) => {
-//     res.json("Deshboard");
- 
-// });
-
-
-
 
 // Update Settings
 
@@ -401,22 +349,6 @@ router.delete('/addresses/:id', async (req, res) => {
 
 // productgetbyId
 
-// router.get("/product/:id", async (req, res) => {
-
-//   const { id } = req.params;
-
-//   try {
-//     const product = await client.query(`
-//      SELECT * FROM products WHERE id=${id}
-//     `);
-
-//     res.status(200).json({ success: true, data: product[0] });
-//   } catch (error) {
-//     console.log("Error in getProduct function", error);
-//     res.status(500).json({ success: false, message: "Internal Server Error" });
-//   }
-// });
-
 router.get('/product/:id', async (req, res) => {
   const productId = req.params.id;
   try {
@@ -490,37 +422,6 @@ router.delete("/:id", async (req, res) => {
 
 
 // Get Profile
-// router.get("/profile",authenticateToken,async (req, res) => {
-  
-//   try {
-//     const result = await client.query('SELECT * FROM users WHERE id = $1', [req.id]);   
-    
-//     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
-//     res.json(result.rows[0]);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
-// router.get('/profile', authenticateToken, async (req, res) => {
-//     try {
-//         // req.user comes from the auth middleware
-//         const userResult = await client.query(
-//             'SELECT id, name, email, created_at FROM users WHERE id = $1',
-//             [req.user.id]
-//         );
-
-//         if (userResult.rows.length === 0) {
-//             return res.status(404).json({ message: 'User not found' });
-//         }
-
-//         res.json(userResult.rows[0]);
-//     } catch (err) {
-//         console.error(err.message);
-//         res.status(500).json({ message: 'Server error' });
-//     }
-// });
 
 router.get("/profile",authenticateToken, async (req, res) => {
   try {
@@ -531,6 +432,7 @@ router.get("/profile",authenticateToken, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 
 module.exports = router;

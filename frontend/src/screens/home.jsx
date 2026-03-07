@@ -5,8 +5,8 @@ import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
 // import { launchImageLibrary } from 'react-native-image-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+import api from '../config/api';
 
 // const { width, height } = Dimensions.get("window").width - 40
 const { width } = Dimensions.get('window');
@@ -37,34 +37,41 @@ const CategoryItem = ({ item, active, onPress }) => (
 );
 
 
-
 const Home = () => {
 const [products, setProducts] = useState([]);
 const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
+const [user, setUser] = useState(null);
 
 const [searchQuery, setSearchQuery] = useState('');
   
 
 const navigation = useNavigation();
-
-
     
 // // Api data for products Items
 
   useEffect(() => {
     getdata();
+    fetchProfile();
   }, []);
 
 
-  const getdata = async () => {
-    const URL = `http://192.168.1.3:3000/api/allproducts`;
+
+  const fetchProfile = async () => {
     try {
-      const res = await axios.get(URL);
+      const res = await api.get('/profile');
+      setUser(res.data);
+    } catch (err) {
+      Alert.alert('Error', 'Failed to fetch profile');
+    }
+  };
+
+
+  const getdata = async () => {
+    try {
+      const res = await api.get("/allproducts");
       console.log(res.data);
-      setProducts(res.data);
-      await AsyncStorage.getItem('token',data.token)
-            
+      setProducts(res.data);        
     } catch (error) {
       console.log("error", error)
     }
@@ -124,8 +131,6 @@ const selectImage = async () => {
 };
 
 
-
-
 return (
 
  <SafeAreaView style={styles.container}>
@@ -137,7 +142,7 @@ return (
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Hello, 👋</Text>
-            <Text style={styles.username}>Alex </Text>
+            <Text style={styles.username}>{user?.name} </Text>     
           </View>
           <TouchableOpacity style={styles.profileButton} onPress={selectImage}>
              <Image 
