@@ -130,7 +130,6 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out successfully" });
 });
 
-
 // Admin Endpoint to import products from JSON
 
 router.post('/products', async (req, res) => {

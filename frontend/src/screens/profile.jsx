@@ -15,6 +15,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
+import { useNavigation } from '@react-navigation/native';
 
 
 // --- Mock Data ---
@@ -28,7 +29,7 @@ const USER_DATA = {
 
 const MENU_ITEMS = [
   { id: '2', title: 'Email', icon: 'heart-outline', subtitle: 'Email Address' },
-  { id: '3', title: 'Address Book', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
+  { id: '3', title: 'Notification', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
   { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
   { id: '5', title: 'Contact', icon: 'settings-outline', subtitle: 'Conatact Number' },
   { id: '6', title: 'Update Password ', icon: 'help-circle-outline', subtitle: 'Change Password' },
@@ -40,6 +41,8 @@ const { width } = Dimensions.get('window');
 
 const Profile = () => {
 const [user, setUser] = useState(null);
+
+const navigation = useNavigation();
 
 
 
@@ -57,7 +60,7 @@ const [user, setUser] = useState(null);
       const res = await api.get('/profile');
       setUser(res.data);
     } catch (err) {
-      Alert.alert('Error', 'Failed to fetch profile');
+      console.log(err, 'Failed to fetch profile');
     }
   };
 
@@ -65,11 +68,21 @@ const [user, setUser] = useState(null);
     Alert.alert('Navigation', `Navigating to ${title}`);
   };
 
-  const handleLogout = () => {
-    Alert.alert('Logout', 'Are you sure you want to logout?', [
-      { text: 'Cancel', style: 'cancel' },
-      { text: 'Logout', style: 'destructive', onPress: () => console.log('Logged out') },
-    ]);
+  const handleLogout = async () => {
+     try {
+       fetch("http://192.168.1.11:3000/api/logout",{
+       method:"POST",
+       headers: {
+        'Content-Type': 'application/json'
+      },
+    }) 
+      await AsyncStorage.removeItem('authToken');
+      console.log("authtoken")
+      navigation.navigate("login")
+    
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
 

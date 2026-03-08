@@ -18,6 +18,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {back,star,cart } from '../const/icons';
 import {  useDispatch, useSelector } from 'react-redux';
 import { addMyCart, selectcartItems } from '../state/CartSlics';
+import api from '../config/api';
 
 
 const SPACING = 10;
@@ -49,9 +50,9 @@ const ProductDetail = ({route}) => {
 
 
   const ProductgetID = async () => {
-    const URL = `http://192.168.1.3:3000/api/product/${id}`;
+    // const URL = `http://192.168.1.11:3000/api`;
     try {
-      const res = await axios.get(URL);
+      const res = await api.get(`/product/${id}`);
       console.log('product', res.data);
       setProduct(res.data);
     } catch (error) {
