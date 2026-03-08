@@ -60,7 +60,7 @@ const navigation = useNavigation();
       const res = await api.get('/profile');
       setUser(res.data);
     } catch (err) {
-      console.log(err, 'Failed to fetch profile');
+      console.log(err, 'Failed ');
     }
   };
 

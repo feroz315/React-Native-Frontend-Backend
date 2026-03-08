@@ -31,7 +31,7 @@ const Setting = () => {
       setTheme(response.data.theme_mode);
       setNotifications(response.data.notifications_enabled);
     } catch (error) {
-      Alert.alert('Error', 'Failed to load settings');
+      console.log(error, 'Failed to load settings');
     } finally {
       setLoading(false);
     }

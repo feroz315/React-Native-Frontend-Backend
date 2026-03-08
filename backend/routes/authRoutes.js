@@ -63,13 +63,6 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 });
 
 
-// router.get('/protected-data', authto, (req, res) => {
-//     // This code only runs if the token is valid
-//     res.json({ message: `Hello, ${req.user.email}. is protected This data.` });
-// });
-
-
-
 // Register
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
