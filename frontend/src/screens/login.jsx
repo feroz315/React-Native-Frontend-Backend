@@ -24,7 +24,6 @@ const Login = () => {
 
 
   const Submit = async () => {
-
    try {      
      fetch("http://192.168.1.11:3000/api/login",{
        method:"POST",
@@ -51,6 +50,7 @@ const Login = () => {
   
   }
 
+  
   return (
  
    <SafeAreaView style={styles.container}>

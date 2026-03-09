@@ -29,9 +29,9 @@ const USER_DATA = {
 
 const MENU_ITEMS = [
   { id: '2', title: 'Email', icon: 'heart-outline', subtitle: 'Email Address' },
-  { id: '3', title: 'Notification', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
+  { id: '3', title: 'Contact', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
   { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
-  { id: '5', title: 'Contact', icon: 'settings-outline', subtitle: 'Conatact Number' },
+  { id: '5', title: 'Notifications', icon: 'settings-outline', subtitle: 'Conatact Number' },
   { id: '6', title: 'Update Password ', icon: 'help-circle-outline', subtitle: 'Change Password' },
   { id: '7', title: 'Invite Friends', icon: 'people-outline', subtitle: 'Share the app' },
 ];

@@ -97,7 +97,6 @@ router.post("/register", async (req, res) => {
 
 
 // Login (Generates Token)
-
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -108,8 +107,8 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(400).json({ message: 'Invalid password' });
 
-    const token = jwt.sign({ id: user.id, email: user.email }, "pak", { expiresIn: '7d' });
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email } });
+    const token = jwt.sign({ id: user.id, email: user.email,}, "pak", { expiresIn: '7d' });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email} });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -117,14 +116,13 @@ router.post('/login', async (req, res) => {
 
 
 // Logout
-
 router.post("/logout", (req, res) => {
   res.cookie("token", "", { ...cookieOptions, maxAge: 1 });
   res.json({ message: "Logged out successfully" });
 });
 
-// Admin Endpoint to import products from JSON
 
+// Admin Endpoint to import products from JSON
 router.post('/products', async (req, res) => {
   try {
     // Read the JSON file
@@ -425,13 +423,111 @@ router.get("/profile",authenticateToken, async (req, res) => {
   }
 });
 
+// Change Password
+
+// router.put('/profile/password', authenticateToken, async (req, res) => {
+//   const { password, new_password } = req.body;
+//   try {
+//     const user = await client.query('SELECT password FROM users WHERE id = $1', [req.user.id]);
+//     const valid = await bcrypt.compare(password, user.rows[0].password);
+//     if (!valid) return res.status(401).json({ error: 'Invalid current password' });
+
+//     const hashed = await bcrypt.hash(new_password, 10);
+//     await client.query('UPDATE users SET password = $1 WHERE id = $2', [hashed, req.user.id]);
+//     res.json({ message: 'Password updated successfully' });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
+
+// // Update Password Endpoint
+
+// router.put('/profile/password', authenticateToken, async (req, res) => {
+//   const { password, newPassword } = req.body;
+//   const userId = req.user.id;
+
+//   try {
+//     const result = await client.query('SELECT password FROM users WHERE id = $1', [userId]);
+//     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
+
+//     const user = result.rows[0];
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) return res.status(401).json({ error: 'Current password is incorrect' });
+
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+//     await client.query(
+//       'UPDATE users SET password = $1, updated_at = NOW() WHERE id = $2',
+//       [hashedPassword, userId]
+//     );
+
+//     res.json({ message: 'Password updated successfully' });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
+
+
+router.put('/profile/password', async (req, res) => {
+  const { password, newPassword } = req.body;
+  // Assume userId is retrieved from an authentication token (middleware needed for this)
+  const userId = req.user.id; 
+
+  try {
+    // 1. Fetch the user's current hashed password from the database
+    const userResult = await client.query('SELECT password FROM users WHERE id = $1', [userId]);
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const { password: storedHash } = userResult.rows[0];
+
+    // 2. Compare the provided current password with the stored hash
+    const isMatch = await bcrypt.compare(password, storedHash);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Incorrect current password' });
+    }
+
+    // 3. Hash the new password
+    const saltRounds = 10; // or 12
+    const newPasswordHash = await bcrypt.hash(newPassword, saltRounds);
+
+    // 4. Update the password hash in the PostgreSQL database
+    await client.query('UPDATE users SET password = $1 WHERE id = $2', [newPasswordHash, userId]);
+
+    res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 
 module.exports = router;
 
 
 
-// // Update Profile
+// Optional: Change Password with Email Verification
+// app.post('/api/users/forgot-password', async (req, res) => {
+//   const { email } = req.body;
+//   try {
+//     const result = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
+//     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
+
+//     const token = jwt.sign({ id: result.rows[0].id }, JWT_SECRET, { expiresIn: '1h' });
+//     // Send token via email (implement email service)
+//     res.json({ message: 'Password reset link sent to your email' });
+//   } catch (err) {
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
+
+
+//  Update Profile
 // app.put('/api/profile', authenticateToken, async (req, res) => {
 //   const { first_name, last_name, phone, avatar_url, bio } = req.body;
 //   try {
@@ -450,22 +546,7 @@ module.exports = router;
 //   }
 // });
 
-// // Change Password
-// app.put('/api/profile/password', authenticateToken, async (req, res) => {
-//   const { current_password, new_password } = req.body;
-//   try {
-//     const user = await pool.query('SELECT password_hash FROM users WHERE id = $1', [req.user.id]);
-//     const valid = await bcrypt.compare(current_password, user.rows[0].password_hash);
-//     if (!valid) return res.status(401).json({ error: 'Invalid current password' });
 
-//     const hashed = await bcrypt.hash(new_password, 10);
-//     await pool.query('UPDATE users SET password_hash = $1 WHERE id = $2', [hashed, req.user.id]);
-//     res.json({ message: 'Password updated successfully' });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
 
 // // Register
 // app.post('/api/register', async (req, res) => {

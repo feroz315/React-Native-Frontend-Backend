@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 
 
 // app.use(cookieParser());
@@ -35,28 +35,6 @@ app.use(express.json());
 
 // const uri = "mongodb+srv://feroz3151:mIpdQGiS9o22MU1X@bloodbank.ui7alo0.mongodb.net/";
 
-
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
-// app.use(cors());
-
-
-// mongoose.connect(uri)
-
-// mongoose.connection.on('connected', () => {
-//     console.log("mongodb Successfully Connect ");
-
-// });
-
-// mongoose.connection.on('error', (err) => {
-//     console.log("error this is", err );
-
-// });
-
-
-// app.get("/", reqtoken,(req,res) => {
-//     res.send("your email is " + req.user.email)
-// })
 
 
 
