@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import api from '../config/api';
 
 
 const Login = () => {
@@ -25,7 +24,7 @@ const Login = () => {
 
   const Submit = async () => {
    try {      
-     fetch("http://192.168.1.11:3000/api/login",{
+     fetch("http://192.168.1.7:3000/api/login",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -51,6 +50,11 @@ const Login = () => {
   }
 
   
+  const ForgetPass = async () => {   
+    navigation.navigate("forget")
+   
+  }
+
   return (
  
    <SafeAreaView style={styles.container}>
@@ -87,6 +91,11 @@ const Login = () => {
          {/* Signup Button */}
          <TouchableOpacity style={styles.signupButton} onPress={Submit}>
            <Text style={styles.signupButtonText}>Login </Text>
+         </TouchableOpacity>
+
+         {/* Forget Button */}
+         <TouchableOpacity style={styles.signupButton} onPress={ForgetPass}>
+           <Text style={styles.signupButtonText}>Forget </Text>
          </TouchableOpacity>
  
        </ScrollView>

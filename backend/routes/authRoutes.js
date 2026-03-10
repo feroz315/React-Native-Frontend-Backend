@@ -4,6 +4,8 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const client = require('../database/db.js');
 const path = require('path');
+const { sendResetEmail } = require('../producthelper/emailservice.js')
+
 
 const authenticateToken = require('../middleware/reqToken.js');
 const fs = require("fs");
@@ -532,7 +534,6 @@ router.post('/forgot-password', async (req, res) => {
 
     // Send Email
     await sendResetEmail(email, token);
-
     res.status(200).json({ message: 'Reset code sent to your email' });
   } catch (error) {
     console.error(error);
@@ -541,12 +542,12 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 // 2. Reset Password
-app.post('/api/reset-password', async (req, res) => {
+router.post('/reset-password', async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
     // Validate Token
-    const result = await pool.query(
+    const result = await client.query(
       'SELECT * FROM users WHERE reset_token = $1 AND reset_token_expiry > NOW()',
       [token]
     );
@@ -562,8 +563,8 @@ app.post('/api/reset-password', async (req, res) => {
     const hashedPassword = await bcrypt.hash(newPassword, salt);
 
     // Update Password & Clear Token
-    await pool.query(
-      'UPDATE users SET password_hash = $1, reset_token = NULL, reset_token_expiry = NULL WHERE id = $2',
+    await client.query(
+      'UPDATE users SET password = $1, reset_token = NULL, reset_token_expiry = NULL WHERE id = $2',
       [hashedPassword, user.id]
     );
 

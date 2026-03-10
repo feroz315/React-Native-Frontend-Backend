@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const URL = "http://192.168.1.8:3000/api/reset-password";
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -14,7 +15,7 @@ const sendResetEmail = async (email, token) => {
     from: "alam@gmail.com",
     to: email,
     subject: 'Password Reset Request',
-    text: `You requested a new password reset ${token} It expires in 1 hour.`,
+    text: `You requested a new password reset ${URL} ${token} It expires in 1 hour.`,
   };
 
   await transporter.sendMail(mailOptions);

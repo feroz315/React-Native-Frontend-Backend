@@ -1,10 +1,8 @@
-import React, { useEffect,useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'react-native';
 import { COLORS } from '../const/colors';
-
 
 import Signup from '../screens/signup';
 import Login from '../screens/login';
@@ -18,31 +16,16 @@ import Chectout from './chectout';
 import Logout from './logout';
 import Profile from './profile';
 import Delivery from './delivery';
+import ForgotPassword from './forgetpass';
+import ResetPassword from './resetpass';
+
+
 
 
 
 const Stack = createStackNavigator();
 
 const Navigation = () => {
-
-//  const [islogged, setIslogged] = useState(null);
-
-
-// const checktoken = async () => {
- 
-//  const token = await AsyncStorage.getItem('token')
- 
-//   if(token){
-//         setIslogged(true)
-//     }else{
-//         setIslogged(false)
-//     }
-// }
-
-
-// useEffect(() => {
-//     checktoken();
-//  },[])
 
 
  return (
@@ -63,8 +46,8 @@ const Navigation = () => {
                  <Stack.Screen name="logout" component={Logout}/>
                 <Stack.Screen name="profile" component={Profile}/>
                <Stack.Screen name="delivery" component={Delivery}/>
-
-
+               <Stack.Screen name="forget" component={ForgotPassword}/>
+               <Stack.Screen name="reset" component={ResetPassword}/>
                  
         </Stack.Navigator>            
             </NavigationContainer>

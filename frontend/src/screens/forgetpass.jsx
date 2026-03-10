@@ -1,29 +1,53 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import api from '../config/api';
 
-
-const API_URL = 'http://localhost:5000/api'; // Change to your backend IP if on emulator
 
 
 const ForgotPassword = ({ navigation }) => {
+
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
+ 
   const handleRequestReset = async () => {
-    if (!email) return Alert.alert('Error', 'Please enter email');
-    
-    setLoading(true);
-    try {
-      await axios.post(`${API_URL}/forgot-password`, { email });
-      Alert.alert('Success', 'Reset code sent to your email');
-      navigation.navigate('ResetPassword', { email });
-    } catch (error) {
-      Alert.alert('Error', error.response?.data?.message || 'Failed to send email');
+   try {      
+     fetch("http://192.168.1.7:3000/api/forgot-password",{
+       method:"POST",
+       headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        "email":email, 
+      })
+
+    })
+      console.log('Success', 'Reset code sent to your email');
+      navigation.navigate('reset', { email }); 
+      } catch (error) {
+      console.log('Error', error.response?.data?.message || 'Failed to send email');
     } finally {
       setLoading(false);
     }
-  };
+  
+  }
+
+
+
+//   const handleRequestReset = async () => {
+//     if (!email) return Alert.alert('Error', 'Please enter email');
+//     setLoading(true);
+//     try {
+//       await api.post("/forgot-password", { email });
+//       Alert.alert('Success', 'Reset code sent to your email');
+//       navigation.navigate('ResetPassword', { email });
+//     } catch (error) {
+//       Alert.alert('Error', error.response?.data?.message || 'Failed to send email');
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
   return (
     <View style={styles.container}>

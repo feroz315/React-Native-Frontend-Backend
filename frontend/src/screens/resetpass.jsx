@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
+import api from '../config/api';
 
-
-const API_URL = 'http://localhost:5000/api';
+// const API_URL = 'http://192.168.1.8:3000/api/reset-password';
 
 
 
 const ResetPassword = ({ route, navigation }) => {
   const { email } = route.params;
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+
+
   const handleReset = async () => {
-    if (!token || !newPassword) return Alert.alert('Error', 'Fill all fields');
+    if (!newPassword) return Alert.alert('Error', 'Fill all fields');
     
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/reset-password`, { token, newPassword });
-      Alert.alert('Success', 'Password updated! Please login.');
-      navigation.navigate('Login');
+        fetch("http://192.168.1.7:3000/api/reset-password",{
+       method:"POST",
+       headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({
+        "newpassword": newPassword, 
+      })
+    })
+      console.log('Success', 'Password updated! Please login.');
+      navigation.navigate('login');
     } catch (error) {
-      Alert.alert('Error', error.response?.data?.message || 'Failed to reset password');
+      console.log('Error', error.response?.data?.message || 'Failed to reset password');
     } finally {
       setLoading(false);
     }
@@ -33,12 +43,6 @@ const ResetPassword = ({ route, navigation }) => {
       <Text style={styles.title}>Reset Password</Text>
       <Text style={styles.subtext}>Email: {email}</Text>
       
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Reset Code from Email"
-        value={token}
-        onChangeText={setToken}
-      />
       
       <TextInput
         style={styles.input}
