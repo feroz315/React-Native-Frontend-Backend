@@ -473,7 +473,6 @@ router.get("/profile",authenticateToken, async (req, res) => {
 //   }
 // });
 
-
 router.put('/profile/password', async (req, res) => {
   const { password, newPassword } = req.body;
   // Assume userId is retrieved from an authentication token (middleware needed for this)
@@ -509,6 +508,11 @@ router.put('/profile/password', async (req, res) => {
   }
 });
 
+// Generate secure token
+function generateToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
+
 
 // 1. Request Password Reset
 router.post('/forgot-password', async (req, res) => {
@@ -523,7 +527,7 @@ router.post('/forgot-password', async (req, res) => {
     }
 
     // Generate Token
-    const token = crypto.randomBytes(32).toString('hex');
+    const token = generateToken();
     const expiry = new Date(Date.now() + 3600000); // 1 hour
 
     // Save Token to DB
@@ -533,7 +537,8 @@ router.post('/forgot-password', async (req, res) => {
     );
 
     // Send Email
-    await sendResetEmail(email, token);
+    const resetLink = `http://192.168.1.7:3000/api/reset-password?token=${token}`;
+    await sendResetEmail(email, resetLink);
     res.status(200).json({ message: 'Reset code sent to your email' });
   } catch (error) {
     console.error(error);
@@ -541,14 +546,15 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-// 2. Reset Password
-router.post('/reset-password', async (req, res) => {
-  const { token, newPassword } = req.body;
 
+
+// Verify Token and Get User
+router.get('/verify-reset-token/:token', async (req, res) => {
+  const { token } = req.params;
   try {
-    // Validate Token
     const result = await client.query(
-      'SELECT * FROM users WHERE reset_token = $1 AND reset_token_expiry > NOW()',
+      `SELECT id, email FROM users
+       WHERE reset_token = $1 AND reset_token_expiry > NOW()`,
       [token]
     );
 
@@ -556,24 +562,77 @@ router.post('/reset-password', async (req, res) => {
       return res.status(400).json({ message: 'Invalid or expired token' });
     }
 
-    const user = result.rows[0];
-
-    // Hash New Password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(newPassword, salt);
-
-    // Update Password & Clear Token
-    await client.query(
-      'UPDATE users SET password = $1, reset_token = NULL, reset_token_expiry = NULL WHERE id = $2',
-      [hashedPassword, user.id]
-    );
-
-    res.status(200).json({ message: 'Password reset successfully' });
-  } catch (error) {
-    console.error(error);
+    res.json({ valid: true, email: result.rows[0].email });
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
+// // Reset Password
+// router.post('/reset-password', async (req, res) => {
+//   const { token } = req.params;
+//   const { password } = req.body;
+//   try {
+//     const salt = await bcrypt.genSalt(10);
+//     const hashedPassword = await bcrypt.hash(password, salt);
+
+//     const result = await client.query(
+//       `UPDATE users 
+//        SET password = $1
+//        FROM users
+//        WHERE reset_token = $2 AND reset_token_expiry > NOW()
+//        RETURNING`,
+//       [hashedPassword, token]
+//     );
+
+//     if (result.rows.length === 0) {
+//       return res.status(400).json({ message: 'Invalid or expired token' });
+//     }
+
+//     // await client.query('UPDATE users SET used = TRUE WHERE token = $1', [token]);
+
+//     res.json({ message: 'Password reset successfully' });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// });
+
+
+// Reset Password
+router.post('/reset-password/:token', async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+  try {
+    const result = await client.query(
+      'SELECT * FROM users WHERE reset_token = $1 AND reset_token_expiry > NOW()',
+      [token]
+    );
+    if (result.rows.length === 0) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await client.query(
+      'UPDATE users SET password = $1 WHERE id = $2',
+      [hashedPassword, result.rows[0].id]
+    );
+
+    // await client.query(
+    //   'UPDATE reset_token SET used = TRUE WHERE id = $1',
+    //   [result.rows[0].id]
+    // );
+
+    res.json({ message: 'Password reset successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 
 module.exports = router;
