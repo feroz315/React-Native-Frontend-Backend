@@ -547,7 +547,6 @@ router.post('/forgot-password', async (req, res) => {
 });
 
 
-
 // Verify Token and Get User
 router.get('/verify-reset-token/:token', async (req, res) => {
   const { token } = req.params;

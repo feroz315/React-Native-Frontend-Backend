@@ -3,9 +3,6 @@ import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator } f
 import axios from 'axios';
 import api from '../config/api';
 
-// const API_URL = 'http://192.168.1.8:3000/api/reset-password';
-
-
 
 const ResetPassword = ({ route, navigation }) => {
   const { email } = route.params;
