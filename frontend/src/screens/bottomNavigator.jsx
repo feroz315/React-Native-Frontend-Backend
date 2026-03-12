@@ -35,7 +35,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({focused}) => (
               <View>
                 <Image source={require('../assets/images/home.png')} 
-                style={{width:22,height:22,tintColor: focused ? COLORS.Teal : COLORS.dark, }}/>
+                style={{width:22,height:22,tintColor: focused ? COLORS.navy : COLORS.dark, }}/>
             </View>
 
           ),headerShown: false
@@ -62,7 +62,8 @@ const BottomNavigator = () => {
         name="Search"
         component={Search}
         options={{
-          tabBarIcon: ({czolor}) => (
+           tabBarActiveTintColor:COLORS.navy,
+            tabBarIcon: ({czolor}) => (
             <View>
                 <Image source={require('../assets/images/search1.png')}
                  style={{width:28,height:28,marginRight:5}}
@@ -92,7 +93,7 @@ const BottomNavigator = () => {
         component={Setting}
         options={{
           tabBarStyle: {display: 'none'},
-          tabBarActiveTintColor:COLORS.Teal,
+          tabBarActiveTintColor:COLORS.navy,
           tabBarIcon: ({focused}) => (
             <View>
                 <Image source={require('../assets/images/settings.png')} style={{width:20,height:20,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>

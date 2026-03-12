@@ -153,22 +153,7 @@ return (
               </TouchableOpacity>
            </View>
 
-        {/* --- SEARCH BAR --- */}
-        <View style={styles.searchContainer}>
-          {/* <Icon name="search" size={20} color="#8D8D8D" style={styles.searchIcon} /> */}
-          <TextInput 
-            placeholder="Search products..." 
-            placeholderTextColor="#8D8D8D"
-            value={searchQuery}
-            autoCapitalize='none'
-            style={styles.searchInput}
-          />
-          <View style={styles.filterButton}>
-            {/* <Icon name="options-outline" size={20} color="#FFFFFF" /> */}
-          </View>        
-        </View>
-
-          
+                 
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
@@ -285,37 +270,6 @@ const styles = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor:"#FF6B6B"
-  },
-
-  // Search Styles
-
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginVertical: 15,
-    borderRadius: 15,
-    paddingHorizontal: 15,
-    height: 55,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 3,
-  },
-  searchIcon: {
-    marginRight: 10,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
-    color: '#1A1A1A',
-  },
-  filterButton: {
-    backgroundColor: '#FF6B6B', // Primary Accent Color
-    padding: 10,
-    borderRadius: 12,
   },
 
   // Category Styles

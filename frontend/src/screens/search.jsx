@@ -72,6 +72,8 @@ const Search = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+       {/* --- SEARCH BAR --- */}
+      <View style={styles.searchContainer}>      
       <TextInput
         style={styles.searchInput}
         placeholder="Search products..."
@@ -80,6 +82,11 @@ const Search = () => {
         autoCapitalize="none"
         autoCorrect={false}
       />
+       <View style={styles.filterButton}>
+            {/* <Icon name="options-outline" size={20} color="#FFFFFF" /> */}
+          </View>        
+        </View>
+
       <FlatList
         data={filteredData}
         renderItem={renderProductItem}
@@ -87,6 +94,10 @@ const Search = () => {
         ListEmptyComponent={<Text style={styles.noResults}>No products found.</Text>}
       />
     </SafeAreaView>
+
+         
+
+
   );
 };
 
@@ -96,19 +107,37 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     marginHorizontal: 10,
   },
-  searchInput: {
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
+  // Search Styles
+
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 20,
+    marginVertical: 15,
+    borderRadius: 15,
     paddingHorizontal: 15,
-    marginBottom: 10,
+    height: 55,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 5,
+    elevation: 3,
   },
-  itemContainer: {
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+  searchIcon: {
+    marginRight: 10,
   },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+    color: '#1A1A1A',
+  },
+  filterButton: {
+    backgroundColor: '#FF6B6B', // Primary Accent Color
+    padding: 10,
+    borderRadius: 12,
+  },
+
   productName: {
     fontSize: 16,
     fontWeight: 'bold',

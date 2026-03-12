@@ -15,11 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use(cookieParser());
 
-// require('./models/user')
-// const reqtoken = require('./middleware/reqToken');
-
-// const authRoutes = require('./routes/authRoutes')
-
 // app.use(bodyParser.json());
 // app.use(authRoutes)
 
@@ -33,12 +28,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // const Port = process.env.PORT || 3000;
 
-// const uri = "mongodb+srv://feroz3151:mIpdQGiS9o22MU1X@bloodbank.ui7alo0.mongodb.net/";
 
-
-
-
-app.use("/api", router);
+app.use("/api", router)
 
 
 app.listen(3000, () => {
