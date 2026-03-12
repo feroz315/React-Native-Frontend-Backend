@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import axios from 'axios';
-import api from '../config/api';
 
 
 
@@ -34,21 +32,6 @@ const ForgotPassword = ({ navigation }) => {
   }
 
 
-
-//   const handleRequestReset = async () => {
-//     if (!email) return Alert.alert('Error', 'Please enter email');
-//     setLoading(true);
-//     try {
-//       await api.post("/forgot-password", { email });
-//       Alert.alert('Success', 'Reset code sent to your email');
-//       navigation.navigate('ResetPassword', { email });
-//     } catch (error) {
-//       Alert.alert('Error', error.response?.data?.message || 'Failed to send email');
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Forgot Password</Text>
@@ -63,17 +46,40 @@ const ForgotPassword = ({ navigation }) => {
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
-        <Button title="Send Reset Code" onPress={handleRequestReset} />
+        <TouchableOpacity style={styles.signupButton} onPress={han}>
+          <Text style={styles.signupButtonText}>Send Reset Code </Text>
+        </TouchableOpacity>
       )}
-      <Button title="Back to Login" onPress={() => navigation.goBack()} />
+      <TouchableOpacity
+        style={styles.signupButton}
+        onPress={() => navigation.goBack()}>
+        <Text style={styles.signupButtonText}> Back to Login </Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 20 },
   title: { fontSize: 24, marginBottom: 20, textAlign: 'center' },
   input: { borderWidth: 1, padding: 10, marginBottom: 20, borderRadius: 5 },
+  signupButton: {
+    backgroundColor: '#FF6B35', // Orange theme for food app
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    borderRadius: 10,
+    marginTop: 10,
+    width: '100%',
+    alignItems: 'center',
+  },
+  signupButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
 });
 
 
