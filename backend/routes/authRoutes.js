@@ -14,7 +14,12 @@ const multer = require("multer");
 
 
 const router = express.Router();
-// const User = mongoose.model('User');
+
+
+// Generate secure token
+function generateToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
 
 
 const cookieOptions = {
@@ -341,7 +346,6 @@ router.delete('/addresses/:id', async (req, res) => {
 
 
 // productgetbyId
-
 router.get('/product/:id', async (req, res) => {
   const productId = req.params.id;
   try {
@@ -359,8 +363,8 @@ router.get('/product/:id', async (req, res) => {
   }
 });
 
-// update product
 
+// update product
 router.put("/:id", async (req, res) => {
   
   const { id } = req.params;
@@ -388,8 +392,8 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// delete product
 
+// delete product
 router.delete("/:id", async (req, res) => {
   
  const { id } = req.params;
@@ -415,7 +419,6 @@ router.delete("/:id", async (req, res) => {
 
 
 // Get Profile
-
 router.get("/profile",authenticateToken, async (req, res) => {
   try {
     const result = await client.query('SELECT id, email, name FROM users WHERE id = $1', [req.user.id]);
@@ -425,6 +428,7 @@ router.get("/profile",authenticateToken, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Change Password
 
@@ -472,7 +476,6 @@ router.get("/profile",authenticateToken, async (req, res) => {
 //     res.status(500).json({ error: 'Server error' });
 //   }
 // });
-
 router.put('/profile/password', async (req, res) => {
   const { password, newPassword } = req.body;
   // Assume userId is retrieved from an authentication token (middleware needed for this)
@@ -507,11 +510,6 @@ router.put('/profile/password', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
-// Generate secure token
-function generateToken() {
-  return crypto.randomBytes(32).toString('hex');
-}
 
 
 // 1. Request Password Reset
@@ -569,7 +567,7 @@ router.get('/verify-reset-token/:token', async (req, res) => {
 });
 
 
-// // Reset Password
+// Reset Password
 // router.post('/reset-password', async (req, res) => {
 //   const { token } = req.params;
 //   const { password } = req.body;
@@ -619,11 +617,6 @@ router.post('/reset-password/:token', async (req, res) => {
       [hashedPassword, result.rows[0].id]
     );
 
-    // await client.query(
-    //   'UPDATE reset_token SET used = TRUE WHERE id = $1',
-    //   [result.rows[0].id]
-    // );
-
     res.json({ message: 'Password reset successfully' });
   } catch (err) {
     console.error(err);
@@ -638,20 +631,38 @@ module.exports = router;
 
 
 
+
+
+
+
+
+
+
+
 // Optional: Change Password with Email Verification
-// app.post('/api/users/forgot-password', async (req, res) => {
+// router.post('/forgot-password', async (req, res) => {
 //   const { email } = req.body;
 //   try {
-//     const result = await pool.query('SELECT id FROM users WHERE email = $1', [email]);
+//     const result = await client.query('SELECT id FROM users WHERE email = $1', [email]);
 //     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
 
-//     const token = jwt.sign({ id: result.rows[0].id }, JWT_SECRET, { expiresIn: '1h' });
+//     const token = jwt.sign({ id: result.rows[0].id }, "pak", { expiresIn: '24h' });
+//     const expiry = new Date(Date.now() + 3600000); // 1 hour
+//     // Save Token to DB
+//     await client.query(
+//    'UPDATE users SET reset_token = $1, reset_token_expiry = $2 WHERE email = $3',
+//     [token, expiry, email]
+//      );
+      
 //     // Send token via email (implement email service)
+//     const resetLink = `http://192.168.1.7:3000/api/reset-password?token=${token}`;
+//     await sendResetEmail(email, resetLink);
 //     res.json({ message: 'Password reset link sent to your email' });
 //   } catch (err) {
 //     res.status(500).json({ error: 'Server error' });
 //   }
 // });
+
 
 
 //  Update Profile
