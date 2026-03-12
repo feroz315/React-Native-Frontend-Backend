@@ -7,11 +7,16 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  Dimensions,
   SafeAreaView,
   ScrollView,
+  Linking
 } from 'react-native';
-
+import { COLORS } from "../const/colors";
+ 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const { width } = Dimensions.get("screen");
 
 
 const Login = () => {
@@ -49,21 +54,29 @@ const Login = () => {
   
   }
 
-  
   const ForgetPass = async () => {   
     navigation.navigate("forget")
-   
   }
+  
+  const Signup = async () => {   
+    navigation.navigate("signup")
+  }
+  
+const openGmail = () => {
+  // Use react-native-email-link or custom linking for a better experience
+  Linking.openURL('https://accounts.google.com');
+};
+
 
   return (
  
    <SafeAreaView style={styles.container}>
        <ScrollView contentContainerStyle={styles.scrollContainer}>
          {/* App Logo/Image */}
-         <Image source={require('../assets/images/fashion4.png')} style={styles.logo} resizeMode="contain" />
+         <Image source={require('../assets/images/shopping.png')} style={styles.logo} resizeMode="contain" />
  
-         <Text style={styles.title}>Login </Text>   
-     
+         <Text style={styles.title}>Login</Text>   
+    
          {/* Email Input */}
          <View style={styles.inputContainer}>
            <TextInput
@@ -88,16 +101,32 @@ const Login = () => {
          </View>
  
          
+         {/* Forget Button */}
+         <TouchableOpacity onPress={ForgetPass}>
+           <Text style={styles.forgetButtonText}>Forgot Password? </Text>
+         </TouchableOpacity>
+ 
          {/* Signup Button */}
          <TouchableOpacity style={styles.signupButton} onPress={Submit}>
            <Text style={styles.signupButtonText}>Login </Text>
          </TouchableOpacity>
-
-         {/* Forget Button */}
-         <TouchableOpacity style={styles.signupButton} onPress={ForgetPass}>
-           <Text style={styles.signupButtonText}>Forget </Text>
+   
+     <View style={styles.accountsign}>
+      <Text style={styles.forgetButtonText}>Don't have an account? </Text>
+          <TouchableOpacity onPress={Signup}>    
+           <Text style={styles.signupbtn}>Sign Up </Text>
          </TouchableOpacity>
- 
+     </View>
+   
+       <Text style={styles.forgetButtonText}>Or </Text>
+   
+    {/* Signup Button */}
+         <TouchableOpacity style={styles.GmailButton} onPress={openGmail}>
+           <Text style={styles.signupButtonText}>Gmail </Text>
+         </TouchableOpacity>
+   
+   
+
        </ScrollView>
      </SafeAreaView>
      
@@ -118,14 +147,15 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
-    height: 120,
-    marginBottom: 30,
+    height: 150,
+    marginBottom: 10,
     alignSelf: 'center',
     
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: '500',
+    fontFamily:"Poppins",
     color: '#333',
     marginBottom: 25,
     textAlign: 'center',
@@ -143,26 +173,36 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 10,
+    borderRadius: 15,
     paddingHorizontal: 15,
     paddingVertical: 12,
     fontSize: 16,
     backgroundColor: '#f9f9f9',
   },
   signupButton: {
-    backgroundColor: '#FF6B35', // Orange theme for food app
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 10,
-    marginTop: 10,
-    width: '100%',
-    alignItems: 'center',
+    // backgroundColor: '#FF6B35', 
+    width: width * 0.75,
+    height:45,
+    backgroundColor: COLORS.navy,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginTop:50,
+     
   },
   signupButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize:16,
+    color: COLORS.white,
+    textAlign:'center'      
+ 
   },
+  forgetButtonText: {
+    fontSize:16,
+    color: COLORS.navy,
+    textAlign:'center'      
+   },
+  
   loginText: {
     marginTop: 20,
     fontSize: 14,
@@ -173,6 +213,31 @@ const styles = StyleSheet.create({
     color: '#FF6B35',
     fontWeight: 'bold',
   },
+  accountsign:{
+    flexDirection:"row",
+    alignItems:'center',
+    justifyContent:'center',
+    marginVertical:20
+  },
+  signupbtn:{
+    fontSize:16,
+    fontWeight:"700",
+    color: COLORS.navy,
+    textAlign:'center'      
+  },
+  GmailButton: {
+    backgroundColor: '#FF6B35', 
+    width: width * 0.75,
+    height:45,
+    // backgroundColor: COLORS.navy,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'center',
+    borderRadius: 20,
+    marginTop:30,
+     
+  },
+
 });
 
 

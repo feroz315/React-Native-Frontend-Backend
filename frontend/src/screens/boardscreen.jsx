@@ -15,29 +15,29 @@ const navigation = useNavigation();
 
   return (
 
-    <PagerView style={styles.pager} initialPage={0}>
+    <View style={styles.pager}>
     
-      <View key="1">
-        <Image source={require('../assets/images/fashion4.png')} style={styles.image}></Image>
-        <Text style={styles.text}>First</Text>
+      <View>
+        <Image source={require('../assets/images/shopping.png')} style={styles.image}></Image>
+        <Text style={styles.text}>Welcome to Ecommerce </Text>
+        <Text style={styles.subtext}>Dicover altrative login,signup and forget password and Implement</Text>
+
+        </View>
+        
+        <View style={styles.twoBtn}>
+
+         <TouchableOpacity style={styles.Btn} onPress={() => navigation.navigate("login")}>
+            <Text style={styles.btntext}>Login</Text>
+         </TouchableOpacity>
+   
+       <TouchableOpacity style={styles.Btn} onPress={() => navigation.navigate("signup")}>
+            <Text style={styles.btntext}>Register Now</Text>
+         </TouchableOpacity>
       </View>
 
-      <View key="2">
-        <Image source={require('../assets/images/fashion4.png')} style={styles.image}></Image>
-        <Text style={styles.text}>Second</Text>
       </View>
       
-      <View key="3">
-        <Image source={require('../assets/images/fashion4.png')} style={styles.image}></Image>
-        <Text style={styles.text}>Third</Text>
-
-      <TouchableOpacity style={styles.Btn} onPress={() => navigation.navigate("signup")}>
-        <Text style={styles.btntext}>Start Now</Text>
-      </TouchableOpacity>
-
-      </View>
-      
-    </PagerView>
+    
     
   );
 };
@@ -47,48 +47,41 @@ const styles = StyleSheet.create({
   
   pager: {
     flex: 1,
-    margin:20
-  },
-  
-  screen: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f0f0f0',
-  },
-  
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  
+    backgroundColor: '#F2F2F2',
+    marginTop:50,
+ 
+  }, 
+ 
   image: {
-        width: width * 0.90,
-        height: 290,
+        width: width * 0.75,
+        height: 260,
         borderRadius: 10,
-        marginRight: 10,
-        alignItems: 'center',
-        justifyContent: 'center',              
+        marginLeft: 35,
+        marginTop:20,                   
    },
    
    text:{
         fontFamily:"Poppins",
-        fontWeight:'600',
-        fontSize:32,
-        margin:90,
+        fontWeight:'bold',
+        fontSize:24,
+        marginHorizontal:50,
         color:COLORS.navy      
     },
- 
-    textsmall:{
-        fontFamily:"Poppins",
-        fontWeight:'400',
-        fontSize:17,
-        marginTop:3,
-        textAlign:'center',
-        color:COLORS.navy    
 
+ subtext:{
+        fontFamily:"Poppins",
+        fontSize:16,
+        fontWeight:"500",
+        marginHorizontal:45,
+        marginTop:5,
+        color:COLORS.dark      
     },
+    
+  twoBtn:{
+        marginVertical:150,
+        marginLeft:40
+    },
+ 
     Btn:{
         width: width * 0.75,
         height:45,
@@ -97,8 +90,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'center',
         borderRadius: 20,
-        marginTop:40,
-        marginLeft:50
+        marginTop:20,
     },
 
     btntext:{
