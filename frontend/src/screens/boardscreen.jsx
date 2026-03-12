@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet,Image } from 'react-native';
-import PagerView from 'react-native-pager-view';
 import { COLORS } from "../const/colors";
 import { useNavigation } from '@react-navigation/native';
 

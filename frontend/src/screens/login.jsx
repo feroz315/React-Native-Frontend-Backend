@@ -73,12 +73,13 @@ const openGmail = () => {
    <SafeAreaView style={styles.container}>
        <ScrollView contentContainerStyle={styles.scrollContainer}>
          {/* App Logo/Image */}
-         <Image source={require('../assets/images/shopping.png')} style={styles.logo} resizeMode="contain" />
+         <Image source={require('../assets/images/imagese.png')} style={styles.logo}  />
  
          <Text style={styles.title}>Login</Text>   
     
          {/* Email Input */}
          <View style={styles.inputContainer}>
+         
            <TextInput
              style={styles.input}
              placeholder="Email"
@@ -128,8 +129,6 @@ const openGmail = () => {
          </TouchableOpacity>
      </View>
    
-   
-
        </ScrollView>
      </SafeAreaView>
      
@@ -150,11 +149,11 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
-    height: 150,
-    marginBottom: 10,
+    height: 200,
+    marginBottom: 5,
     alignSelf: 'center',
-    
   },
+ 
   title: {
     fontSize: 28,
     fontWeight: '500',
@@ -172,6 +171,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: '100%',
     marginBottom: 15,
+    
+    
   },
   input: {
     borderWidth: 1,
@@ -181,6 +182,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: 16,
     backgroundColor: '#f9f9f9',
+   
   },
   signupButton: {
     // backgroundColor: '#FF6B35', 
@@ -223,10 +225,11 @@ const styles = StyleSheet.create({
     marginVertical:20
   },
   signupbtn:{
-    fontSize:16,
+    fontSize:15,
     fontWeight:"700",
     color: COLORS.navy,
-    textAlign:'center'      
+    textAlign:'center',
+
   },
   GmailButton: {
     // backgroundColor: '#FF6B35', 

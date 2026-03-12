@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     marginVertical:20
   },
   signupbtn:{
-    fontSize:16,
+    fontSize:15,
     fontWeight:"700",
     color: COLORS.navy,
     textAlign:'center'      

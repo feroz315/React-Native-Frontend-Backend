@@ -31,7 +31,7 @@ const BottomNavigator = () => {
         name="Home"
         component={Home}
         options={{
-          tabBarActiveTintColor:COLORS.Teal,
+          tabBarActiveTintColor:COLORS.navy,
           tabBarIcon: ({focused}) => (
               <View>
                 <Image source={require('../assets/images/home.png')} 
@@ -46,10 +46,10 @@ const BottomNavigator = () => {
         name="profile"
         component={Profile}
         options={{
-          tabBarActiveTintColor:COLORS.Teal,
+          tabBarActiveTintColor:COLORS.navy,
           tabBarIcon: ({focused}) => (
               <View>
-                <Image source={require('../assets/images/user.png')} style={{width:24,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/user1.png')} style={{width:24,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
               
@@ -77,10 +77,10 @@ const BottomNavigator = () => {
         component={Cart}
         options={{
           tabBarStyle: {display: 'none'},
-          tabBarActiveTintColor:COLORS.Teal,
+          tabBarActiveTintColor:COLORS.navy,
           tabBarIcon: ({focused}) => (
             <View>
-                <Image source={require('../assets/images/cart.png')} style={{width:22,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/shopping-cart.png')} style={{width:22,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
           ),headerShown: false

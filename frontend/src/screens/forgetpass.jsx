@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
       alignItems: "center",
       justifyContent: 'center',
       borderRadius: 20,
-      marginTop:40, 
+      marginTop:70, 
       marginHorizontal:25   
     },
    subtext:{
