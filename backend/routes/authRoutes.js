@@ -30,13 +30,6 @@ const cookieOptions = {
 };
 
 
-// const generateToken = (id) => {
-//   return jwt.sign({ id }, "pak", {
-//     expiresIn: "1d",
-//   });
-// };
-
-
 const storage = multer.diskStorage({
   destination : (req, file, cb) => {
     cb(null, "uploads/")
@@ -152,7 +145,6 @@ router.post('/products', async (req, res) => {
 });
 
 // GET all products
-
 router.get('/allproducts', async (req, res) => {
     try {
         const result = await client.query('SELECT * FROM products ORDER BY id ASC');
@@ -165,7 +157,6 @@ router.get('/allproducts', async (req, res) => {
 
 
 // Search Product
-
 // router.get('/searchproduct', async (req, res) => {
 //     try {
 //         const { query, limit = 10, offset = 0 } = req.query;
@@ -194,6 +185,7 @@ router.get('/allproducts', async (req, res) => {
 //     }
 // });
 
+
 // Get Settings
 router.get('/settings', authenticateToken, async (req, res) => {
   try {
@@ -203,6 +195,7 @@ router.get('/settings', authenticateToken, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Update Settings
 
@@ -254,6 +247,7 @@ router.post('/addresses', async (req, res) => {
     }
 });
 
+
 // 2. GET all addresses for a specific user
 router.get('/addresses/user/:userid', async (req, res) => {
     try {
@@ -269,6 +263,7 @@ router.get('/addresses/user/:userid', async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
 
 // 3. GET a single address by ID
 router.get('/addresses/:id', async (req, res) => {
@@ -289,6 +284,7 @@ router.get('/addresses/:id', async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
 
 // 4. UPDATE an address
 router.put('/addresses/:id', async (req, res) => {
@@ -323,6 +319,7 @@ router.put('/addresses/:id', async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
 
 // 5. DELETE an address
 router.delete('/addresses/:id', async (req, res) => {
