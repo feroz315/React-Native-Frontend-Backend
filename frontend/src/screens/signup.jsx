@@ -7,9 +7,15 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
+  Dimensions,
   Alert,
   ScrollView,
 } from 'react-native';
+import { COLORS } from "../const/colors";
+ 
+
+const { width } = Dimensions.get("screen");
+
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -26,7 +32,7 @@ const Signup = () => {
 
   const Submit = async () => {
    try {      
-     fetch("http://192.168.1.3:3000/api/register",{
+     fetch("http://192.168.1.7:3000/api/register",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -50,17 +56,24 @@ const Signup = () => {
             }
   }
 
+const openGmail = () => {
+  // Use react-native-email-link or custom linking for a better experience
+  Linking.openURL('https://accounts.google.com');
+};
+
+ 
+const Login = async () => {   
+    navigation.navigate("login")
+  }
 
   return (
 
   <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* App Logo/Image */}
-        <Image source={require('../assets/images/fashion4.png')} style={styles.logo} resizeMode="contain" />
-
+        <Image source={require('../assets/images/imagee.png')} style={styles.logo} />
         <Text style={styles.title}>Sign Up </Text>
-        <Text style={styles.subtitle}>Create your account to order delicious food!</Text>
-
+       
         {/* Full Name Input */}
         <View style={styles.inputContainer}>
           <TextInput
@@ -98,17 +111,27 @@ const Signup = () => {
         
         {/* Signup Button */}
         <TouchableOpacity style={styles.signupButton} onPress={Submit}>
-          <Text style={styles.signupButtonText}>Sign Up</Text>
+          <Text style={styles.signupButtonText}>Register</Text>
         </TouchableOpacity>
 
-        <Text style={styles.loginText}>
-          Already have an account? 
-         <TouchableOpacity onPress={() => navigation.navigate("login")}>
-          <Text style={styles.loginLink}>Log In</Text>
+   <View style={styles.accountsign}>
+      <Text style={styles.forgetButtonText}>Don't have an account? </Text>
+          <TouchableOpacity onPress={Login}>    
+           <Text style={styles.signupbtn}>Login</Text>
          </TouchableOpacity>
-          </Text>
-
-      </ScrollView>
+     </View>
+   
+       <Text style={styles.forgetButtonText}>Or </Text>
+   
+    {/* Gmail Button */}
+     <View style={styles.gmailbtn}>
+          <TouchableOpacity style={styles.GmailButton} onPress={openGmail}>
+          <Image source={require('../assets/images/gmail.jpg')} style={styles.gmaillogo} />
+           <Text style={styles.gmailtext}>Sign in With Google </Text>
+         </TouchableOpacity>
+     </View>
+   
+    </ScrollView>
     </SafeAreaView>
 
   );
@@ -128,18 +151,21 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 200,
-    height: 150,
-    marginBottom: 30,
+    width: 250,
+    height: 200,
+    // backgroundColor:"#000",
+    marginBottom: 15,
     alignSelf: 'center',
     
   },
   title: {
     fontSize: 28,
-    fontWeight: 'bold',
+    fontWeight: '500',
+    fontFamily:"Poppins",
     color: '#333',
-    marginBottom: 10,
+    marginBottom: 25,
     textAlign: 'center',
+  
   },
   subtitle: {
     fontSize: 16,
@@ -154,26 +180,30 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 10,
+    borderRadius: 15,
     paddingHorizontal: 15,
     paddingVertical: 12,
     fontSize: 16,
     backgroundColor: '#f9f9f9',
   },
   signupButton: {
-    backgroundColor: '#FF6B35', // Orange theme for food app
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 10,
-    marginTop: 10,
-    width: '100%',
-    alignItems: 'center',
-  },
-  signupButtonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+      // backgroundColor: '#FF6B35', 
+      width: width * 0.75,
+      height:45,
+      backgroundColor: COLORS.navy,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: 'center',
+      borderRadius: 20,
+      marginTop:30,
+       
+    },
+    signupButtonText: {
+      fontSize:16,
+      color: COLORS.white,
+      textAlign:'center'      
+   
+    },
   loginText: {
     marginTop: 20,
     fontSize: 14,
@@ -183,6 +213,50 @@ const styles = StyleSheet.create({
   loginLink: {
     color: '#FF6B35',
     fontWeight: 'bold',
+  },
+  accountsign:{
+    flexDirection:"row",
+    alignItems:'center',
+    justifyContent:'center',
+    marginVertical:20
+  },
+  signupbtn:{
+    fontSize:16,
+    fontWeight:"700",
+    color: COLORS.navy,
+    textAlign:'center'      
+  },
+  GmailButton: {
+    // backgroundColor: '#FF6B35', 
+    width: width * 0.75,
+    height:45,
+    // backgroundColor: COLORS.navy,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'center',
+    borderRadius: 15,
+    marginTop:30,
+    borderWidth:2,
+    borderColor:"#000"
+     
+  },
+ gmailtext:{
+    fontSize:16,
+    color: COLORS.dark,
+    textAlign:'center',
+    fontFamily:"Poppins",
+         
+  },
+ gmaillogo: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+  },
+  gmailbtn:{
+   flexDirection:'row',
+   alignItems:"center",
+   justifyContent:'center',
+   
   },
 });
 
