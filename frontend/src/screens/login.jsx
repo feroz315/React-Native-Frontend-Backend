@@ -120,10 +120,13 @@ const openGmail = () => {
    
        <Text style={styles.forgetButtonText}>Or </Text>
    
-    {/* Signup Button */}
-         <TouchableOpacity style={styles.GmailButton} onPress={openGmail}>
-           <Text style={styles.signupButtonText}>Gmail </Text>
+    {/* Gmail Button */}
+     <View style={styles.gmailbtn}>
+          <TouchableOpacity style={styles.GmailButton} onPress={openGmail}>
+          <Image source={require('../assets/images/gmail.jpg')} style={styles.gmaillogo} />
+           <Text style={styles.gmailtext}>Sign in With Google </Text>
          </TouchableOpacity>
+     </View>
    
    
 
@@ -226,18 +229,37 @@ const styles = StyleSheet.create({
     textAlign:'center'      
   },
   GmailButton: {
-    backgroundColor: '#FF6B35', 
+    // backgroundColor: '#FF6B35', 
     width: width * 0.75,
     height:45,
     // backgroundColor: COLORS.navy,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: 'center',
-    borderRadius: 20,
+    borderRadius: 15,
     marginTop:30,
+    borderWidth:2,
+    borderColor:"#000"
      
   },
-
+ gmailtext:{
+    fontSize:16,
+    color: COLORS.dark,
+    textAlign:'center',
+    fontFamily:"Poppins",
+         
+  },
+ gmaillogo: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+  },
+  gmailbtn:{
+   flexDirection:'row',
+   alignItems:"center",
+   justifyContent:'center',
+   
+  },
 });
 
 
