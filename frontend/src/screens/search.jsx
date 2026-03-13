@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList,TouchableOpacity,Image ,SafeAreaView, StyleSheet } from 'react-native';
-import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import api from '../config/api';
+import { COLORS } from '../const/colors';
+
 
 
 const Search = () => {
@@ -16,9 +18,8 @@ const Search = () => {
 
   const getproducts = async () => {
     
-    const URL = `http://192.168.1.3:3000/api/allproducts`;
     try {
-      const res = await axios.get(URL);
+      const res = await api.get('/allproducts');
       console.log(res.data);
       setFullData(res.data);
         
@@ -48,7 +49,7 @@ const Search = () => {
      onPress={() => navigation.navigate("productdetail", {...item})}>
       <Image source={{ uri: item.images }} style={styles.productImage} />
       <Text style={styles.productName}>{item.title}</Text>
-      <Text style={styles.productDescription}>{item.category}</Text>
+      <Text style={styles.productcategory}>{item.category}</Text>
       <Text style={styles.productDescription}>{item.description}</Text>
       
     </TouchableOpacity>
@@ -93,9 +94,7 @@ const Search = () => {
         keyExtractor={item => item.id}
         ListEmptyComponent={<Text style={styles.noResults}>No products found.</Text>}
       />
-    </SafeAreaView>
-
-         
+    </SafeAreaView>       
 
 
   );
@@ -137,17 +136,34 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
   },
-
+  itemContainer:{
+    // backgroundColor:"#000",
+    alignItems:'center',
+    margin:10
+  },
   productName: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: 'bold',
+    margin:5,
+    fontFamily:"Poppins",
   },
   productDescription: {
-    fontSize: 14,
-    color: '#666',
+    fontSize: 13,
+    color: COLORS.dark,
+    fontFamily:"Poppins",
+    margin:3,
+    letterSpacing: 1
   },
+   productcategory:{
+    fontSize: 15,
+    fontWeight:"600",
+    color: COLORS.dark,
+    fontFamily:"Poppins",
+    margin:3, 
+   },
+ 
   productImage: {
-    width: '100%',
+    width: '50%',
     height: 150,
     resizeMode: 'cover',
   },

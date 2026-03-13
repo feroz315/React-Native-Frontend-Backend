@@ -15,7 +15,7 @@ const ForgotPassword = ({ navigation }) => {
  
   const handleRequestReset = async () => {
    try {      
-     fetch("http://192.168.1.7:3000/api/forgot-password",{
+     fetch("http://192.168.1.2:3000/api/forgot-password",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'

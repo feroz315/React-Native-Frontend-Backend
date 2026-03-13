@@ -32,7 +32,7 @@ const Signup = () => {
 
   const Submit = async () => {
    try {      
-     fetch("http://192.168.1.7:3000/api/register",{
+     fetch("http://192.168.1.2:3000/api/register",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -56,13 +56,13 @@ const Signup = () => {
             }
   }
 
-const openGmail = () => {
+  const openGmail = () => {
   // Use react-native-email-link or custom linking for a better experience
   Linking.openURL('https://accounts.google.com');
-};
+  };
 
  
-const Login = async () => {   
+  const Login = async () => {   
     navigation.navigate("login")
   }
 
