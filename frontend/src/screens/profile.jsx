@@ -10,21 +10,20 @@ import {
   StatusBar,
   Alert,
   Dimensions,
+  Modal
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
 import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary } from 'react-native-image-picker';
+// import { ToastAndroid } from 'react-native';
+import Toast from 'react-native-toast-message';
+import ModalInput from '../const/modal';
 
 
-// --- Mock Data ---
-const USER_DATA = {
-  name: 'Alex Johnson',
-  email: 'alex.johnson@example.com',
-  avatar: 'https://i.pravatar.cc/150?img=33', // Random placeholder image
 
-};
 
 
 const MENU_ITEMS = [
@@ -33,17 +32,19 @@ const MENU_ITEMS = [
   { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
   { id: '5', title: 'Notifications', icon: 'settings-outline', subtitle: 'Conatact Number' },
   { id: '6', title: 'Update Password ', icon: 'help-circle-outline', subtitle: 'Change Password' },
-  { id: '7', title: 'Invite Friends', icon: 'people-outline', subtitle: 'Share the app' },
+
 ];
 
 const { width } = Dimensions.get('window');
 
 
 const Profile = () => {
+
 const [user, setUser] = useState(null);
+const [userpic, setUserpic] = useState(null);
+const [modalVisible, setModalVisible] = useState(false);
 
 const navigation = useNavigation();
-
 
 
 // Api data for products Items
@@ -52,6 +53,14 @@ const navigation = useNavigation();
     fetchProfile();
   }, []);
 
+
+const options = {
+  mediaType: 'photo',
+  maxWidth: 300,
+  maxHeight: 400,
+  quality: 1,
+  includeBase64: false,
+};
 
 
  // --- Fetch userdata ---
@@ -85,10 +94,50 @@ const navigation = useNavigation();
     }
   };
 
+// Launch image library to select a photo
+const selectImage = async () => {
+  const result = await launchImageLibrary(options);
+  setUserpic(result.assets[0].uri)
+  console.log(result.assets[0].uri); // Access the URI of the selected image
+};
 
-  
+
+const showSuccessToast = () => {
+  Toast.show({
+    type: 'success', // Type of toast: 'success', 'error', 'info'
+    text1: 'Successfully!', // Main message (header)
+    text2: 'Your operation was successful.' // Optional second line (subheader)
+  });
+};
+
+// const showErrorToast = () => {
+//   Toast.show({
+//     type: 'error',
+//     text1: 'Error!',
+//     text2: 'Something went wrong. Please try again.'
+//   });
+// };
+
+
+  const handleUpdatePassword = async (passwordData) => {
+    // Your API call here
+    console.log('Updating password:', passwordData);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    // Throw error for demo (remove in production)
+    throw new Error('Invalid current password');
+  };
+
+const showModal = () => {
+    setModalVisible(true);
+  };
+
+
   return (
-    <SafeAreaView style={styles.container}>
+
+      <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F5F8" />
       
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -100,7 +149,10 @@ const navigation = useNavigation();
           style={styles.headerContainer}
         >
           <View style={styles.profileInfo}>
-            <Image source={{ uri: USER_DATA.avatar }} style={styles.avatar} />
+           <TouchableOpacity style={styles.profileButton} onPress={selectImage}>      
+            <Image source={{ uri: userpic }} style={styles.avatar} />
+            </TouchableOpacity>
+            
             <View style={styles.textContainer}>
               <Text style={styles.userName}>{user?.name}</Text>
               <Text style={styles.userEmail}>{user?.email}</Text>
@@ -120,7 +172,7 @@ const navigation = useNavigation();
             <TouchableOpacity 
               key={item.id} 
               style={styles.menuItem}
-              onPress={() => handleMenuPress(item.title)}
+              onPress={() => showModal()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
@@ -142,12 +194,37 @@ const navigation = useNavigation();
           <Ionicons name="log-out-outline" size={22} color="#FF5252" />
           <Text style={styles.logoutText}>Log Out</Text>
         </TouchableOpacity>
+        
+     <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
+       <TouchableOpacity
+        style={{
+           backgroundColor: '#007AFF',
+           padding: 16,
+           borderRadius: 8,
+           alignItems: 'center',
+         }}
+         onPress={() => setModalVisible(true)}
+      >
+         <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
+           Change Password
+         </Text>
+       </TouchableOpacity>
+
+       <ModalInput
+         visible={modalVisible}
+         onClose={() => setModalVisible(false)}
+         onUpdatePassword={handleUpdatePassword}
+       />
+     </View>
+
 
         <View style={{ height: 40 }} /> 
       </ScrollView>
      </SafeAreaView>
   );
 };
+
+
 
 
 
@@ -158,7 +235,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   headerContainer: {
-    paddingTop: 20,
+    paddingTop: 30,
     paddingBottom: 20,
     paddingHorizontal: 20,
     borderBottomLeftRadius: 24,
@@ -174,6 +251,10 @@ const styles = StyleSheet.create({
   profileInfo: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  profileButton: {
+    borderRadius: 20,
+    overflow: 'hidden',
   },
   avatar: {
     width: 80,
@@ -290,6 +371,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#1A1A1A',
+    marginTop:5
   },
   menuSubtitle: {
     fontSize: 12,
