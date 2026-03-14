@@ -18,6 +18,7 @@ import Profile from './profile';
 import Delivery from './delivery';
 import ForgotPassword from './forgetpass';
 import ResetPassword from './resetpass';
+import ChangePassword from './changepass';
 
 
 
@@ -48,6 +49,7 @@ const Navigation = () => {
                <Stack.Screen name="delivery" component={Delivery}/>
                <Stack.Screen name="forget" component={ForgotPassword}/>
                <Stack.Screen name="reset" component={ResetPassword}/>
+                <Stack.Screen name="changepass" component={ChangePassword}/>
                  
         </Stack.Navigator>            
             </NavigationContainer>

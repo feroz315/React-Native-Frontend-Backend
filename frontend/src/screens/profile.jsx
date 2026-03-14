@@ -10,7 +10,7 @@ import {
   StatusBar,
   Alert,
   Dimensions,
-  Modal
+  
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -21,19 +21,19 @@ import { launchImageLibrary } from 'react-native-image-picker';
 // import { ToastAndroid } from 'react-native';
 import Toast from 'react-native-toast-message';
 import ModalInput from '../const/modal';
+import { COLORS } from '../const/colors';
 
 
 
 
+// const MENU_ITEMS = [
+//   { id: '2', title: 'Email', icon: 'heart-outline', subtitle: 'Email Address' },
+//   { id: '3', title: 'Contact', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
+//   { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
+//   { id: '5', title: 'Notifications', icon: 'settings-outline', subtitle: 'Conatact Number' },
+//   { id: '6', title: 'Update Password ', icon: 'help-circle-outline', subtitle: 'Change Password' },
 
-const MENU_ITEMS = [
-  { id: '2', title: 'Email', icon: 'heart-outline', subtitle: 'Email Address' },
-  { id: '3', title: 'Contact', icon: 'location-outline', subtitle: 'Manage delivery addresses' },
-  { id: '4', title: 'Currency', icon: 'card-outline', subtitle: '$ € ¥ £' },
-  { id: '5', title: 'Notifications', icon: 'settings-outline', subtitle: 'Conatact Number' },
-  { id: '6', title: 'Update Password ', icon: 'help-circle-outline', subtitle: 'Change Password' },
-
-];
+// ];
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +42,6 @@ const Profile = () => {
 
 const [user, setUser] = useState(null);
 const [userpic, setUserpic] = useState(null);
-const [modalVisible, setModalVisible] = useState(false);
 
 const navigation = useNavigation();
 
@@ -62,7 +61,6 @@ const options = {
   includeBase64: false,
 };
 
-
  // --- Fetch userdata ---
   const fetchProfile = async () => {
     try {
@@ -74,7 +72,8 @@ const options = {
   };
 
   const handleMenuPress = (title) => {
-    Alert.alert('Navigation', `Navigating to ${title}`);
+    // Alert.alert('Navigation', `Navigating to ${title}`);
+    navigation.navigate("changepass")
   };
 
   const handleLogout = async () => {
@@ -119,26 +118,23 @@ const showSuccessToast = () => {
 // };
 
 
-  const handleUpdatePassword = async (passwordData) => {
-    // Your API call here
-    console.log('Updating password:', passwordData);
+  // const handleUpdatePassword = async (passwordData) => {
+  //   // Your API call here
+  //   console.log('Updating password:', passwordData);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+  //   // Simulate API call
+  //   await new Promise(resolve => setTimeout(resolve, 2000));
     
-    // Throw error for demo (remove in production)
-    throw new Error('Invalid current password');
-  };
+  //   // Throw error for demo (remove in production)
+  //   throw new Error('Invalid current password');
+  // };
 
-const showModal = () => {
-    setModalVisible(true);
-  };
 
 
   return (
 
-      <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#F2F5F8" />
+    <SafeAreaView style={styles.container}>
+       <StatusBar barStyle="dark-content" backgroundColor="#F2F5F8" />
       
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* --- Header Section --- */}
@@ -158,7 +154,8 @@ const showModal = () => {
               <Text style={styles.userEmail}>{user?.email}</Text>
             </View>
             <TouchableOpacity style={styles.editButton}>
-              <Ionicons name="pencil" size={16} color="#4facfe" />
+            <Image source={require('../assets/images/compose.png')} style={styles.logo}  />
+
             </TouchableOpacity>
           </View>
          </LinearGradient>
@@ -168,56 +165,107 @@ const showModal = () => {
         <View style={styles.menuContainer}>
           <Text style={styles.sectionTitle}>Account Settings</Text>
           
-          {MENU_ITEMS.map((item, index) => (
-            <TouchableOpacity 
-              key={item.id} 
+          <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => showModal()}
+              onPress={() => handleMenuPress()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
                 <View style={styles.menuIconContainer}>
-                  <Ionicons name={item.icon} size={22} color="#555" />
+                <Image source={require('../assets/images/email.png')} style={styles.logo}  />
+
                 </View>
                 <View style={styles.menuTextContainer}>
-                  <Text style={styles.menuTitle}>{item.title}</Text>
-                  <Text style={styles.menuSubtitle}>{user?.email}</Text>
+                  <Text style={styles.menuTitle}>Email</Text>
+                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
                 </View>
               </View>
-              <Ionicons name="chevron-forward" size={20} color="#CCC" />
+              <Image source={require('../assets/images/compose.png')} style={styles.logo}  />
+              
+          
             </TouchableOpacity>
-          ))}
-        </View>
+
+          <TouchableOpacity 
+              style={styles.menuItem}
+              onPress={() => handleMenuPress()}
+              activeOpacity={0.7}
+            >
+              <View style={styles.menuLeft}>
+                <View style={styles.menuIconContainer}>
+                <Image source={require('../assets/images/phone-call.png')} style={styles.logo}  />
+
+                </View>
+                <View style={styles.menuTextContainer}>
+                  <Text style={styles.menuTitle}>Contact</Text>
+                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
+                </View>
+              </View>
+              <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
+             </TouchableOpacity>
+
+          <TouchableOpacity 
+              style={styles.menuItem}
+              onPress={() => handleMenuPress()}
+              activeOpacity={0.7}
+            >
+              <View style={styles.menuLeft}>
+                <View style={styles.menuIconContainer}>
+                <Image source={require('../assets/images/exchange.png')} style={styles.logo}  />
+
+                </View>
+                <View style={styles.menuTextContainer}>
+                  <Text style={styles.menuTitle}>Currency</Text>
+                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
+                </View>
+              </View>
+              <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
+             </TouchableOpacity>
+
+          <TouchableOpacity 
+              style={styles.menuItem}
+              onPress={() => handleMenuPress()}
+              activeOpacity={0.7}
+            >
+              <View style={styles.menuLeft}>
+                <View style={styles.menuIconContainer}>
+                <Image source={require('../assets/images/notification.png')} style={styles.logo}  />
+
+                </View>
+                <View style={styles.menuTextContainer}>
+                  <Text style={styles.menuTitle}>Notifications</Text>
+                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
+                </View>
+              </View>
+              <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
+             </TouchableOpacity>
+
+          <TouchableOpacity 
+              style={styles.menuItem}
+              onPress={() => handleMenuPress()}
+              activeOpacity={0.7}
+            >
+              <View style={styles.menuLeft}>
+                <View style={styles.menuIconContainer}>
+                <Image source={require('../assets/images/padlock.png')} style={styles.logo}  />
+
+                </View>
+                <View style={styles.menuTextContainer}>
+                  <Text style={styles.menuTitle}>Update Password</Text>
+                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
+                </View>
+              </View>
+              <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
+             </TouchableOpacity>
+
+           </View>
 
         {/* --- Logout Section --- */}
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout} activeOpacity={0.7}>
-          <Ionicons name="log-out-outline" size={22} color="#FF5252" />
+          <Image source={require('../assets/images/logout.png')} style={styles.logo}  />
+
           <Text style={styles.logoutText}>Log Out</Text>
-        </TouchableOpacity>
+         </TouchableOpacity>
         
-     <View style={{ flex: 1, justifyContent: 'center', padding: 20 }}>
-       <TouchableOpacity
-        style={{
-           backgroundColor: '#007AFF',
-           padding: 16,
-           borderRadius: 8,
-           alignItems: 'center',
-         }}
-         onPress={() => setModalVisible(true)}
-      >
-         <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
-           Change Password
-         </Text>
-       </TouchableOpacity>
-
-       <ModalInput
-         visible={modalVisible}
-         onClose={() => setModalVisible(false)}
-         onUpdatePassword={handleUpdatePassword}
-       />
-     </View>
-
-
         <View style={{ height: 40 }} /> 
       </ScrollView>
      </SafeAreaView>
@@ -261,7 +309,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderRadius: 40,
     borderWidth: 4,
-    borderColor: '#FFFFFF',
+    borderColor: COLORS.navy,
   },
   textContainer: {
     flex: 1,
@@ -299,20 +347,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  statCard: {
-    backgroundColor: '#FFFFFF',
-    width: (width - 60) / 4, // Responsive width
-    borderRadius: 16,
-    paddingVertical: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    // Shadow
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+  logo: {
+    width: 20,
+    height: 20,
+    marginBottom: 5,
+    alignSelf: 'center',
   },
+ 
+  // statCard: {
+  //   backgroundColor: '#FFFFFF',
+  //   width: (width - 60) / 4, // Responsive width
+  //   borderRadius: 16,
+  //   paddingVertical: 16,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   // Shadow
+  //   shadowColor: '#000',
+  //   shadowOffset: { width: 0, height: 2 },
+  //   shadowOpacity: 0.05,
+  //   shadowRadius: 8,
+  //   elevation: 2,
+  // },
   statIconBackground: {
     width: 40,
     height: 40,
@@ -395,6 +450,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginLeft: 8,
+    marginBottom:5
   },
 });
 

@@ -10,11 +10,13 @@ import {
   ScrollView,
 } from 'react-native';
 
+
 const ModalInput = () => {
  
   const [modalVisible, setModalVisible] = useState(false);
   const [inputText, setInputText] = useState('');
   const [inputEmail, setInputEmail] = useState('');
+
 
   const showModal = () => {
     setModalVisible(true);
@@ -35,7 +37,10 @@ const ModalInput = () => {
     }
   };
 
+
+
   return (
+  
     <View style={styles.container}>
       {/* Button to open modal */}
       <TouchableOpacity style={styles.openButton} onPress={showModal}>
@@ -94,11 +99,13 @@ const ModalInput = () => {
               </View>
             </ScrollView>
           </View>
-        </View>
+          </View>
       </Modal>
      </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -200,7 +207,11 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default ModalInput;
+
+
+
 
 
 // const ModalUser = ({ visible, onClose, onUpdatePassword }) => {

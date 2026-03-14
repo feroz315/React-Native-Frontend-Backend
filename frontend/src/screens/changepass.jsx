@@ -5,6 +5,7 @@ import {
   TextInput,
   Button,
   StyleSheet,
+  TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
@@ -12,9 +13,9 @@ import axios from 'axios';
 import api from '../config/api';
 
 
-const ResetPassword = ({route, navigation}) => {
+const ChangePassword = ({route, navigation}) => {
 
-  const {email} = route.params;
+//   const {email} = route.params;
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -49,9 +50,7 @@ const ResetPassword = ({route, navigation}) => {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Reset Password</Text>
-      <Text style={styles.subtext}>Email: {email}</Text>
-
+   
       <TextInput
         style={styles.input}
         placeholder="New Password"
@@ -94,4 +93,4 @@ const styles = StyleSheet.create({
 
 
 
-export default ResetPassword;
+export default ChangePassword;
