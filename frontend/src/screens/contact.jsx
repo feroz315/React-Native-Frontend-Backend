@@ -13,11 +13,11 @@ import {COLORS} from '../const/colors';
 
 const {width} = Dimensions.get('screen');
 
-const ChangePassword = ({navigation}) => {
 
-  const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+const ProfileContact = ({navigation}) => {
+  
+  const [contact, setContact] = useState('');
+  const [newContact, setNewContact] = useState('');
 
   const handleReset = async () => {
     try {
@@ -27,18 +27,18 @@ const ChangePassword = ({navigation}) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          newpassword: newPassword,
-          confirmPassword: confirmPassword,
+          newContact: newContact,
+          
         }),
       });
-      console.log('Success', 'Password updated! Please login.');
+      console.log('Success', 'contact updated!');
       navigation.navigate('profile');
-      setNewPassword('');
-      confirmPassword('');
+      setNewContact('');
+      
     } catch (error) {
       console.log(
         'Error',
-        error.response?.data?.message || 'Failed to reset password',
+        error.response?.data?.message || 'Failed to contact',
       );
     }
   };
@@ -52,15 +52,15 @@ const ChangePassword = ({navigation}) => {
           onPress={() => navigation.goBack()}>
           <Text style={styles.iconText}>←</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Change Password</Text>
+        <Text style={styles.headerTitle}>New Contact</Text>
       </View>
 
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Old Password"
-          value={password}
-          onChangeText={setPassword}
+          placeholder="Old Contact"
+          value={contact}
+          onChangeText={setContact}
           secureTextEntry
         />
       </View>
@@ -68,26 +68,17 @@ const ChangePassword = ({navigation}) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="New Password"
-          value={newPassword}
-          onChangeText={setNewPassword}
+          placeholder="New Conatct"
+          value={newContact}
+          onChangeText={setNewContact}
           secureTextEntry
         />
       </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Confrim Password"
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
-          secureTextEntry
-        />
-       </View>
     
       {/* Signup Button */}
       <TouchableOpacity style={styles.signupButton} onPress={handleReset}>
-        <Text style={styles.signupButtonText}>Change Password </Text>
+        <Text style={styles.signupButtonText}>Change Contact Number </Text>
       </TouchableOpacity>
     </View>
   );
@@ -147,10 +138,10 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   headerTitle: {
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#333',
-    marginHorizontal: 50,
+    marginHorizontal: 60,
   },
   inputContainer: {
     width: '100%',
@@ -167,4 +158,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChangePassword;
+export default ProfileContact;

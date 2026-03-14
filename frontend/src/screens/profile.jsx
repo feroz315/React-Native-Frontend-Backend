@@ -71,10 +71,18 @@ const options = {
     }
   };
 
-  const handleMenuPress = (title) => {
+  const handleUpdatePassword = (title) => {
     // Alert.alert('Navigation', `Navigating to ${title}`);
     navigation.navigate("changepass")
   };
+
+  const handleContact = (title) => {
+    // Alert.alert('Navigation', `Navigating to ${title}`);
+    navigation.navigate("contact")
+  };
+
+
+
 
   const handleLogout = async () => {
      try {
@@ -167,7 +175,7 @@ const showSuccessToast = () => {
           
           <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => handleMenuPress()}
+              onPress={() => handleUpdatePassword()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
@@ -187,7 +195,7 @@ const showSuccessToast = () => {
 
           <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => handleMenuPress()}
+              onPress={() => handleContact()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
@@ -205,7 +213,7 @@ const showSuccessToast = () => {
 
           <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => handleMenuPress()}
+              onPress={() => handleUpdatePassword()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
@@ -223,7 +231,7 @@ const showSuccessToast = () => {
 
           <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => handleMenuPress()}
+              
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
@@ -241,7 +249,7 @@ const showSuccessToast = () => {
 
           <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => handleMenuPress()}
+              onPress={() => handleUpdatePassword()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
