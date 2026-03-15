@@ -71,22 +71,22 @@ const options = {
     }
   };
 
-  const handleUpdatePassword = (title) => {
+  const handleUpdatePassword = () => {
     // Alert.alert('Navigation', `Navigating to ${title}`);
     navigation.navigate("changepass")
   };
 
-  const handleContact = (title) => {
-    // Alert.alert('Navigation', `Navigating to ${title}`);
+  const handleContact = () => {
     navigation.navigate("contact")
   };
 
-
-
+  const handleEmail = () => {
+    navigation.navigate("change-email")
+  };
 
   const handleLogout = async () => {
      try {
-       fetch("http://192.168.1.11:3000/api/logout",{
+       fetch("http://192.168.1.9:3000/api/logout",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -175,7 +175,7 @@ const showSuccessToast = () => {
           
           <TouchableOpacity 
               style={styles.menuItem}
-              onPress={() => handleUpdatePassword()}
+              onPress={() => handleEmail()}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
