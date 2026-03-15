@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,17 +7,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   Dimensions,
+  Alert
 } from 'react-native';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 import {COLORS} from '../const/colors';
+import api from '../config/api';
+
 
 const {width} = Dimensions.get('screen');
 
 
 const ChangeEmail = ({navigation}) => {
   
-  const [email, setEmail] = useState('');
   const [newEmail, setNewEmail] = useState('');
+  const [currentEmail, setCurrentEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
 
   const handleReset = async () => {
     try {
@@ -43,6 +50,86 @@ const ChangeEmail = ({navigation}) => {
     }
   };
 
+
+  // const handleUpdateEmail = async () => {
+  //   try {
+  //     const response = await fetch('http://192.168.1.9:3000/api/profile/update-email', {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Authorization': `Bearer ${userToken}`, // Send stored token
+  //       },
+  //       body: JSON.stringify({ newEmail: email }),
+  //     });
+
+  //     const data = await response.json();
+  //     if (response.ok) {
+  //       Alert.alert('Success', 'Email updated successfully');
+  //     } else {
+  //       Alert.alert('Error', data.message);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+
+  const fetchProfile = async () => {
+    try {
+      const token = await AsyncStorage.getItem('authToken');
+      const response = await api.get('/profile', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCurrentEmail(response.data.email);
+    } catch (error) {
+      console.error('Fetch profile error:', error);
+      Alert.alert('Error', 'Failed to load profile');
+    }
+  };
+
+  const updateEmail = async () => {
+    if (!newEmail || newEmail === currentEmail) {
+      Alert.alert('Error', 'Please enter a valid new email');
+      return;
+    }
+    
+    try {
+       const token = await AsyncStorage.getItem('authToken');
+       const response = await fetch('http://192.168.1.9:3000/api/profile/update-email',
+        {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Send stored token
+        },
+        body: JSON.stringify({ newEmail: currentEmail }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+      setCurrentEmail(response);
+      setNewEmail('');
+     } 
+     else {
+        Alert.alert('Error', data.message);
+      } 
+    } catch (error) {
+      const errorMsg = error.response?.data?.error || 'Failed to update email';
+      console.log('Error', errorMsg)
+      Alert.alert('Error', errorMsg);
+   }
+  }
+     
+ 
+
+
+
+
   return (
     <View style={styles.container}>
       {/* Header */}
@@ -58,10 +145,9 @@ const ChangeEmail = ({navigation}) => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Old Email"
-          value={email}
-          onChangeText={setEmail}
-          
+          placeholder="Current Email"
+          value={currentEmail}  
+          editable={false}
         />
       </View>
 
@@ -71,18 +157,21 @@ const ChangeEmail = ({navigation}) => {
           placeholder="New Email"
           value={newEmail}
           onChangeText={setNewEmail}
-          
-        />
-      </View>
+          keyboardType="email-address"
+          autoCapitalize="none"
+          mode="outlined"
+          />
+      </View>     
 
     
       {/* Signup Button */}
-      <TouchableOpacity style={styles.signupButton} onPress={handleReset}>
-        <Text style={styles.signupButtonText}>Change Email </Text>
+      <TouchableOpacity style={styles.signupButton} onPress={updateEmail}>
+        <Text style={styles.signupButtonText}>Update Email </Text>
       </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {flex: 0.75, justifyContent: 'center', padding: 20},
@@ -158,4 +247,8 @@ const styles = StyleSheet.create({
   },
 });
 
+
+
 export default ChangeEmail;
+
+          

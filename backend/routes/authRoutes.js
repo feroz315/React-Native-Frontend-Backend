@@ -21,6 +21,14 @@ function generateToken() {
   return crypto.randomBytes(32).toString('hex');
 }
 
+// Check if email already exists (excluding current user)
+const checkEmailExists = async (email, id) => {
+  const result = await client.query(
+    'SELECT id FROM users WHERE email = $1 AND id != $2',
+    [email, id]
+  );
+  return result.rows.length > 0;
+};
 
 const cookieOptions = {
   httpOnly: true,
@@ -622,11 +630,71 @@ router.post('/reset-password/:token', async (req, res) => {
 });
 
 
+// Update email endpoint
+router.put('/profile/update-email', authenticateToken, async (req, res) => {
+  const { email } = req.body;
+  const userId = req.user.id; // From auth middleware
+
+  try {
+      
+    // Check if email already exists
+    const existingEmail = await client.query('SELECT * FROM users WHERE email = $1', [email]);
+      if (existingEmail.rows.length > 0) return res.status(400).json({ message: 'Email already in use' });
+  
+    
+    // Update email
+    const updatedUser = await client.query(
+      'UPDATE users SET email = $1 WHERE id = $2 RETURNING *',
+      [email, userId]
+    );
+
+    res.json(updatedUser.rows[0]);
+  } catch (err) {
+    res.status(500).send('Server Error');
+  }
+});
 
 
 module.exports = router;
 
 
+
+
+
+
+// // Get user profile
+// router.get('/api/profile', authenticateToken, async (req, res) => {
+//   try {
+//     const userId = req.userId;
+//     const result = await pool.query(
+//       'SELECT id, email, name, updated_at FROM users WHERE id = $1',
+//       [userId]
+//     );
+
+//     if (result.rows.length === 0) {
+//       return res.status(404).json({ error: 'User not found' });
+//     }
+
+//     res.json(result.rows[0]);
+//   } catch (error) {
+//     console.error('Get profile error:', error);
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
+
+// // Get current user profile
+// router.get('/api/profile', authenticateToken, async (req, res) => {
+//   try {
+//     const result = await pool.query(
+//       'SELECT id, email, name, updated_at FROM users WHERE id = $1',
+//       [req.user.id]
+//     );
+//     res.json(result.rows[0]);
+//   } catch (error) {
+//     console.error('Error fetching profile:', error);
+//     res.status(500).json({ error: 'Server error' });
+//   }
+// });
 
 
 
