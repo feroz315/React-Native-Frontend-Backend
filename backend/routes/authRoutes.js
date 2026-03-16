@@ -682,27 +682,6 @@ module.exports = router;
 //   }
 // });
 
-// // Get current user profile
-// router.get('/api/profile', authenticateToken, async (req, res) => {
-//   try {
-//     const result = await pool.query(
-//       'SELECT id, email, name, updated_at FROM users WHERE id = $1',
-//       [req.user.id]
-//     );
-//     res.json(result.rows[0]);
-//   } catch (error) {
-//     console.error('Error fetching profile:', error);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
-
-
-
-
-
-
-
 
 // Optional: Change Password with Email Verification
 // router.post('/forgot-password', async (req, res) => {
@@ -720,7 +699,7 @@ module.exports = router;
 //      );
       
 //     // Send token via email (implement email service)
-//     const resetLink = `http://192.168.1.7:3000/api/reset-password?token=${token}`;
+//     const resetLink = `http://192.168.1.15:3000/api/reset-password?token=${token}`;
 //     await sendResetEmail(email, resetLink);
 //     res.json({ message: 'Password reset link sent to your email' });
 //   } catch (err) {

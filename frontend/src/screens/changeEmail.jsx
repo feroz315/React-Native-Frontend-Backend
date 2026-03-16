@@ -100,7 +100,7 @@ const ChangeEmail = ({navigation}) => {
     
     try {
        const token = await AsyncStorage.getItem('authToken');
-       const response = await fetch('http://192.168.1.9:3000/api/profile/update-email',
+       const response = await fetch('http://192.168.1.15:3000/api/profile/update-email',
         {
         method: 'PUT',
         headers: {
@@ -126,9 +126,6 @@ const ChangeEmail = ({navigation}) => {
   }
      
  
-
-
-
 
   return (
     <View style={styles.container}>
