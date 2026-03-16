@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useMemo } from 'react';
+import React, { useState,useMemo } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -10,24 +10,20 @@ import {
   Image,
   Alert,
   Button,
-  Modal,
-  FlatList,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from "axios";
 import { COLORS } from '../const/colors';
 import {  useSelector } from 'react-redux';
 import { selectcartItems, selectTotal } from '../state/CartSlics';
-
+import { useNavigation } from '@react-navigation/native';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.3:3000/api/addresses';
+const API_URL = 'http://192.168.1.7:3000/api/addresses';
 
 // ----- form state -----
 
-const Checkout = ({ navigation }) => {
+const Checkout = () => {
   
   const [selectedPayment, setSelectedPayment] = useState('card');
   const [promoCode, setPromoCode] = useState('');
@@ -42,6 +38,8 @@ const Checkout = ({ navigation }) => {
   const [country, setCountry] = useState('');
   const [cartItems, setCartItems] = useState([]);
 
+  const navigation = useNavigation()
+  
   const basketItems = useSelector(selectcartItems);
   const basketTotal = useSelector(selectTotal);
 
@@ -51,7 +49,6 @@ const Checkout = ({ navigation }) => {
   const paymentMethods = [
     { id: 'card', name: 'Credit/Debit Card', icon: 'credit-card' },
     { id: 'paypal', name: 'PayPal', icon: 'paypal' },
-    { id: 'applepay', name: 'Apple Pay', icon: 'apple' },
     { id: 'cash', name: 'Cash on Delivery', icon: 'cash' },
   ];
 
@@ -60,7 +57,7 @@ const Checkout = ({ navigation }) => {
   const shipping = 5.99;
   const tax = subtotal * 0.08; // 8% tax
   const discount = promoCode === 'SAVE10' ? subtotal * 0.1 : 0;
-  const total = subtotal + shipping + tax - discount;
+  // const total = subtotal + shipping + tax - discount;
   
   
   // ----- submit handler -----
@@ -162,7 +159,7 @@ const Checkout = ({ navigation }) => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.iconButton}
-         onPress={() => navigation.goBack()}>
+         onPress={() => navigation.navigate("cart")}>
            <Text style={styles.iconText}>←</Text>            
           {/* <Icon name="arrow-back" size={24} color="#333" /> */}
         </TouchableOpacity>
@@ -181,7 +178,7 @@ const Checkout = ({ navigation }) => {
                 <ScrollView
                   showsVerticalScrollIndicator={false}
                   contentContainerStyle={{
-                    paddingBottom: 20,
+                    paddingBottom: 10,
                   }}>
                   {Object.entries(cartItems).map(([index, item]) => {
                     return (
@@ -200,9 +197,7 @@ const Checkout = ({ navigation }) => {
                             </View>
                           
                         </View>
-                      </View>
-
-                      
+                      </View>                     
                     );
                   })}
                  </ScrollView>
@@ -282,10 +277,8 @@ const Checkout = ({ navigation }) => {
               onPress={() => setSelectedPayment(method.id)}
             >
               <View style={styles.paymentLeft}>
-                <MaterialCommunityIcons 
-                  name={method.icon} 
-                  size={24} 
-                  color={selectedPayment === method.id ? '#4A90E2' : '#666'} 
+                <Image source={require('../assets/images/credit-cards-payment.png')} style={styles.logo} 
+                 color={selectedPayment === method.id ? '#3B3178' : '#666'} 
                 />
                 <Text style={[
                   styles.paymentText,
@@ -295,14 +288,15 @@ const Checkout = ({ navigation }) => {
                 </Text>
               </View>
               {selectedPayment === method.id && (
-                <Icon name="check-circle" size={20} color="#4A90E2" />
+               <Image source={require('../assets/images/check-mark.png')} style={styles.logo}/>
+                
               )}
             </TouchableOpacity>
           ))}
         </View>
 
         {/* Promo Code */}
-        <View style={styles.section}>
+        {/* <View style={styles.section}>
           <Text style={styles.sectionTitle}>Promo Code</Text>
           <View style={styles.promoContainer}>
             <TextInput
@@ -319,7 +313,7 @@ const Checkout = ({ navigation }) => {
               <Text style={styles.applyButtonText}>Apply</Text>
             </TouchableOpacity>
           </View>
-        </View>
+          </View> */}
 
         {/* Order Summary */}
         <View style={styles.section}>
@@ -332,10 +326,10 @@ const Checkout = ({ navigation }) => {
             <Text style={styles.summaryLabel}>Shipping</Text>
             <Text style={styles.summaryValue}>${shipping.toFixed(2)}</Text>
           </View>
-          <View style={styles.summaryRow}>
+          {/* <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Tax (8%)</Text>
             <Text style={styles.summaryValue}>${tax.toFixed(2)}</Text>
-          </View>
+          </View> */}
           {discount > 0 && (
             <View style={styles.summaryRow}>
               <Text style={styles.discountLabel}>Discount</Text>
@@ -349,7 +343,7 @@ const Checkout = ({ navigation }) => {
           </View>
         </View>
 
-        {/* Save Information Checkbox*/}
+        {/* Save Information Checkbox
         <TouchableOpacity 
           style={styles.checkboxContainer}
           onPress={() => setSaveInfo(!saveInfo)}
@@ -361,7 +355,8 @@ const Checkout = ({ navigation }) => {
             Save this information for next time
           </Text>
          </TouchableOpacity>
-         
+          */}
+
        </ScrollView>
 
       {/* Bottom Action Button */}
@@ -400,7 +395,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingVertical: 25,
+    paddingVertical: 20,
     backgroundColor: '#FFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
@@ -441,13 +436,14 @@ const styles = StyleSheet.create({
   },
   section: {
     backgroundColor: '#FFF',
-    marginTop: 10,
+    marginTop:10,
     paddingHorizontal: 25,
-    paddingVertical: 15,
+    paddingVertical: 10,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#F0F0F0',
     borderRadius:10,
+    
     
   },
   sectionHeader: {
@@ -531,6 +527,13 @@ const styles = StyleSheet.create({
     color: '#4A90E2',
     fontWeight: '500',
   },
+  logo: {
+    width: 20,
+    height: 20,
+    marginBottom: 5,
+    alignSelf: 'center',
+  },
+ 
 
   // --- promocode ---
 
@@ -629,12 +632,11 @@ const styles = StyleSheet.create({
 
   bottomContainer: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 50,
     left: 0,
     right: 0,
     backgroundColor: '#FFF',
     paddingHorizontal: 20,
-    paddingVertical: 15,
     borderTopWidth: 1,
     borderTopColor: '#E0E0E0',
     flexDirection: 'row',

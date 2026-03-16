@@ -77,6 +77,8 @@ const ProductDetail = ({route}) => {
               <Text style={styles.iconText}>←</Text>
             </TouchableOpacity>
   
+           <Text style={styles.headerTitle}>Product Details</Text>
+  
           {/* Cart */}
            <TouchableOpacity
            source={cart}
@@ -119,8 +121,7 @@ const ProductDetail = ({route}) => {
             <Text style={styles.category}>{product.category}</Text>
             <View style={styles.ratingContainer}>
               <Text style={styles.starIcon}>★</Text>
-              <Text style={styles.ratingText}>{product.rating}</Text>
-              <Text style={styles.reviewCount}>({product.reviews})</Text>
+              <Text style={styles.ratingText}>{product.rating}4.7</Text>
             </View>
                         <TouchableOpacity style={styles.iconButton}>
               <Text style={styles.iconText}>♡</Text>
@@ -161,107 +162,6 @@ const ProductDetail = ({route}) => {
         </TouchableOpacity>
       </View>
       
-{/*     
-        <ScrollView>
-          {product && (
-            <View>
-              <Image source={{uri: product.images}} style={styles.image} />
-
-              <View style={styles.middlecontainer}>
-                <View style={styles.ratingWrapper}>
-                  <View style={styles.ratingWrapper}>
-                    <Ionicons name="star" size={30} color="#FFD700" />
-                    <Text style={styles.rating}>
-                      4.7
-                      <Text> (136)</Text>
-                    </Text>
-                  </View>
-                  <TouchableOpacity source={star}>
-                    <Ionicons
-                      name="heart-outline"
-                      size={30}
-                      color={COLORS.dark}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <Text style={styles.title}>{product.title}</Text>
-
-                <View style={styles.priceWrapper}>
-                  <Text style={styles.price}>${product.price}</Text>
-                  <View style={styles.priceDiscount}>
-                    <Text style={styles.priceDiscountText}>7% off</Text>
-                  </View>
-                </View>
-                <Text style={styles.description}>{product.description}</Text>
-
-                <View style={styles.productVariationWrapper}>
-                  <View style={styles.productVariationType}>
-                    <Text style={styles.productVariationTitle}>Color</Text>
-                    <View style={styles.productVariationValueWrapper}>
-                      <View
-                        style={[
-                          styles.productVariationColorValue,
-                          {backgroundColor: COLORS.blue},
-                        ]}
-                      />
-
-                      <View
-                        style={[
-                          styles.productVariationColorValue,
-                          {backgroundColor: COLORS.green},
-                        ]}
-                      />
-                      <View
-                        style={[
-                          styles.productVariationColorValue,
-                          {backgroundColor: COLORS.red},
-                        ]}
-                      />
-                    </View>
-                  </View>
-
-                  <View style={styles.productVariationType}>
-                    <Text style={styles.productVariationTitle}>Size</Text>
-
-                    <View style={styles.productVariationValueWrapper}>
-                      <View
-                        style={[
-                          styles.productVariationSizeValue,
-                          {backgroundColor: COLORS.grey},
-                        ]}>
-                        <Text style={styles.productVariationSizeValueText}>
-                          S
-                        </Text>
-                      </View>
-
-                      <View style={styles.productVariationSizeValue}>
-                        <Text style={styles.productVariationSizeValueText}>
-                          M
-                        </Text>
-                      </View>
-
-                      <View style={styles.productVariationSizeValue}>
-                        <Text style={styles.productVariationSizeValueText}>
-                          L
-                        </Text>
-                      </View>
-
-                      <View style={styles.productVariationSizeValue}>
-                        <Text style={styles.productVariationSizeValueText}>
-                          XL
-                        </Text>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          )}
-          <TouchableOpacity style={styles.AddtoCart} onPress={handleAddToCart}>
-           <Text style={styles.AddtoCartText}>Add to Cart</Text>
-          </TouchableOpacity>
-        </ScrollView> */}
-
       </SafeAreaView>
     </>
   );
@@ -272,7 +172,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa', // Light gray background
-    paddingTop: 10, // Adjust for status bar
+    // paddingTop: 10, // Adjust for status bar
+    marginTop:20    
   },
   header: {
     flexDirection: 'row',
@@ -302,6 +203,11 @@ const styles = StyleSheet.create({
   },
   iconText: {
     fontSize: 20,
+    color: '#333',
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
     color: '#333',
   },
 
@@ -413,7 +319,7 @@ scrollContent: {
   // Bottom Bar Styles
   bottomBar: {
     position: 'absolute',
-    bottom: 0,
+    bottom: 30,
     left: 0,
     right: 0,
     backgroundColor: '#fff',

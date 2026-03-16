@@ -362,20 +362,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
  
-  // statCard: {
-  //   backgroundColor: '#FFFFFF',
-  //   width: (width - 60) / 4, // Responsive width
-  //   borderRadius: 16,
-  //   paddingVertical: 16,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   // Shadow
-  //   shadowColor: '#000',
-  //   shadowOffset: { width: 0, height: 2 },
-  //   shadowOpacity: 0.05,
-  //   shadowRadius: 8,
-  //   elevation: 2,
-  // },
   statIconBackground: {
     width: 40,
     height: 40,

@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   Image,
-  FlatList,
   ScrollView,
   StatusBar,
   SafeAreaView,
@@ -19,8 +18,7 @@ import {
   DeleteMyCart,
 } from '../state/CartSlics';
 import {useNavigation} from '@react-navigation/native';
-import {COLORS, SIZES} from '../const/colors';
-import {back, star, cart} from '../const/icons';
+import { COLORS } from '../const/colors';
 
 
 export default function Cart() {
@@ -39,7 +37,8 @@ export default function Cart() {
   // const total = subtotal + tax + shipping;
 
 
-  useMemo(() => {
+
+ useMemo(() => {
     const subtotal = basketItems.reduce((group, item) => {
       if (group[item.id]) {
         group[item.id].push(item);
@@ -127,7 +126,7 @@ export default function Cart() {
             </View>
           );
         })}
-       </ScrollView>
+        </ScrollView>
 
       {/* Footer / Checkout */}
 
@@ -153,8 +152,7 @@ export default function Cart() {
 
           <TouchableOpacity style={styles.checkoutBtn} onPress={()=> navigation.replace('checkout')}>
             <Text style={styles.checkoutBtnText}>Checkout Now</Text>
-            {/* <Icon name="arrow-forward" size={20} color="#fff" /> */}
-          </TouchableOpacity>
+            </TouchableOpacity>
         </View>
       )}
     </SafeAreaView>
@@ -345,6 +343,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 16,
     borderRadius: 12,
+    marginBottom:25
   },
   checkoutBtnText: {
     color: '#fff',
@@ -366,40 +365,4 @@ const styles = StyleSheet.create({
     color: '#888',
   },
 
-  // listContainer: {padding: 10},
-  // itemContainer: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   backgroundColor: '#fff',
-  //   padding: 15,
-  //   marginVertical: 5,
-  //   borderRadius: 8,
-  //   elevation: 2,
-  // },
-  // itemtitle: {fontSize: 16, fontWeight: 'bold', color: COLORS.dark},
-  // itemPrice: {fontSize: 16, color: '#888'},
-  // quantityContainer: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   marginHorizontal: 10,
-  // },
-  // quantity: {fontSize: 18, marginHorizontal: 10},
-  // removeButton: {marginLeft: 10},
-  // footer: {
-  //   padding: 20,
-  //   backgroundColor: '#fff',
-  //   borderTopWidth: 1,
-  //   borderColor: '#ddd',
-  // },
-  // totalText: {
-  //   fontSize: 20,
-  //   fontWeight: 'bold',
-  //   textAlign: 'center',
-  //   marginBottom: 10,
-  // },
-  // checkoutButton: {backgroundColor: '#007bff', padding: 15, borderRadius: 8},
-  // checkoutText: {color: '#fff', textAlign: 'center', fontSize: 18},
-  // // emptyContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  // emptyText: {fontSize: 18, marginBottom: 20},
-  // backText: {fontSize: 16, color: '#007bff'},
 });

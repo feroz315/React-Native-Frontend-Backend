@@ -269,7 +269,10 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor:"#FF6B6B"
+    // backgroundColor:"#FF6B6B",
+    borderWidth: 4,
+    borderColor: COLORS.navy,
+  
   },
 
   // Category Styles
