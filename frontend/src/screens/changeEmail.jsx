@@ -101,18 +101,22 @@ const ChangeEmail = ({navigation}) => {
     try {
        const token = await AsyncStorage.getItem('authToken');
        const response = await fetch('http://192.168.1.15:3000/api/profile/update-email',
+        
         {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Send stored token
+          Authorization: `Bearer ${token}`, // Send stored token
         },
-        body: JSON.stringify({ newEmail: currentEmail }),
+         body:JSON.stringify({ newEmail }),
       });
 
-      const data = await response.json();
+      const data = await response.json();       
+
       if (response.ok) {
-      setCurrentEmail(response);
+      Alert.alert('Success', 'Email updated successfully!'),
+      console.log('Success', response.data)
+      setCurrentEmail(response.data);
       setNewEmail('');
      } 
      else {
