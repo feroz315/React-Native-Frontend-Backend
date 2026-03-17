@@ -16,6 +16,8 @@ import { COLORS } from '../const/colors';
 import {  useSelector } from 'react-redux';
 import { selectcartItems, selectTotal } from '../state/CartSlics';
 import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+import { Snackbar } from 'react-native-paper';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
@@ -43,6 +45,12 @@ const Checkout = () => {
   const basketItems = useSelector(selectcartItems);
   const basketTotal = useSelector(selectTotal);
 
+  const [visible, setVisible] = useState(false);
+
+  const onToggleSnackBar = () => setVisible(!visible);
+
+  const onDismissSnackBar = () => setVisible(false);
+
 
 
   // Payment methods
@@ -65,7 +73,13 @@ const Checkout = () => {
   const handleSubmit = async () => {
     // Basic validation
     if (!name || !email || !address || !city || !phonenumber || !postalcode || !country) {
-      Alert.alert('Validation error', 'Please fill in all required fields.');
+    Toast.show({
+    type: 'error',
+    text1: 'Validation Error!',
+    text2: 'Please fill in all required fields.'
+  });
+
+      // Alert.alert('Validation error', 'Please fill in all required fields.');
       return;
     }
 
@@ -127,13 +141,22 @@ const Checkout = () => {
     }, 1000);
   };
 
-  const applyPromoCode = () => {
-    if (promoCode.toUpperCase() === 'SAVE10') {
-      Alert.alert('Success', 'Promo code applied successfully!');
-    } else {
-      Alert.alert('Invalid', 'Please enter a valid promo code');
-    }
-  };
+  // const applyPromoCode = () => {
+  //   if (promoCode.toUpperCase() === 'SAVE10') {
+  //     Alert.alert('Success', 'Promo code applied successfully!');
+  //   } else {
+  //     Alert.alert('Invalid', 'Please enter a valid promo code');
+  //   }
+  // };
+
+
+const showSuccessToast = () => {
+  Toast.show({
+    type: 'success', // Type of toast: 'success', 'error', 'info'
+    text1: 'Successfully!', // Main message (header)
+    text2: 'Your operation was successful.' // Optional second line (subheader)
+  });
+};
 
 
   useMemo(() => {
@@ -165,8 +188,22 @@ const Checkout = () => {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
         <View style={{ width: 24 }} />
+        
+      
       </View>
-   
+   <Button onPress={onToggleSnackBar} title='btn'>{visible ? 'Hide' : 'Show'}</Button>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        action={{
+          label: 'Undo',
+          onPress: () => {
+            // Do something
+          },
+        }}>
+        Hey there! I'm a Snackbar.
+      </Snackbar>
+    
       {/* Order Items */}
       <ScrollView 
         showsVerticalScrollIndicator={false}
@@ -207,13 +244,13 @@ const Checkout = () => {
         {/* Delivery Address */}
          
       <View style = {styles.section}>
-        
-      
+             
         <TextInput
           style={styles.input}
           placeholder="Name"
           value={name}
           onChangeText={setName}
+          
         />
 
         <TextInput
@@ -315,6 +352,7 @@ const Checkout = () => {
           </View>
           </View> */}
 
+        
         {/* Order Summary */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Order Summary</Text>

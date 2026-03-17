@@ -4,7 +4,6 @@ import MapView,{Marker} from 'react-native-maps';
 import { COLORS } from '../const/colors';
 
 
-
 const Delivery = () => {
 
 return (
@@ -13,8 +12,8 @@ return (
   <MapView
   style={{flex:1}}
   initialRegion={{
-    latitude:  24.5576903,
-    longitude: 67.088162,
+    latitude:  24.9056,
+    longitude: 67.0822,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   }}
@@ -22,8 +21,8 @@ return (
 >
 <Marker
 coordinate={{
-  latitude: 24.918803,
-  longitude: 67.099762
+  latitude: 24.9056,
+  longitude: 67.0822
 }} 
 pinColor={COLORS.lightOrange}
 />
