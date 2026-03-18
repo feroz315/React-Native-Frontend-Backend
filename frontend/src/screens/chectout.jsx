@@ -21,7 +21,7 @@ import { Snackbar } from 'react-native-paper';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.7:3000/api/addresses';
+const API_URL = 'http://192.168.1.9:3000/api/addresses';
 
 // ----- form state -----
 
@@ -78,11 +78,8 @@ const Checkout = () => {
     text1: 'Validation Error!',
     text2: 'Please fill in all required fields.'
   });
-
-      // Alert.alert('Validation error', 'Please fill in all required fields.');
-      return;
+     return;
     }
-
     setLoading(true);
     try {
       const payload = {
@@ -99,14 +96,24 @@ const Checkout = () => {
       const { status, data } = await axios.post(API_URL, payload);
 
       if (status === 201) {
-        Alert.alert('Success', 'Address saved!');
-        console.log('Address saved!');
-      }
+      Toast.show({
+      type: 'success', // Type of toast: 'success', 'error', 'info'
+      text1: 'Order Placed Successfully!',  // Main message (header)
+      text2: 'Your order has been placed. You will receive a confirmation soon.' 
+   });
+       console.log('Address saved!');
+      navigation.navigate('delivery'),
+       clearForm()
+     }
     } catch (err) {
-      console.error(err);
       const msg = err.response?.data?.error || 'Network error – try again later.';
-      Alert.alert('Error', msg);
-     
+      console.error("err", msg);
+      Toast.show({
+      type: 'error',
+      text1: 'Validation Error!',
+      text2: 'Network error try again later.'
+  });
+
     } finally {
       setLoading(false);
     }
@@ -150,14 +157,6 @@ const Checkout = () => {
   // };
 
 
-const showSuccessToast = () => {
-  Toast.show({
-    type: 'success', // Type of toast: 'success', 'error', 'info'
-    text1: 'Successfully!', // Main message (header)
-    text2: 'Your operation was successful.' // Optional second line (subheader)
-  });
-};
-
 
   useMemo(() => {
     const subtotal = basketItems.reduce((group, item) => {
@@ -191,18 +190,6 @@ const showSuccessToast = () => {
         
       
       </View>
-   <Button onPress={onToggleSnackBar} title='btn'>{visible ? 'Hide' : 'Show'}</Button>
-      <Snackbar
-        visible={visible}
-        onDismiss={onDismissSnackBar}
-        action={{
-          label: 'Undo',
-          onPress: () => {
-            // Do something
-          },
-        }}>
-        Hey there! I'm a Snackbar.
-      </Snackbar>
     
       {/* Order Items */}
       <ScrollView 
@@ -290,16 +277,7 @@ const showSuccessToast = () => {
           value={country}
           onChangeText={setCountry}
         />
-
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Submit Address"
-            onPress={handleSubmit}
-            color="#007BFF"
-          />
-        </View>
-        
-        </View>
+      </View>
                
         {/* Payment Method */}
         <View style={styles.section}>
@@ -405,7 +383,7 @@ const showSuccessToast = () => {
         </View>
         <TouchableOpacity
           style={[styles.placeOrderButton, Loading && styles.disabledButton]}
-          onPress={handlePlaceOrder}
+          onPress={handleSubmit}
           disabled={Loading}
         >
           <Text style={styles.placeOrderText}>
@@ -743,3 +721,16 @@ export default Checkout;
 
 
 
+// <Button onPress={onToggleSnackBar} title='btn'>{visible ? 'Hide' : 'Show'}</Button>
+//       <Snackbar
+//         visible={visible}
+//         onDismiss={onDismissSnackBar}
+//         action={{
+//           label: 'Undo',
+//           onPress: () => {
+//             // Do something
+//           },
+//         }}>
+//         Hey there! I'm a Snackbar.
+//       </Snackbar>
+   

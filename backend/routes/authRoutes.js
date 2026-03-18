@@ -655,7 +655,59 @@ router.put('/profile/update-email', authenticateToken, async (req, res) => {
 });
 
 
+// Submit new order
+router.post('/submit-order', async (req, res) => {
+  try {
+    const { 
+      customerName, 
+      customerEmail, 
+      items, 
+      totalAmount, 
+      shippingAddress 
+    } = req.body;
+
+    const newOrder = await client.query(
+      `INSERT INTO orders (customer_name, customer_email, items, total_amount, shipping_address, status) 
+       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+      [customerName, customerEmail, JSON.stringify(items), totalAmount, shippingAddress, 'pending']
+    );
+
+    res.status(201).json({
+      success: true,
+      order: newOrder.rows[0],
+      message: 'Order submitted successfully!'
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'Server error'
+    });
+  }
+});
+
+
 module.exports = router;
+
+
+// Get all orders
+// router.get('/', async (req, res) => {
+//   try {
+//     const orders = await pool.query('SELECT * FROM orders ORDER BY created_at DESC');
+//     res.json(orders.rows);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+
+
+
+
+
+
+
+
 
 
 
