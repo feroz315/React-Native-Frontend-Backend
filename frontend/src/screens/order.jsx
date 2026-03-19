@@ -8,13 +8,21 @@ import {
   Alert,
   StyleSheet,
 } from 'react-native';
+import {  useSelector } from 'react-redux';
+import { selectcartItems, selectTotal } from '../state/CartSlics';
+import { useNavigation } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+
+
 
 const OrderForm = () => {
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
+    customerPhone:"",
     shippingAddress: '',
     items: [
       { name: 'Product 1', quantity: 2, price: 29.99 },
@@ -22,6 +30,9 @@ const OrderForm = () => {
     ],
   });
   const [loading, setLoading] = useState(false);
+
+  const navigation = useNavigation();
+
 
   const calculateTotal = () => {
     return formData.items.reduce((total, item) => {
@@ -37,7 +48,7 @@ const OrderForm = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post('http://YOUR_SERVER_IP:5000/api/orders/submit', {
+      const response = await axios.post('http://192.168.1.9:3000/api/submit-order', {
         customerName: formData.customerName,
         customerEmail: formData.customerEmail,
         items: formData.items,
@@ -63,9 +74,22 @@ const OrderForm = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Place Your Order</Text>
-
+    
+  <ScrollView style={styles.container}>
+        
+     {/* Header */}
+    <View style={styles.header}>
+              <TouchableOpacity style={styles.iconButton}
+               onPress={() => navigation.navigate("delivery")}>
+                 <Text style={styles.iconText}>←</Text>            
+                {/* <Icon name="arrow-back" size={24} color="#333" /> */}
+              </TouchableOpacity>
+              <Text style={styles.headerTitle}>Order Place</Text>
+              <View style={{ width: 24 }} />    
+            
+      </View>
+          
+    <View style={styles.containerInput}>
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Customer Name *</Text>
         <TextInput
@@ -87,7 +111,18 @@ const OrderForm = () => {
           autoCapitalize="none"
         />
       </View>
-
+      
+      <View style={styles.inputGroup}>
+        <Text style={styles.label}>Phone *</Text>
+        <TextInput
+          style={styles.input}
+          value={formData.customerPhone}
+          onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
+          placeholder="Enter your phone number"
+          keyboardType="phone-pad"
+        />
+      </View>
+      
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Shipping Address *</Text>
         <TextInput
@@ -98,9 +133,10 @@ const OrderForm = () => {
           multiline
           numberOfLines={4}
         />
-      </View>
-
-      <View style={styles.itemsSection}>
+       </View>
+   </View>
+   
+      {/* <View style={styles.itemsSection}>
         <Text style={styles.sectionTitle}>Order Items</Text>
         {formData.items.map((item, index) => (
           <View key={index} style={styles.itemRow}>
@@ -108,7 +144,7 @@ const OrderForm = () => {
             <Text style={styles.itemText}>Qty: {item.quantity} x ${item.price}</Text>
           </View>
         ))}
-      </View>
+      </View> */}
 
       <View style={styles.totalContainer}>
         <Text style={styles.totalText}>Total: ${calculateTotal().toFixed(2)}</Text>
@@ -131,17 +167,48 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    marginTop:15,
     backgroundColor: '#f5f5f5',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 30,
+  // --- header ---
+
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: '600',
     color: '#333',
   },
+  iconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3, // Android shadow
+    shadowColor: '#000', // iOS shadow
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  iconText: {
+    fontSize: 20,
+    color: '#333',  
+  },
+
+  // --- Input ---
+ 
+  containerInput: {
+  marginTop:25
+ },
   inputGroup: {
-    marginBottom: 20,
+    marginBottom: 15,
   },
   label: {
     fontSize: 16,

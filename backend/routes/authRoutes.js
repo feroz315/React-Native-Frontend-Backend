@@ -661,15 +661,16 @@ router.post('/submit-order', async (req, res) => {
     const { 
       customerName, 
       customerEmail, 
+      customerPhone, 
       items, 
       totalAmount, 
       shippingAddress 
     } = req.body;
 
     const newOrder = await client.query(
-      `INSERT INTO orders (customer_name, customer_email, items, total_amount, shipping_address, status) 
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [customerName, customerEmail, JSON.stringify(items), totalAmount, shippingAddress, 'pending']
+      `INSERT INTO orders (customer_name, customer_email,customer_phone, items, total_amount, shipping_address, status) 
+       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      [customerName, customerEmail,customerPhone, JSON.stringify(items), totalAmount, shippingAddress, 'pending']
     );
 
     res.status(201).json({

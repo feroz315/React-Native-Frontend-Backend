@@ -30,13 +30,6 @@ export default function Cart() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  // --- Calculations ---
-  // const subtotal = basketItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-  // const tax = subtotal * 0.08; // 8% tax
-  // const shipping = subtotal > 500 ? 0 : 15.00; // Free shipping over $500
-  // const total = subtotal + tax + shipping;
-
-
 
  useMemo(() => {
     const subtotal = basketItems.reduce((group, item) => {
@@ -136,22 +129,13 @@ export default function Cart() {
             <Text style={styles.label}>Subtotal</Text>
             <Text style={styles.value}>${basketTotal.toFixed(2)}</Text>
           </View>
-          {/* <View style={styles.row}>
-                   <Text style={styles.label}>Shipping</Text>
-                   <Text style={styles.value}>{shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`}</Text>
-                 </View> */}
-          {/* <View style={styles.row}>
-                   <Text style={styles.label}>Tax (8%)</Text>
-                   <Text style={styles.value}>${tax.toFixed(2)}</Text>
-                 </View>
-                  */}
           <View style={[styles.row, styles.totalRow]}>
             <Text style={styles.totalLabel}>Total</Text>
             <Text style={styles.totalValue}>${basketTotal.toFixed(2)}</Text>
           </View>
 
           <TouchableOpacity style={styles.checkoutBtn} onPress={()=> navigation.replace('checkout')}>
-            <Text style={styles.checkoutBtnText}>Checkout Now</Text>
+            <Text style={styles.checkoutBtnText}>Payment Now</Text>
             </TouchableOpacity>
         </View>
       )}

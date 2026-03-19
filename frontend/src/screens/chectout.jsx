@@ -20,7 +20,7 @@ import Toast from 'react-native-toast-message';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.9:3000/api/addresses';
+const API_URL = 'http://192.168.1.10:3000/api/addresses';
 
 // ----- form state -----
 
@@ -222,7 +222,7 @@ const Checkout = () => {
 
         {/* Delivery Address */}
          
-      <View style = {styles.section}>
+      {/* <View style = {styles.section}>
              
         <TextInput
           style={styles.input}
@@ -268,8 +268,8 @@ const Checkout = () => {
           value={country}
           onChangeText={setCountry}
         />
-      </View>
-               
+        </View>
+                */}
         {/* Payment Method */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Payment Method</Text>
@@ -348,18 +348,21 @@ const Checkout = () => {
             <Text style={styles.totalLabel}>Total</Text>
             <Text style={styles.totalValue}>${basketTotal + shipping}</Text>
           </View>
-         </View>
-
+      
        
-       </ScrollView>
-
+      
       {/* Bottom Action Button */}
-      <View style={styles.bottomContainer}>
-        <View style={styles.totalContainer}>
+      
+        {/* <View style={styles.totalContainer}>
           <Text style={styles.totalAmountLabel}>Total Amount</Text>
           <Text style={styles.totalAmount}>${basketTotal + shipping }</Text>
-        </View>
-        <TouchableOpacity
+        </View> */}
+            
+              <TouchableOpacity style={styles.checkoutBtn} onPress={()=> navigation.replace('order')}>
+                    <Text style={styles.checkoutBtnText}>Checkout Now </Text>
+                    </TouchableOpacity>
+            
+        {/* <TouchableOpacity
           style={[styles.placeOrderButton, Loading && styles.disabledButton]}
           onPress={handlePlaceOrder}
           disabled={Loading}
@@ -367,9 +370,9 @@ const Checkout = () => {
           <Text style={styles.placeOrderText}>
             {Loading ? 'Processing...' : 'Place Order'}
           </Text>
-        </TouchableOpacity>
-       </View>
-
+        </TouchableOpacity> */}
+       </View> 
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -654,6 +657,23 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#333',
   },
+  checkoutBtn: {
+    backgroundColor: '#000', // Modern Black Button
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom:15,
+    marginTop:10
+  },
+  checkoutBtnText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+
   placeOrderButton: {
     backgroundColor: '#4A90E2',
     paddingHorizontal: 30,
