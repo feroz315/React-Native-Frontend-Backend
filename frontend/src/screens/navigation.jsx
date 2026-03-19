@@ -21,6 +21,7 @@ import ResetPassword from './resetpass';
 import ChangePassword from './changepass';
 import ProfileContact from './contact';
 import ChangeEmail from './changeEmail';
+import OrderForm from './order';
 
 
 
@@ -54,6 +55,7 @@ const Navigation = () => {
                 <Stack.Screen name="changepass" component={ChangePassword}/>
                  <Stack.Screen name="contact" component={ProfileContact}/>
                  <Stack.Screen name="change-email" component={ChangeEmail}/>
+                 <Stack.Screen name="order" component={OrderForm}/>
                  
 
         </Stack.Navigator>            
