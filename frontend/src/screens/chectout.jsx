@@ -178,8 +178,7 @@ const Checkout = () => {
           {/* <Icon name="arrow-back" size={24} color="#333" /> */}
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
-        <View style={{ width: 24 }} />
-        
+        <View style={{ width: 24 }} />  
       
        </View>
     

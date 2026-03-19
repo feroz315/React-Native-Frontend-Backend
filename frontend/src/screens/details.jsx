@@ -38,7 +38,7 @@ const ProductDetail = ({route}) => {
 
   useEffect(() => {
     ProductgetID();
-  }, []);
+  }, [])
 
 
   const handleAddToCart = () => {
