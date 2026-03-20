@@ -26,6 +26,10 @@ const OrderForm = () => {
     shippingAddress: '',
     items: basketItems
   });
+// [
+//       { name: 'Product 1', quantity: 2, price: 29.99 },
+//       { name: 'Product 2', quantity: 1, price: 49.99 },
+//     ],
 
   const [loading, setLoading] = useState(false);
 
@@ -37,13 +41,18 @@ const OrderForm = () => {
 
   const handleSubmit = async () => {
     if (!formData.customerName || !formData.customerEmail ||!formData.customerPhone || !formData.shippingAddress) {
-      Alert.alert('Error', 'Please fill all required fields');
+        Toast.show({
+          type: 'error',
+          text1: 'Validation Error!',
+          text2: 'Please fill in all required fields.'
+        });
+        
       return;
     }
     setLoading(true);
     try { 
       const response = await   
-       fetch("http://192.168.1.10:3000/api/submit-order",{
+       fetch("http://192.168.1.2:3000/api/submit-order",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -57,31 +66,36 @@ const OrderForm = () => {
         totalAmount: basketTotal,
        }),       
     }) 
-      const data = await response.json();       
-
-      if (response.ok) {
-        Alert.alert('Success', 'Order submitted successfully!');
+        if (response.ok) {
         console.log('Success', response.data)
-   
+        Toast.show({
+         type: 'success', // Type of toast: 'success', 'error', 'info'
+         text1: 'Order Placed Successfully!',  // Main message (header)
+         text2: 'Order submitted successfully!' 
+      });   
         navigation.navigate("delivery")
         setFormData(response.data)
-        // setFormData({
-        //   customerName: '',
-        //   customerEmail: '',
-        //   customerPhone: '',
-        //   shippingAddress: '',
-        //   items: [],
-        // });
-      } else {
-              Alert.alert('Error', data.message);
-            }
+        setFormData({
+          customerName: '',
+          customerEmail: '',
+          customerPhone: '',
+          shippingAddress: '',
+          items: [],
+        });
+      } 
     } catch (error) {
       console.error('Order submission error:', error);
-      Alert.alert('Error', 'Failed to submit order. Please try again.');
+       Toast.show({
+          type: 'error',
+          text1: 'Validation Error!',
+          text2: 'Failed to submit order. Please try again.'
+        });
+       
     } finally {
       setLoading(false);
     }
   };
+
 
   return (
     

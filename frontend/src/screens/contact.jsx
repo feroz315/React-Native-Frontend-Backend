@@ -3,13 +3,14 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
 
 import {COLORS} from '../const/colors';
+import Toast from 'react-native-toast-message';
+
 
 const {width} = Dimensions.get('screen');
 
@@ -19,9 +20,18 @@ const ProfileContact = ({navigation}) => {
   const [contact, setContact] = useState('');
   const [newContact, setNewContact] = useState('');
 
+
   const handleReset = async () => {
+    if(!contact){
+     Toast.show({
+            type: 'error',
+            text1: 'Validation Error!',
+            text2: 'Please fill contact field.'
+        });
+        return;
+    }
     try {
-      fetch('http://192.168.1.12:3000/api/reset-password', {
+      fetch('http://192.168.1.10:3000/api/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,16 +42,26 @@ const ProfileContact = ({navigation}) => {
         }),
       });
       console.log('Success', 'contact updated!');
+      Toast.show({
+            type: 'success', // Type of toast: 'success', 'error', 'info'
+            text1: 'Contact Update Successfully!',  // Main message (header)
+            text2: 'contact updated!' 
+         });
       navigation.navigate('profile');
-      setNewContact('');
-      
+      setNewContact('');  
     } catch (error) {
-      console.log(
-        'Error',
+      console.log('Error',
         error.response?.data?.message || 'Failed to contact',
       );
+       Toast.show({
+            type: 'error',
+            text1: 'Validation Error!',
+            text2: 'Failed to contact.'
+        });    
     }
   };
+
+
 
   return (
     <View style={styles.container}>

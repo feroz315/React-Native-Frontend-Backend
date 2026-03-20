@@ -3,25 +3,28 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
-  Alert,
   ActivityIndicator,
 } from 'react-native';
-import axios from 'axios';
-import api from '../config/api';
+import Toast from 'react-native-toast-message';
+
 
 
 const ResetPassword = ({route, navigation}) => {
-
   const {email} = route.params;
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  
-  const handleReset = async () => {
-    // if (!newPassword) return Alert.alert('Error', 'Fill all fields');
 
+  const handleReset = async () => {
+    if (!newPassword) {
+      Toast.show({
+        type: 'error',
+        text1: 'Validation Error!',
+        text2: 'Please fill required field.',
+      });
+      return;
+    }
     setLoading(true);
     try {
       fetch('http://192.168.1.12:3000/api/reset-password', {
@@ -34,19 +37,27 @@ const ResetPassword = ({route, navigation}) => {
         }),
       });
       console.log('Success', 'Password updated! Please login.');
+      Toast.show({
+        type: 'success', // Type of toast: 'success', 'error', 'info'
+        text1: 'Password updated Successfully!', // Main message (header)
+        text2: 'updated! Please login.',
+      });
       navigation.navigate('login');
     } catch (error) {
       console.log(
         'Error',
         error.response?.data?.message || 'Failed to reset password',
       );
+      Toast.show({
+        type: 'error',
+        text1: 'Validation Error!',
+        text2: 'Failed to reset password.',
+      });
     } finally {
       setLoading(false);
     }
   };
 
-  
-  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Reset Password</Text>
@@ -91,7 +102,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-
-
 
 export default ResetPassword;

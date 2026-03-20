@@ -20,7 +20,7 @@ import Toast from 'react-native-toast-message';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.10:3000/api/addresses';
+const API_URL = 'http://192.168.1.2:3000/api/addresses';
 
 // ----- form state -----
 
@@ -105,7 +105,6 @@ const Checkout = () => {
       text1: 'Validation Error!',
       text2: 'Network error try again later.'
   });
-
     } finally {
       setLoading(false);
     }

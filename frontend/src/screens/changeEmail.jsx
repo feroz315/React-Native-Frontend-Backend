@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
@@ -11,9 +10,9 @@ import {
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import {COLORS} from '../const/colors';
 import api from '../config/api';
+import Toast from 'react-native-toast-message';
 
 
 const {width} = Dimensions.get('screen');
@@ -23,55 +22,6 @@ const ChangeEmail = ({navigation}) => {
   
   const [newEmail, setNewEmail] = useState('');
   const [currentEmail, setCurrentEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-
-
-  const handleReset = async () => {
-    try {
-      fetch('http://192.168.1.9:3000/api/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          newEmail: newEmail,
-          
-        }),
-      });
-      console.log('Success', 'contact updated!');
-      navigation.navigate('profile');
-      setNewEmail('');
-      
-    } catch (error) {
-      console.log(
-        'Error',
-        error.response?.data?.message || 'Failed to contact',
-      );
-    }
-  };
-
-
-  // const handleUpdateEmail = async () => {
-  //   try {
-  //     const response = await fetch('http://192.168.1.9:3000/api/profile/update-email', {
-  //       method: 'PUT',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': `Bearer ${userToken}`, // Send stored token
-  //       },
-  //       body: JSON.stringify({ newEmail: email }),
-  //     });
-
-  //     const data = await response.json();
-  //     if (response.ok) {
-  //       Alert.alert('Success', 'Email updated successfully');
-  //     } else {
-  //       Alert.alert('Error', data.message);
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
 
   useEffect(() => {
@@ -85,19 +35,31 @@ const ChangeEmail = ({navigation}) => {
       const response = await api.get('/profile', {
         headers: { Authorization: `Bearer ${token}` },
       });
+      Toast.show({
+      type: 'success', // Type of toast: 'success', 'error', 'info'
+      text1: 'Fetch Successfully!',  // Main message (header)
+      text2: 'profile successfully!' 
+    });         
       setCurrentEmail(response.data.email);
     } catch (error) {
       console.error('Fetch profile error:', error);
-      Alert.alert('Error', 'Failed to load profile');
+       Toast.show({
+          type: 'error',
+          text1: 'Validation Error!',
+          text2: 'Failed to load profile'
+        });     
     }
   };
 
   const updateEmail = async () => {
     if (!newEmail || newEmail === currentEmail) {
-      Alert.alert('Error', 'Please enter a valid new email');
+      Toast.show({
+          type: 'error',
+          text1: 'Validation Error!',
+          text2: 'Please enter a valid new email.'
+        });
       return;
     }
-    
     try {
        const token = await AsyncStorage.getItem('authToken');
        const response = await fetch('http://192.168.1.15:3000/api/profile/update-email',
@@ -114,8 +76,12 @@ const ChangeEmail = ({navigation}) => {
       const data = await response.json();       
 
       if (response.ok) {
-      Alert.alert('Success', 'Email updated successfully!'),
       console.log('Success', response.data)
+      Toast.show({
+            type: 'success', // Type of toast: 'success', 'error', 'info'
+            text1: 'Email update Successfully!',  // Main message (header)
+            text2: 'updated successfully!' 
+         });
       setCurrentEmail(response.data);
       setNewEmail('');
      } 
@@ -125,8 +91,12 @@ const ChangeEmail = ({navigation}) => {
     } catch (error) {
       const errorMsg = error.response?.data?.error || 'Failed to update email';
       console.log('Error', errorMsg)
-      Alert.alert('Error', errorMsg);
-   }
+       Toast.show({
+          type: 'error',
+          text1: 'Validation Error!',
+          text2: 'Failed to update email.'
+        });   
+     }
   }
      
  

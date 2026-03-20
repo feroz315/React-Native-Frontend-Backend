@@ -3,23 +3,33 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
 
 import {COLORS} from '../const/colors';
+import Toast from 'react-native-toast-message';
 
 const {width} = Dimensions.get('screen');
 
 const ChangePassword = ({navigation}) => {
-
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  
+
   const handleReset = async () => {
+    if (!password || !newPassword || !confirmPassword) {
+      Toast.show({
+        type: 'error',
+        text1: 'Validation Error!',
+        text2: 'Please fill in all required fields.',
+      });
+      return;
+    }
+
     try {
       fetch('http://192.168.1.12:3000/api/reset-password', {
         method: 'POST',
@@ -32,6 +42,11 @@ const ChangePassword = ({navigation}) => {
         }),
       });
       console.log('Success', 'Password updated! Please login.');
+      Toast.show({
+        type: 'success', // Type of toast: 'success', 'error', 'info'
+        text1: 'Password updated Successfully!', // Main message (header)
+        text2: 'Password updated! Please login.',
+      });
       navigation.navigate('profile');
       setNewPassword('');
       confirmPassword('');
@@ -40,8 +55,15 @@ const ChangePassword = ({navigation}) => {
         'Error',
         error.response?.data?.message || 'Failed to reset password',
       );
+      Toast.show({
+        type: 'error',
+        text1: 'Validation Error!',
+        text2: 'Failed to reset password',
+      });
     }
   };
+
+
 
   return (
     <View style={styles.container}>
@@ -83,8 +105,8 @@ const ChangePassword = ({navigation}) => {
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
-       </View>
-    
+      </View>
+
       {/* Signup Button */}
       <TouchableOpacity style={styles.signupButton} onPress={handleReset}>
         <Text style={styles.signupButtonText}>Change Password </Text>
