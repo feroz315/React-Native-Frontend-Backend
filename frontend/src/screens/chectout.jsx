@@ -268,6 +268,7 @@ const Checkout = () => {
         />
         </View>
                 */}
+
         {/* Payment Method */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Payment Method</Text>

@@ -654,7 +654,6 @@ router.put('/profile/update-email', authenticateToken, async (req, res) => {
   }
 });
 
-
 // Submit new order
 router.post('/submit-order', async (req, res) => {
   try {
@@ -686,7 +685,6 @@ router.post('/submit-order', async (req, res) => {
     });
   }
 });
-
 
 
 
