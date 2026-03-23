@@ -57,7 +57,6 @@ const navigation = useNavigation();
   }, []);
 
 
-
   const fetchProfile = async () => {
     try {
       const res = await api.get('/profile');

@@ -24,7 +24,7 @@ const OrderForm = () => {
     customerEmail: '',
     customerPhone:"",
     shippingAddress: '',
-    items: basketItems
+    items: basketItems 
   });
 // [
 //       { name: 'Product 1', quantity: 2, price: 29.99 },
@@ -61,7 +61,7 @@ const OrderForm = () => {
         customerName: formData.customerName,
         customerEmail: formData.customerEmail,
         customerPhone: formData.customerPhone,     
-        items: formData.items,
+        items: basketItems,
         shippingAddress: formData.shippingAddress,
         totalAmount: basketTotal,
        }),       
@@ -73,8 +73,8 @@ const OrderForm = () => {
          text1: 'Order Placed Successfully!',  // Main message (header)
          text2: 'Order submitted successfully!' 
       });   
-        navigation.navigate("delivery")
         setFormData(response.data)
+        navigation.navigate("delivery")
         setFormData({
           customerName: '',
           customerEmail: '',
@@ -175,14 +175,16 @@ const OrderForm = () => {
       </View>
 
       <TouchableOpacity
-        style={[styles.submitButton, loading && styles.disabledButton]}
+        style={[styles.submitBtn, loading && styles.disabledButton]}
         onPress={handleSubmit}
         disabled={loading}
       >
-        <Text style={styles.submitButtonText}>
+        <Text style={styles.submitoutBtnText}>
           {loading ? 'Submitting...' : 'Submit Order'}
         </Text>
       </TouchableOpacity>
+         
+                 
     </ScrollView>
   );
 };
@@ -278,31 +280,39 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   totalContainer: {
-    backgroundColor: '#4CAF50',
-    padding: 20,
-    borderRadius: 10,
-    marginBottom: 30,
+    backgroundColor: '#000', // Modern Black Button
+    padding: 15,
+    borderRadius: 15,
+    marginBottom: 20,
+    marginVertical: 10,
     alignItems: 'center',
   },
   totalText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
     color: 'white',
   },
-  submitButton: {
-    backgroundColor: '#2196F3',
-    padding: 18,
-    borderRadius: 12,
+
+  submitBtn: {
+    backgroundColor: '#000', // Modern Black Button
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
+    padding: 16,
+    borderRadius: 15,
+    marginBottom:15,
+    marginTop:5
   },
+  submitoutBtnText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginRight: 8,
+  }, 
   disabledButton: {
     backgroundColor: '#ccc',
   },
-  submitButtonText: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+
 });
 
 export default OrderForm;
