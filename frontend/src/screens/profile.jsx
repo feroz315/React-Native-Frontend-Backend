@@ -75,7 +75,7 @@ const options = {
 
   const handleLogout = async () => {
      try {
-       fetch("http://192.168.1.9:3000/api/logout",{
+       fetch("http://192.168.1.5:3000/api/logout",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'

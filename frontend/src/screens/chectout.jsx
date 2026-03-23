@@ -20,7 +20,7 @@ import Toast from 'react-native-toast-message';
 
 
 // ⚠️ Replace with your machine’s IP (see “Network gotchas” below)
-const API_URL = 'http://192.168.1.2:3000/api/addresses';
+const API_URL = 'http://192.168.1.5:3000/api/addresses';
 
 // ----- form state -----
 
