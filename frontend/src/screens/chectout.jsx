@@ -38,7 +38,7 @@ const Checkout = () => {
     0,
   );
   const shipping = 5.99;
-  const tax = subtotal * 0.08; // 8% tax
+  const tax = subtotal * 0.00; // 8% tax
   const discount = tax === 'SAVE10' ? subtotal * 0.1 : 0;
   // const total = subtotal + shipping + tax - discount;
 
@@ -154,10 +154,10 @@ const Checkout = () => {
             <Text style={styles.summaryLabel}>Shipping</Text>
             <Text style={styles.summaryValue}>${shipping.toFixed(2)}</Text>
           </View>
-          {/* <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Tax (8%)</Text>
+         <View style={styles.summaryRow}>
+            <Text style={styles.summaryLabel}>Tax (0.00)</Text>
             <Text style={styles.summaryValue}>${tax.toFixed(2)}</Text>
-          </View> */}
+          </View> 
           {discount > 0 && (
             <View style={styles.summaryRow}>
               <Text style={styles.discountLabel}>Discount</Text>
@@ -188,6 +188,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F9FA',
+    
   },
 
   // --- header ---
@@ -198,6 +199,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 20,
+    marginVertical:10,
     backgroundColor: '#FFF',
     borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
