@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 // const Port = process.env.PORT || 3000;
 
 
-app.use("/api", router);
+app.use("/api", router)
 
 
 app.listen(3000, () => {

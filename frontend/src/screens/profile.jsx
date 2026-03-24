@@ -8,15 +8,13 @@ import {
   Image,
   ScrollView,
   StatusBar,
-  Dimensions,
-  
+  Dimensions, 
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
-// import { ToastAndroid } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { COLORS } from '../const/colors';
 
@@ -51,14 +49,23 @@ const options = {
   const fetchProfile = async () => {
     try {
       const res = await api.get('/profile');
-      setUser(res.data);
+       Toast.show({
+       type: 'success', // Type of toast: 'success', 'error', 'info'
+       text1: 'Successfully!',  // Main message (header)
+       text2: 'profile get successfully!' 
+    });
+      setUser(res.data);   
     } catch (err) {
       console.log(err, 'Failed ');
+       Toast.show({
+       type: 'error',
+       text1: 'Validation Error!',
+       text2: 'profile Failed!'
+     });     
     }
   };
 
   const handleUpdatePassword = () => {
-    // Alert.alert('Navigation', `Navigating to ${title}`);
     navigation.navigate("changepass")
   };
 
@@ -72,7 +79,7 @@ const options = {
 
   const handleLogout = async () => {
      try {
-       fetch("http://192.168.1.5:3000/api/logout",{
+       fetch("http://192.168.1.3:3000/api/logout",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -80,20 +87,36 @@ const options = {
     }) 
       await AsyncStorage.removeItem('authToken');
       console.log("authtoken")
+       Toast.show({
+       type: 'success', // Type of toast: 'success', 'error', 'info'
+       text1: 'Successfully!',  // Main message (header)
+       text2: 'Logout successfully!' 
+    });
       navigation.navigate("login")
     
     } catch (error) {
       console.error('Logout error:', error);
+      Toast.show({
+      type: 'error',
+      text1: 'Validation Error!',
+      text2: 'Logout Failed! '
+    });
+           
     }
   };
 
 // Launch image library to select a photo
+
 const selectImage = async () => {
   const result = await launchImageLibrary(options);
   setUserpic(result.assets[0].uri)
   console.log(result.assets[0].uri); // Access the URI of the selected image
+  Toast.show({
+  type: 'success', // Type of toast: 'success', 'error', 'info'
+  text1: 'Successfully!',  // Main message (header)
+  text2: 'Image Upload successfully!' 
+ });
 };
-
 
   // const handleUpdatePassword = async (passwordData) => {
   //   // Your API call here
@@ -106,9 +129,8 @@ const selectImage = async () => {
   //   throw new Error('Invalid current password');
   // };
 
-
-
-  return (
+  
+ return (
 
     <SafeAreaView style={styles.container}>
        <StatusBar barStyle="dark-content" backgroundColor="#F2F5F8" />
