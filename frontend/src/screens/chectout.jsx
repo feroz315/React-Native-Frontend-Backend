@@ -155,8 +155,8 @@ const Checkout = () => {
             <Text style={styles.summaryValue}>${shipping.toFixed(2)}</Text>
           </View>
          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Tax (0.00)</Text>
-            <Text style={styles.summaryValue}>${tax.toFixed(2)}</Text>
+            <Text style={styles.summaryLabel}>Tax</Text>
+            <Text style={styles.summaryValue}>$ 0.00</Text>
           </View> 
           {discount > 0 && (
             <View style={styles.summaryRow}>

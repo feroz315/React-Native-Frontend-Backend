@@ -73,7 +73,7 @@ const openGmail = () => {
    <SafeAreaView style={styles.container}>
        <ScrollView contentContainerStyle={styles.scrollContainer}>
          {/* App Logo/Image */}
-         <Image source={require('../assets/images/imagese.png')} style={styles.logo}  />
+         <Image source={require('../assets/images/boyshop.png')} style={styles.logo}  />
  
          <Text style={styles.title}>Login</Text>   
     
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 200,
-    height: 200,
+    height: 250,
     marginBottom: 5,
     alignSelf: 'center',
   },

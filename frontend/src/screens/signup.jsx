@@ -71,7 +71,7 @@ const Signup = () => {
   <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {/* App Logo/Image */}
-        <Image source={require('../assets/images/imagee.png')} style={styles.logo} />
+        <Image source={require('../assets/images/boy.png')} style={styles.logo} />
         <Text style={styles.title}>Sign Up </Text>
        
         {/* Full Name Input */}
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   logo: {
-    width: 250,
-    height: 200,
+    width: 200,
+    height: 220,
     // backgroundColor:"#000",
     marginBottom: 15,
     alignSelf: 'center',
