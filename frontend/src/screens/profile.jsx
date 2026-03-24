@@ -8,11 +8,9 @@ import {
   Image,
   ScrollView,
   StatusBar,
-  Alert,
   Dimensions,
   
 } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
@@ -20,7 +18,6 @@ import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 // import { ToastAndroid } from 'react-native';
 import Toast from 'react-native-toast-message';
-import ModalInput from '../const/modal';
 import { COLORS } from '../const/colors';
 
 
@@ -96,23 +93,6 @@ const selectImage = async () => {
   setUserpic(result.assets[0].uri)
   console.log(result.assets[0].uri); // Access the URI of the selected image
 };
-
-
-const showSuccessToast = () => {
-  Toast.show({
-    type: 'success', // Type of toast: 'success', 'error', 'info'
-    text1: 'Successfully!', // Main message (header)
-    text2: 'Your operation was successful.' // Optional second line (subheader)
-  });
-};
-
-// const showErrorToast = () => {
-//   Toast.show({
-//     type: 'error',
-//     text1: 'Error!',
-//     text2: 'Something went wrong. Please try again.'
-//   });
-// };
 
 
   // const handleUpdatePassword = async (passwordData) => {

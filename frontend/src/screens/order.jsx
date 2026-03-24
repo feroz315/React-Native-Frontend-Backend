@@ -5,7 +5,6 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Alert,
   StyleSheet,
 } from 'react-native';
 import {  useSelector } from 'react-redux';
@@ -14,7 +13,6 @@ import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 
 
 
@@ -26,10 +24,6 @@ const OrderForm = () => {
     shippingAddress: '',
     items: basketItems 
   });
-// [
-//       { name: 'Product 1', quantity: 2, price: 29.99 },
-//       { name: 'Product 2', quantity: 1, price: 49.99 },
-//     ],
 
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +46,7 @@ const OrderForm = () => {
     setLoading(true);
     try { 
       const response = await   
-       fetch("http://192.168.1.5:3000/api/submit-order",{
+       fetch("http://192.168.1.3:3000/api/submit-order",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -67,13 +61,13 @@ const OrderForm = () => {
        }),       
     }) 
         if (response.ok) {
-        console.log('Success', response.data)
+        console.log('Success', response.ok)
         Toast.show({
          type: 'success', // Type of toast: 'success', 'error', 'info'
          text1: 'Order Placed Successfully!',  // Main message (header)
          text2: 'Order submitted successfully!' 
       });   
-        setFormData(response.data)
+        setFormData(response)
         navigation.navigate("delivery")
         setFormData({
           customerName: '',
