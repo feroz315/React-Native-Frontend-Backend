@@ -36,7 +36,7 @@ const Navigation = () => {
 
    <NavigationContainer>
         
-        <StatusBar backgroundColor={COLORS.white} barStyle="dark-content" />
+         <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true}/>
        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='bottomNav'>
            {/* <Stack.Screen name="Splash" component={SplashScreen} screenOptions={{ headerShown: false }} /> */}
                <Stack.Screen name="board" component={BoardScreen} />

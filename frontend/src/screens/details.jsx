@@ -63,10 +63,9 @@ const ProductDetail = ({route}) => {
     <>
       {/* {renderHeader()} */}
 
-
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor="#f8f9fa" />
-    
+        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true}/>
+  
           {/* Header / Navbar */}
           <View style={styles.header}>
             <TouchableOpacity 
@@ -100,11 +99,7 @@ const ProductDetail = ({route}) => {
   
            </View>
 
-    <ScrollView 
-        showsVerticalScrollIndicator={false} 
-        contentContainerStyle={styles.scrollContent}
-      >
-        {/* Hero Image */}
+        {/* Image */}
    
         <View style={styles.imageContainer}>
           <Image 
@@ -113,7 +108,10 @@ const ProductDetail = ({route}) => {
             resizeMode="cover"
           />
         </View>
-
+    <ScrollView 
+        showsVerticalScrollIndicator={false} 
+        contentContainerStyle={styles.scrollContent}>
+      
         {/* Product Info */}
         <View style={styles.infoContainer}>
           <View style={styles.categoryRow}>
@@ -180,7 +178,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingVertical: 15,
-    backgroundColor: '#f8f9fa',
+    // backgroundColor: '#f8f9fa',
     position: 'absolute',
     top: 0,
     left: 0,
@@ -223,13 +221,14 @@ scrollContent: {
   heroImage: {
     width: '100%',
     height: '100%',
+    marginVertical:40
   },
   infoContainer: {
     padding: 20,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    marginTop: -30, // Overlap effect
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    marginTop: -10, // Overlap effect
     minHeight: height * 0.6,
   },
   categoryRow: {
