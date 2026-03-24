@@ -98,7 +98,7 @@ const OrderForm = () => {
      {/* Header */}
       <View style={styles.header}>
             <TouchableOpacity style={styles.iconButton}
-               onPress={() => navigation.goBack()}>
+               onPress={() => navigation.replace("checkout")}>
                  <Text style={styles.iconText}>←</Text>            
                 {/* <Icon name="arrow-back" size={24} color="#333" /> */}
               </TouchableOpacity>

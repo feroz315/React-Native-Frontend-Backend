@@ -39,7 +39,7 @@ const Checkout = () => {
   );
   const shipping = 5.99;
   const tax = subtotal * 0.08; // 8% tax
-  const discount = promoCode === 'SAVE10' ? subtotal * 0.1 : 0;
+  const discount = tax === 'SAVE10' ? subtotal * 0.1 : 0;
   // const total = subtotal + shipping + tax - discount;
 
   useMemo(() => {
@@ -105,7 +105,7 @@ const Checkout = () => {
                 </View>
               );
             })}
-          </ScrollView>
+            </ScrollView>
         </View>
 
         {/* Payment Method */}
@@ -171,7 +171,6 @@ const Checkout = () => {
           </View>
 
           {/* Bottom Action Button */}
-
           <TouchableOpacity
             style={styles.checkoutBtn}
             onPress={() => navigation.replace('order')}>
