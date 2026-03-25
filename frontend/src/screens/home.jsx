@@ -381,7 +381,8 @@ sectionHeader: {
   productCard: {
     width: '48%',
     backgroundColor: '#FFFFFF',
-    borderRadius: 20,
+    borderRadius: 25,
+    marginLeft:10,
     marginBottom: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },

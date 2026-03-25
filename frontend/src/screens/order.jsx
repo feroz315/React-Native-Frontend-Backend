@@ -11,6 +11,7 @@ import {  useSelector } from 'react-redux';
 import { selectcartItems, selectTotal } from '../state/CartSlics';
 import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import {CountryPicker} from "react-native-country-codes-picker";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -24,7 +25,9 @@ const OrderForm = () => {
     shippingAddress: '',
     items: basketItems 
   });
-
+  
+  const [show, setShow] = useState(false);  
+  const [countryCode, setCountryCode] = useState('');
   const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
@@ -132,16 +135,49 @@ const OrderForm = () => {
       
       <View style={styles.inputGroup}>
         <Text style={styles.label}>Phone *</Text>
+         <View style={styles.containerphone}>
+      <TouchableOpacity
+        onPress={() => setShow(true)}
+        style={{
+            width: '20%',
+            height: 50,
+            backgroundColor: 'white',
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: '#ddd',
+
+        }}
+      >
+        <Text style={{
+            color: 'black',
+            fontSize: 20,
+            marginTop:10,
+            marginLeft:8
+        }}>
+            {countryCode}
+        </Text>
+       </TouchableOpacity>
+      <CountryPicker
+        show={show}
+        // when picker button press you will get the country object with dial code
+        pickerButtonOnPress={(item) => {
+          setCountryCode(item.dial_code);
+          setShow(false);
+        }}
+      />    
         <TextInput
-          style={styles.input}
+          style={styles.inputphone}
           value={formData.customerPhone}
           onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
           placeholder="Enter your phone number"
           keyboardType="phone-pad"
+          textContentType="telephoneNumber"
+          maxLength={15}
         />
+        </View>
       </View>
-      
-      <View style={styles.inputGroup}>
+
+     <View style={styles.inputGroup}>
         <Text style={styles.label}>Shipping Address *</Text>
         <TextInput
           style={[styles.input, styles.textArea]}
@@ -152,6 +188,8 @@ const OrderForm = () => {
           numberOfLines={4}
         />
        </View>
+      
+    
       </View>
    
       {/* <View style={styles.itemsSection}>
@@ -246,9 +284,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
   },
+  inputphone: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 10,
+    fontSize: 16,
+    width:"80%",
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
   textArea: {
     height: 100,
     textAlignVertical: 'top',
+  },
+  containerphone:{
+    flexDirection:'row',
+    alignItems:'center'
   },
   itemsSection: {
     backgroundColor: 'white',
