@@ -5,7 +5,6 @@ const cookieParser = require("cookie-parser");
 const router = require('./routes/authRoutes.js');
 
 const app = express();
-// const PORT = 3000;
 
 
 app.use(cors());
