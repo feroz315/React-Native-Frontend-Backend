@@ -46,9 +46,9 @@ export default function Cart() {
 
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#f8f9fa" />
-
+    
+  <SafeAreaView style={styles.container}>
+      
       {/* Header / Navbar */}
 
       <View style={styles.header}>
@@ -116,11 +116,12 @@ export default function Cart() {
                   </View>
                 </View>
               </View>
-            </View>
+             </View>
           );
         })}
-        </ScrollView>
-
+        
+     </ScrollView>
+  
       {/* Footer / Checkout */}
 
       {basketItems.length > 0 && (
@@ -139,6 +140,7 @@ export default function Cart() {
             </TouchableOpacity>
         </View>
       )}
+     
     </SafeAreaView>
   );
 }

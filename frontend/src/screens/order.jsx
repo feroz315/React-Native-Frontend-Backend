@@ -163,13 +163,14 @@ const OrderForm = () => {
         pickerButtonOnPress={(item) => {
           setCountryCode(item.dial_code);
           setShow(false);
-        }}
+          }}
+          inputPlaceholder={"Code"}
       />    
         <TextInput
           style={styles.inputphone}
           value={formData.customerPhone}
           onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
-          placeholder="Enter your phone number"
+          placeholder="country code & phone number"
           keyboardType="phone-pad"
           textContentType="telephoneNumber"
           maxLength={15}

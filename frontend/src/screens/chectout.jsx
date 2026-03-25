@@ -3,6 +3,7 @@ import {
   SafeAreaView,
   ScrollView,
   View,
+  StatusBar,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -57,6 +58,7 @@ const Checkout = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+    
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity
@@ -177,6 +179,7 @@ const Checkout = () => {
             <Text style={styles.checkoutBtnText}>Checkout Now </Text>
           </TouchableOpacity>
         </View>
+        
       </ScrollView>
     </SafeAreaView>
   );
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F8F9FA',
-    
+ 
   },
 
   // --- header ---
@@ -199,15 +202,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 20,
     paddingVertical: 20,
-    marginVertical:10,
-    backgroundColor: '#FFF',
-    borderBottomWidth: 1,
+    // marginVertical:10,
+    // backgroundColor: '#FFF',
+    // borderBottomWidth: 1,
     borderBottomColor: '#E0E0E0',
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
+    // elevation: 2,
+    // shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.1,
+    // shadowRadius: 2,
+    marginTop:20
   },
   headerTitle: {
     fontSize: 22,

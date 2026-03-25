@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  
 } from 'react-native';
 import {COLORS, FONTS, SIZES} from '../const/colors';
 import axios from 'axios';
@@ -25,6 +26,8 @@ const SPACING = 10;
 
 
 const {width, height} = Dimensions.get('window');
+
+const { width: viewportWidth } = Dimensions.get("window");
 
 const ProductDetail = ({route}) => {
   const [product, setProduct] = useState({});
@@ -64,7 +67,8 @@ const ProductDetail = ({route}) => {
       {/* {renderHeader()} */}
 
       <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true}/>
+        <StatusBar barStyle="dark-content" backgroundColor="#f8f9fa" translucent={true} />
+        
   
           {/* Header / Navbar */}
           <View style={styles.header}>
@@ -170,7 +174,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8f9fa', // Light gray background
     // paddingTop: 10, // Adjust for status bar
-    marginTop:20    
+    // marginTop:20    
   },
   header: {
     flexDirection: 'row',
@@ -180,7 +184,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     // backgroundColor: '#f8f9fa',
     position: 'absolute',
-    top: 0,
+    top: 20,
     left: 0,
     right: 0,
     zIndex: 1,
@@ -213,22 +217,33 @@ const styles = StyleSheet.create({
 scrollContent: {
     paddingBottom: 20,
   },
-  imageContainer: {
-    width: width,
-    height: width * 0.9, // Square-ish aspect ratio
-    backgroundColor: '#fff',
-  },
+  // imageContainer: {
+  //   // width: width,
+  //   height: width * 0.9, // Square-ish aspect ratio
+  //   // backgroundColor: '#fff',
+  // },
+  // heroImage: {
+  //   width: windowWidth,
+  //   height: '100%',
+  //   marginVertical:40
+  // },
   heroImage: {
+    ...StyleSheet.absoluteFillObject,
     width: '100%',
-    height: '100%',
-    marginVertical:40
+    height: 280
+  },
+  imageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    width: viewportWidth,
+    
   },
   infoContainer: {
     padding: 20,
     backgroundColor: '#fff',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    marginTop: -10, // Overlap effect
+    marginTop: 250, // Overlap effect
     minHeight: height * 0.6,
   },
   categoryRow: {
