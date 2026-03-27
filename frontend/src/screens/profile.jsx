@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 import { COLORS } from '../const/colors';
+import Sound from "react-native-sound";
 
 
 const { width } = Dimensions.get('window');
@@ -28,7 +29,6 @@ const [user, setUser] = useState(null);
 const [userpic, setUserpic] = useState(null);
 
 const navigation = useNavigation();
-
 
 // Api data for products Items
 
@@ -45,6 +45,7 @@ const options = {
   includeBase64: false,
 };
 
+
  // --- Fetch userdata ---
   const fetchProfile = async () => {
     try {
@@ -56,8 +57,8 @@ const options = {
     });
       setUser(res.data);   
     } catch (err) {
-      console.log(err, 'Failed ');
-       Toast.show({
+      console.log(err, 'Failed '); 
+      Toast.show({
        type: 'error',
        text1: 'Validation Error!',
        text2: 'profile Failed!'

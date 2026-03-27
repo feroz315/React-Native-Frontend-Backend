@@ -3,9 +3,9 @@ import Sound from "react-native-sound";
 
 
 // ... inside a component ...
-const toast = useToast();
 
 const showToastWithSound = () => {
+  const toast = useToast();
   // Play sound
   const sound = new Sound("whoosh.mp3", Sound.MAIN_BUNDLE, (error) => {
     if (error) {
