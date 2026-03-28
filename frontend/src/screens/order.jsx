@@ -49,7 +49,7 @@ const OrderForm = () => {
     setLoading(true);
     try { 
       const response = await   
-       fetch("http://192.168.1.3:3000/api/submit-order",{
+       fetch("http://192.168.1.2:3000/api/submit-order",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -193,16 +193,7 @@ const OrderForm = () => {
     
       </View>
    
-      {/* <View style={styles.itemsSection}>
-        <Text style={styles.sectionTitle}>Order Items</Text>
-        {formData.items.map((item, index) => (
-          <View key={index} style={styles.itemRow}>
-            <Text style={styles.itemText}>{item.name}</Text>
-            <Text style={styles.itemText}>Qty: {item.quantity} x ${item.price}</Text>
-          </View>
-        ))}
-      </View> */}
-
+   
       <View style={styles.totalContainer}>
         <Text style={styles.totalText}>Total: ${basketTotal.toFixed(2)}</Text>
       </View>

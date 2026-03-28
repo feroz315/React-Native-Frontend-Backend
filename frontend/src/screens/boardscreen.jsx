@@ -110,6 +110,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import { COLORS } from '../const/colors';
+
 
 const { width } = Dimensions.get('window');
 
@@ -117,8 +119,8 @@ const slides = [
   {
     key: '1',
     title: 'Welcome to Our App!',
-    text: 'Discover amazing features designed to make your life easier.',
-    image: require('../assets/images/boy.png'),
+    text: 'Discover unique products make your life easier.',
+    image: require('../assets/images/store.png'),
     colors: {
         backgroundColor: '#F2F5F8',
         textColor: '#000',
@@ -126,9 +128,9 @@ const slides = [
   },
   {
     key: '2',
-    title: 'Feature 1',
-    text: 'Connect with people around the world and share your experiences.',
-    image: require('../assets/images/boyshop.png'),
+    title: 'Browse thousands of product in one place',
+    text: 'Browse by item brand category or by your favourite eshop.',
+    image: require('../assets/images/shopp.png'),
     colors: {
        backgroundColor: '#F2F5F8',
        textColor: '#000',
@@ -136,15 +138,25 @@ const slides = [
   },
   {
     key: '3',
-    title: 'Feature 2',
-    text: 'Track your progress and achieve your goals with our smart tools.',
-    image: require('../assets/images/boy.png'),
+    title: 'Choose your preferred payment method',
+    text: 'Choose mobile online money, visa or cash on delivery.',
+    image: require('../assets/images/payment.png'),
     colors: {
       backgroundColor: '#F2F5F8',
       textColor: '#000',
     },
   },
-  
+    {
+    key: '4',
+    title: 'Confirm your order and await delivery',
+    text: 'Choose from wide a range or deliver options eshop, pickup point or at doorstep.',
+    image: require('../assets/images/order.png'),
+    colors: {
+      backgroundColor: '#F2F5F8',
+      textColor: '#000',
+    },
+  },
+
 ];
 
 const BoardScreen = ({ navigation }) => {
@@ -236,19 +248,19 @@ const styles = StyleSheet.create({
   image: {
     width: 300,
     height: 300,
-    marginBottom: 60,
+    marginBottom: 40,
     resizeMode: "contain",
   },
   title: {
-    fontSize: 28,
+    fontSize: 29,
     fontWeight: 'bold',
-    color: '#000',
+    color: COLORS.navy,
     textAlign: 'center',
-    marginBottom: 16,
+    marginBottom: 15,
   },
   text: {
-    fontSize: 18,
-    color: '#000',
+    fontSize: 15,
+    color: COLORS.dark,
     textAlign: 'center',
     lineHeight: 24,
   },
@@ -284,7 +296,7 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 14,
     fontWeight: '500',
-    marginBottom:10
+    
   },
   dot: {
     backgroundColor: '#000',

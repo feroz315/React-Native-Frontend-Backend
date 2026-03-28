@@ -12,6 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { COLORS } from "../const/colors";
+import Toast from 'react-native-toast-message';
  
 
 const { width } = Dimensions.get("screen");
@@ -31,6 +32,13 @@ const Signup = () => {
   
 
   const Submit = async () => {
+    if(!name || !email || !password) {
+      Toast.show({
+       type: 'error',
+       text1: 'Validation Error!',
+       text2: 'User Failed!'
+     });     
+    }
    try {      
      fetch("http://192.168.1.2:3000/api/register",{
        method:"POST",
@@ -40,20 +48,29 @@ const Signup = () => {
       body:JSON.stringify({
         "email":email,
         "name":name,
-        "password":password,
-        
+        "password":password, 
       })
+      
      })
      .then(res=>res.json())
-     .then(async (data)=> { 
+     .then(async (data)=> {
+      Toast.show({
+      type: 'success', // Type of toast: 'success', 'error', 'info'
+      text1: 'Successfully!',  // Main message (header)
+      text2: 'Register get successfully!' 
+  });      
        console.log(data)
-       navigation.navigate("login")
-             
+       navigation.navigate("login")       
      })
-
       } catch (e) {
-              console.log("error hai",e)
-            }
+       Toast.show({
+       type: 'error',
+       text1: 'Validation Error!',
+       text2: 'Failed!'
+     });     
+
+        console.log("error hai",e)
+    }
   }
 
   const openGmail = () => {
@@ -154,7 +171,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 220,
     // backgroundColor:"#000",
-    marginBottom: 15,
+    marginBottom: 5,
     alignSelf: 'center',
     
   },
