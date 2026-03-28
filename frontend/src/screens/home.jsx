@@ -151,7 +151,21 @@ return (
                />
               </TouchableOpacity>
            </View>
-
+     
+        {/* --- FEATURED BANNER --- */}
+        <View style={styles.bannerContainer}>
+          <View style={styles.bannerContent}>
+            <Text style={styles.bannerTitle}>Ramzan Sale</Text>
+            <Text style={styles.bannerSubtitle}>Up to 35% Off</Text>
+            <TouchableOpacity style={styles.bannerButton}>
+              <Text style={styles.bannerButtonText}>Shop Now</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.bannerImageContainer}>
+             {/* Placeholder for banner image or just use color */}
+             {/* <Icon name="gift" size={60} color="#FFFFFF" opacity={0.5} /> */}
+          </View>
+        </View>
                  
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
@@ -173,21 +187,6 @@ return (
                )}
                contentContainerStyle={styles.categoryList}
              />
-     
-        {/* --- FEATURED BANNER --- */}
-        <View style={styles.bannerContainer}>
-          <View style={styles.bannerContent}>
-            <Text style={styles.bannerTitle}>Ramzan Sale</Text>
-            <Text style={styles.bannerSubtitle}>Up to 35% Off</Text>
-            <TouchableOpacity style={styles.bannerButton}>
-              <Text style={styles.bannerButtonText}>Shop Now</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.bannerImageContainer}>
-             {/* Placeholder for banner image or just use color */}
-             {/* <Icon name="gift" size={60} color="#FFFFFF" opacity={0.5} /> */}
-          </View>
-        </View>
       
       {/* --- PRODUCTS --- */}
         <View style={styles.sectionHeader}>
