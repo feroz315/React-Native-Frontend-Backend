@@ -214,8 +214,8 @@ const styles = StyleSheet.create({
     marginTop:20
   },
   headerTitle: {
-    fontSize: 22,
-    fontWeight: '600',
+    fontSize: 26,
+    fontWeight: 'bold',
     color: '#333',
   },
   iconButton: {

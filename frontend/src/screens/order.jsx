@@ -49,7 +49,7 @@ const OrderForm = () => {
     setLoading(true);
     try { 
       const response = await   
-       fetch("http://192.168.1.2:3000/api/submit-order",{
+       fetch("http://192.168.1.4:3000/api/submit-order",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'
@@ -232,8 +232,8 @@ const styles = StyleSheet.create({
     
   },
   headerTitle: {
-    fontSize: 22,
-    fontWeight: '600',
+    fontSize: 26,
+    fontWeight: 'bold',
     color: '#333',
   },
   iconButton: {

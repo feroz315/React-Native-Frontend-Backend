@@ -36,7 +36,6 @@ const ProductDetail = ({route}) => {
 
   const dispatch = useDispatch();
    const cartItems = useSelector(selectcartItems);
-  // const cartItems = useSelector(state => state.cart); //
 
 
   useEffect(() => {
@@ -207,7 +206,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   headerTitle: {
-    fontSize: 22,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#333',
   },

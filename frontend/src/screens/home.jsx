@@ -1,9 +1,7 @@
-import { useState, useEffect } from 'react';
-import { View,StatusBar, Dimensions,SafeAreaView,Text,TextInput ,StyleSheet,FlatList,Image,Alert,TouchableOpacity, ScrollView } from 'react-native';
+import { useState, useEffect,useRef } from 'react';
+import { View,StatusBar, Dimensions,SafeAreaView,Text,StyleSheet,FlatList,Image,TouchableOpacity, ScrollView } from 'react-native';
 import { COLORS,SIZES } from '../const/colors';
-import axios from "axios";
 import { useNavigation } from '@react-navigation/native';
-// import { launchImageLibrary } from 'react-native-image-picker';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
@@ -43,8 +41,6 @@ const [products, setProducts] = useState([]);
 const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
 const [user, setUser] = useState(null);
-
-const [searchQuery, setSearchQuery] = useState('');
   
 
 const navigation = useNavigation();
@@ -457,8 +453,6 @@ sectionHeader: {
 
 
 export default Home;
-
-
 
 
 
