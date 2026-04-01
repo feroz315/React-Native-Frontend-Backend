@@ -3,7 +3,6 @@ import {
   SafeAreaView,
   ScrollView,
   View,
-  StatusBar,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -180,7 +179,7 @@ const Checkout = () => {
           </TouchableOpacity>
         </View>
         
-      </ScrollView>
+       </ScrollView>
     </SafeAreaView>
   );
 };
