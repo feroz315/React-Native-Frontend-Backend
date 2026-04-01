@@ -105,7 +105,7 @@
 
 // export default BoardScreen;
 
-// // AppIntroScreen.js
+// AppIntroScreen.js
 
 import React from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
