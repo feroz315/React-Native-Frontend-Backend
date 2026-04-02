@@ -38,10 +38,8 @@ const Navigation = () => {
         
          <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent={true}/>
        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName='bottomNav'>
-           {/* <Stack.Screen name="Splash" component={SplashScreen} screenOptions={{ headerShown: false }} /> */}
                <Stack.Screen name="board" component={BoardScreen} />
                  <Stack.Screen name="signup" component={Signup}/>
-              {/* <Stack.Screen name='home' component={Home}/> */}
                <Stack.Screen name="bottomNav" component={BottomNavigator} />
                  <Stack.Screen name="login" component={Login}/>
                  <Stack.Screen name="productdetail" component={ProductDetail}/>
