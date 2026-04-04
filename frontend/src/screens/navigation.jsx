@@ -6,8 +6,6 @@ import { COLORS } from '../const/colors';
 
 import Signup from '../screens/signup';
 import Login from '../screens/login';
-import Home from './home';
-import SplashScreen from './Splash';
 import BoardScreen from './boardscreen';
 import BottomNavigator from './bottomNavigator';
 import ProductDetail from './details';
