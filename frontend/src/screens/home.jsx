@@ -5,6 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
+import {  useSelector } from 'react-redux';
+import { selectcartItems } from '../state/CartSlics';
+import {back,star,cart } from '../const/icons';
+
+
+const SPACING = 10;
 
 // const { width, height } = Dimensions.get("window").width - 40
 const { width } = Dimensions.get('window');
@@ -41,7 +47,9 @@ const [products, setProducts] = useState([]);
 const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
 const [user, setUser] = useState(null);
-  
+
+const cartItems = useSelector(selectcartItems);
+
 
 const navigation = useNavigation();
     
@@ -140,14 +148,33 @@ return (
             <Text style={styles.greeting}>Hello, 👋</Text>
             <Text style={styles.username}>{user?.name} </Text>     
           </View>
-          <TouchableOpacity style={styles.profileButton} onPress={selectImage}>
-             <Image 
-               source={{uri: userpic}}
-               style={styles.profileImage}
-               />
-              </TouchableOpacity>
-           </View>
-     
+            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+               
+               <Image source={require('../assets/images/search1.png')}
+                           style={{width:22,height:22,marginRight:10}}
+                           />
+          
+                  <TouchableOpacity
+                      style={{
+                        height: SPACING * 4.2,
+                        width: SPACING * 4.2,
+                        marginRight:5,
+                        backgroundColor: COLORS.white,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderRadius: SPACING * 2.5,
+                      }}
+                      onPress={() => navigation.navigate('cart')}>
+                      
+                      <View>
+                        <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>
+                          {cartItems.length}
+                        </Text>
+                        
+                      </View>         
+                    </TouchableOpacity>
+                </View>
+     </View>
         {/* --- FEATURED BANNER --- */}
         <View style={styles.bannerContainer}>
           <View style={styles.bannerContent}>
