@@ -119,6 +119,7 @@
     "rating": 4.8,
     "reviews": 124
   },
+  
   {
     "id": 11,
     "title": "Sleek White & Orange Wireless Gaming Controller",
@@ -190,7 +191,19 @@
     "rating": 4.8,
     "reviews": 124
     
-  }  
+  },  
+  {
+   "id": 17,
+    "title": "Sleek Mirror Finish Phone Case",
+    "slug": "sleek-mirror-finish-phone-case",
+    "price": 27,
+    "description": "Enhance your smartphone's look with this ultra sleek mirror finish phone case.",
+    "category": "Electronics",
+    "images":   "https://i.imgur.com/yb9UQKL.jpeg",
+    "currency_code":"USD",
+    "rating": 4.8,
+    "reviews": 124
+ }
         
 ]
 

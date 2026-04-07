@@ -2,13 +2,16 @@ import { useState, useEffect,useRef } from 'react';
 import { View,StatusBar, Dimensions,SafeAreaView,Text,StyleSheet,FlatList,Image,TouchableOpacity, ScrollView } from 'react-native';
 import { COLORS,SIZES } from '../const/colors';
 import { useNavigation } from '@react-navigation/native';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
 import {  useSelector } from 'react-redux';
 import { selectcartItems } from '../state/CartSlics';
 import {back,star,cart } from '../const/icons';
+import Carousel from 'react-native-reanimated-carousel';
 
+
+const { width: screenWidth } = Dimensions.get('window');
 
 const SPACING = 10;
 
@@ -44,15 +47,24 @@ const CategoryItem = ({ item, active, onPress }) => (
 const Home = () => {
 
 const [products, setProducts] = useState([]);
-const [userpic, setUserpic] = useState(null);
+// const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
 const [user, setUser] = useState(null);
 
 const cartItems = useSelector(selectcartItems);
-
-
 const navigation = useNavigation();
+
+
+ const data = [
+    { id: 1, source: require('../assets/images/whitehodi.png') },
+    { id: 2, source: require('../assets/images/tousre.png') },
+    { id: 3, source: require('../assets/images/tshirt.png') },
+    { id: 4, source: require('../assets/images/laptop.png')},
+    { id: 5, source: require('../assets/images/shoes.png')},
     
+  ];
+
+
 // Api data for products Items
 
   useEffect(() => {
@@ -127,12 +139,12 @@ const options = {
 //   console.log(result.assets[0].uri); // Access the URI of the captured image
 // };
 
-// Launch image library to select a photo
-const selectImage = async () => {
-  const result = await launchImageLibrary(options);
-  setUserpic(result.assets[0].uri)
-  console.log(result.assets[0].uri); // Access the URI of the selected image
-};
+// // Launch image library to select a photo
+// const selectImage = async () => {
+//   const result = await launchImageLibrary(options);
+//   setUserpic(result.assets[0].uri)
+//   console.log(result.assets[0].uri); // Access the URI of the selected image
+// };
 
 
 return (
@@ -148,8 +160,8 @@ return (
             <Text style={styles.greeting}>Hello, 👋</Text>
             <Text style={styles.username}>{user?.name} </Text>     
           </View>
-                   
-                  <TouchableOpacity
+      
+              <TouchableOpacity
                       style={{
                         height: SPACING * 4.2,
                         width: SPACING * 4.2,
@@ -168,23 +180,47 @@ return (
                         
                       </View>         
                     </TouchableOpacity>
-                </View>
+          </View>
      
         {/* --- FEATURED BANNER --- */}
-        <View style={styles.bannerContainer}>
-          <View style={styles.bannerContent}>
-            <Text style={styles.bannerTitle}>Ramzan Sale</Text>
-            <Text style={styles.bannerSubtitle}>Up to 35% Off</Text>
-            <TouchableOpacity style={styles.bannerButton}>
-              <Text style={styles.bannerButtonText}>Shop Now</Text>
-            </TouchableOpacity>
+  
+    <Carousel
+        width={screenWidth}
+        height={200}
+        data={data}
+        renderItem={({ item, index }) => (
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: item.color,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: 12,
+              padding: 20,
+            }}
+          >
+          <Image 
+            source={item.source} 
+            style={{ width: 250, height: 250 }} 
+          />
+            <Text style={{ color: 'rgba(255,255,255,0.8)', marginTop: 10 }}>
+              Index: {index + 1}
+            </Text>
           </View>
-          <View style={styles.bannerImageContainer}>
-             {/* Placeholder for banner image or just use color */}
-             {/* <Icon name="gift" size={60} color="#FFFFFF" opacity={0.5} /> */}
-          </View>
-        </View>
-                 
+        )}
+        loop={true}
+        autoPlay={true}
+        autoPlayInterval={3000}
+        mode="parallax"
+        modeConfig={{
+          parallaxScrollingScale: 0.9,
+          parallaxScrollingOffset: 50,
+          parallaxAdjacentItemScale: 0.8,
+        }}
+      />
+  
+  
+  
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
