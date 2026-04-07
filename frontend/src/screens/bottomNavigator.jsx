@@ -3,7 +3,6 @@ import { View,Image } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import { COLORS } from '../const/colors';
 import Home from '../screens/home';
-import Login from '../screens/login';
 import Cart from '../screens/cart';
 import Profile from './profile';
 import Setting from './setting';
@@ -113,5 +112,4 @@ const BottomNavigator = () => {
 export default BottomNavigator;
 
     
-{/* style={{width:24,height:24,tintColor: focused ? COLORS.Teal : COLORS.dark }} */}
     

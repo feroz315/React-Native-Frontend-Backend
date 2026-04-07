@@ -148,12 +148,7 @@ return (
             <Text style={styles.greeting}>Hello, 👋</Text>
             <Text style={styles.username}>{user?.name} </Text>     
           </View>
-            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-               
-               <Image source={require('../assets/images/search1.png')}
-                           style={{width:22,height:22,marginRight:10}}
-                           />
-          
+                   
                   <TouchableOpacity
                       style={{
                         height: SPACING * 4.2,
@@ -174,7 +169,7 @@ return (
                       </View>         
                     </TouchableOpacity>
                 </View>
-     </View>
+     
         {/* --- FEATURED BANNER --- */}
         <View style={styles.bannerContainer}>
           <View style={styles.bannerContent}>
