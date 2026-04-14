@@ -60,7 +60,7 @@ const navigation = useNavigation();
     { id: 2, source: require('../assets/images/tousre.png') },
     { id: 3, source: require('../assets/images/tshirt.png') },
     { id: 4, source: require('../assets/images/laptop.png')},
-    { id: 5, source: require('../assets/images/shoes.png')},
+    { id: 5, source: require('../assets/images/shoes.png')}
     
   ];
 
