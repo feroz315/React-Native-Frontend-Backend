@@ -1,13 +1,10 @@
-import { useState, useEffect,useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { View,StatusBar, Dimensions,SafeAreaView,Text,StyleSheet,FlatList,Image,TouchableOpacity, ScrollView } from 'react-native';
 import { COLORS,SIZES } from '../const/colors';
 import { useNavigation } from '@react-navigation/native';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
 import {  useSelector } from 'react-redux';
 import { selectcartItems } from '../state/CartSlics';
-import {back,star,cart } from '../const/icons';
 import Carousel from 'react-native-reanimated-carousel';
 
 
@@ -47,7 +44,6 @@ const CategoryItem = ({ item, active, onPress }) => (
 const Home = () => {
 
 const [products, setProducts] = useState([]);
-// const [userpic, setUserpic] = useState(null);
 const [activeCategory, setActiveCategory] = useState('1');
 const [user, setUser] = useState(null);
 
@@ -60,7 +56,7 @@ const navigation = useNavigation();
     { id: 2, source: require('../assets/images/tousre.png') },
     { id: 3, source: require('../assets/images/tshirt.png') },
     { id: 4, source: require('../assets/images/laptop.png')},
-    { id: 5, source: require('../assets/images/shoes.png')}
+    { id: 5, source: require('../assets/images/shoes.png')},
     
   ];
 
@@ -94,37 +90,6 @@ const navigation = useNavigation();
   };
 
 
-  // const selectImage = () => {
-  //   launchImageLibrary({ mediaType: 'photo' }, (response) => {
-  //     if (response.didCancel) return;
-  //     if (response.errorMessage) {
-  //       Alert.alert('Error', response.errorMessage);
-  //       return;
-  //     }
-  //     uploadImage(response.assets[0]);
-  //   });
-  // };
-
-  // const uploadImage = async (asset) => {
-  //   const formData = new FormData();
-  //   formData.append('image', {
-  //     uri: asset.uri,
-  //     type: asset.type,
-  //     name: asset.fileName || 'image.jpg',
-  //   });
-
-  //   try {
-  //     const response = await axios.post('http://192.168.1.12:3000/api/upload', formData, {
-  //       headers: { 'Content-Type': 'multipart/form-data' },
-  //     });
-  //     setUserpic(response)
-  //     Alert.alert('Success', 'Image uploaded!');
-  //   } catch (error) {
-  //     Alert.alert('Error', error.message);
-  //   }
-  // };
-
-
 const options = {
   mediaType: 'photo',
   maxWidth: 300,
@@ -132,19 +97,6 @@ const options = {
   quality: 1,
   includeBase64: false,
 };
-
-// // Launch camera to take a photo
-// const takePhoto = async () => {
-//   const result = await launchCamera(options);
-//   console.log(result.assets[0].uri); // Access the URI of the captured image
-// };
-
-// // Launch image library to select a photo
-// const selectImage = async () => {
-//   const result = await launchImageLibrary(options);
-//   setUserpic(result.assets[0].uri)
-//   console.log(result.assets[0].uri); // Access the URI of the selected image
-// };
 
 
 return (
@@ -219,8 +171,6 @@ return (
         }}
       />
   
-  
-  
        {/* --- CATEGORIES --- */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
@@ -252,12 +202,10 @@ return (
         data={products}
         numColumns={2}
         scrollEnabled={false}
-        // contentContainerStyle={styles.listContainer}
         keyExtractor={(item) => item.id.toString()}
         columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
         renderItem={({ index, item }) => (      
         
-    //  <View style={styles.productGrid}>
      <TouchableOpacity style={styles.productCard} onPress={() => {
       navigation.navigate("productdetail", {...item})
       }}>
@@ -268,14 +216,12 @@ return (
            <View style={styles.productFooter}>
         <Text style={styles.productPrice}>${item.price}</Text>
         <View style={styles.ratingContainer}>
-          {/* <Icon name="star" size={12} color="#FFB800" /> */}
           <Text style={styles.ratingText}>{item.rating}</Text>
         </View>
       </View>
         
       </View>
     </TouchableOpacity>  
-        // </View>
         )}/>
        
     </ScrollView>

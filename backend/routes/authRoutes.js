@@ -691,15 +691,6 @@ router.post('/submit-order', async (req, res) => {
 module.exports = router;
 
 
-// Get all orders
-// router.get('/', async (req, res) => {
-//   try {
-//     const orders = await pool.query('SELECT * FROM orders ORDER BY created_at DESC');
-//     res.json(orders.rows);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
 
 
 
@@ -709,78 +700,3 @@ module.exports = router;
 
 
 
-
-
-
-
-
-// Optional: Change Password with Email Verification
-// router.post('/forgot-password', async (req, res) => {
-//   const { email } = req.body;
-//   try {
-//     const result = await client.query('SELECT id FROM users WHERE email = $1', [email]);
-//     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
-
-//     const token = jwt.sign({ id: result.rows[0].id }, "pak", { expiresIn: '24h' });
-//     const expiry = new Date(Date.now() + 3600000); // 1 hour
-//     // Save Token to DB
-//     await client.query(
-//    'UPDATE users SET reset_token = $1, reset_token_expiry = $2 WHERE email = $3',
-//     [token, expiry, email]
-//      );
-      
-//     // Send token via email (implement email service)
-//     const resetLink = `http://192.168.1.15:3000/api/reset-password?token=${token}`;
-//     await sendResetEmail(email, resetLink);
-//     res.json({ message: 'Password reset link sent to your email' });
-//   } catch (err) {
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
-
-
-//  Update Profile
-// app.put('/api/profile', authenticateToken, async (req, res) => {
-//   const { first_name, last_name, phone, avatar_url, bio } = req.body;
-//   try {
-//     const result = await pool.query(
-//       `UPDATE users 
-//        SET first_name = $1, last_name = $2, phone = $3, avatar_url = $4, bio = $5, updated_at = NOW() 
-//        WHERE id = $6 
-//        RETURNING id, email, first_name, last_name, phone, avatar_url, bio, created_at`,
-//       [first_name, last_name, phone, avatar_url, bio, req.user.id]
-//     );
-//     if (result.rows.length === 0) return res.status(404).json({ error: 'User not found' });
-//     res.json(result.rows[0]);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Server error' });
-//   }
-// });
-
-
-
-// // Register
-// app.post('/api/register', async (req, res) => {
-//   const { email, password, first_name, last_name } = req.body;
-//   try {
-//     const hashed = await bcrypt.hash(password, 10);
-//     const result = await pool.query(
-//       'INSERT INTO users (email, password_hash, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING id, email, first_name, last_name',
-//       [email, hashed, first_name, last_name]
-//     );
-//     const token = jwt.sign({ id: result.rows[0].id }, JWT_SECRET, { expiresIn: '7d' });
-//     res.json({ token, user: result.rows[0] });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ error: 'Registration failed' });
-//   }
-// });
-
-
-
-
-
-
-// theme_mode, notifications_enabled

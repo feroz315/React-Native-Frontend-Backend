@@ -2,7 +2,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {StatusBar} from 'react-native';
-import {COLORS} from '../const/colors';
 
 import Signup from '../screens/signup';
 import Login from '../screens/login';

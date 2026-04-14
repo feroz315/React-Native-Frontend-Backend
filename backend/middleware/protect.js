@@ -1,6 +1,6 @@
 // import client from "../database/db.js";
-const jwt = require("jsonwebtoken");
-const { client } = require('../database/db.js');
+const jwt = require("jsonwebtoken")
+const { client } = require('../database/db.js')
 
 
 const protect = async (req, res, next) => {
