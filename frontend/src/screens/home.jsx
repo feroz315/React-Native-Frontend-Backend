@@ -56,7 +56,7 @@ const navigation = useNavigation();
     { id: 2, source: require('../assets/images/tousre.png') },
     { id: 3, source: require('../assets/images/tshirt.png') },
     { id: 4, source: require('../assets/images/laptop.png')},
-    { id: 5, source: require('../assets/images/shoes.png')},
+    { id: 5, source: require('../assets/images/glasses.png')},
     
   ];
 
@@ -138,16 +138,16 @@ return (
   
     <Carousel
         width={screenWidth}
-        height={200}
+        height={235}
         data={data}
         renderItem={({ item, index }) => (
           <View
             style={{
               flex: 1,
-              backgroundColor: item.color,
+              backgroundColor: COLORS.gray,
               justifyContent: 'center',
               alignItems: 'center',
-              borderRadius: 12,
+              borderRadius: 18,
               padding: 20,
             }}
           >
@@ -196,7 +196,7 @@ return (
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Popular Products</Text>
           <Text style={styles.seeAll}>See All</Text>
-        </View>
+         </View>
 
       <FlatList
         data={products}
@@ -225,7 +225,7 @@ return (
         )}/>
        
     </ScrollView>
-    </SafeAreaView>
+     </SafeAreaView>
   );
 };
 
@@ -456,7 +456,7 @@ sectionHeader: {
 
 
 
-export default Home
+export default Home;
 
 
 

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Use 'http://localhost:3000' for Android Emulator
 
-const API_URL = 'http://192.168.1.3:3000/api/setting'; 
+const API_URL = 'http://192.168.1.9:3000/api/setting'; 
 
 const Setting = () => {
 
