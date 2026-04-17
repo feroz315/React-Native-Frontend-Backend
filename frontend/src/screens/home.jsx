@@ -52,11 +52,11 @@ const navigation = useNavigation();
 
 
  const data = [
-    { id: 1, source: require('../assets/images/whitehodi.png') },
-    { id: 2, source: require('../assets/images/tousre.png') },
-    { id: 3, source: require('../assets/images/tshirt.png') },
-    { id: 4, source: require('../assets/images/laptop.png')},
-    { id: 5, source: require('../assets/images/glasses.png')},
+    { id: 1, source: require('../assets/images/menhoodi.jpg') },
+    { id: 2, source: require('../assets/images/menshirt.jpg') },
+    { id: 3, source: require('../assets/images/mentshirt.jpg') },
+    { id: 4, source: require('../assets/images/menshoes.jpg')},
+    { id: 5, source: require('../assets/images/whiteglasses.jpg')},
     
   ];
 
@@ -138,22 +138,21 @@ return (
   
     <Carousel
         width={screenWidth}
-        height={235}
+        height={250}
         data={data}
         renderItem={({ item, index }) => (
           <View
             style={{
               flex: 1,
-              backgroundColor: COLORS.gray,
               justifyContent: 'center',
               alignItems: 'center',
-              borderRadius: 18,
               padding: 20,
+              
             }}
           >
           <Image 
             source={item.source} 
-            style={{ width: 250, height: 250 }} 
+            style={{ width: 350, height: 280,borderRadius:15 }} 
           />
             <Text style={{ color: 'rgba(255,255,255,0.8)', marginTop: 10 }}>
               Index: {index + 1}
@@ -175,7 +174,7 @@ return (
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
           <Text style={styles.seeAll}>See All</Text>
-        </View>
+          </View>
      
            <FlatList
                horizontal
