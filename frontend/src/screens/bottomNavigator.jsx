@@ -5,8 +5,8 @@ import { COLORS } from '../const/colors';
 import Home from '../screens/home';
 import Cart from '../screens/cart';
 import Profile from './profile';
-import Setting from './setting';
-import Search from './search';
+// import Setting from './setting';
+ import Search from './search';
 
 
 
@@ -87,7 +87,7 @@ const BottomNavigator = () => {
         }}
       />          
    
-      <Tab.Screen
+      {/* <Tab.Screen
         name="setting"
         component={Setting}
         options={{
@@ -102,7 +102,7 @@ const BottomNavigator = () => {
 
         }}
       />
-   
+    */}
 
     </Tab.Navigator>
   );
