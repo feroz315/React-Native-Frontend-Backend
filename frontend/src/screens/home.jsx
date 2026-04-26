@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { View,StatusBar, Dimensions,SafeAreaView,Text,StyleSheet,FlatList,Image,TouchableOpacity, ScrollView } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { COLORS,SIZES } from '../const/colors';
 import { useNavigation } from '@react-navigation/native';
 import api from '../config/api';
@@ -283,12 +284,12 @@ sectionHeader: {
     marginBottom: 15,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#1A1A1A',
   },
   seeAll: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#FF6B6B',
     fontWeight: '600',
   },

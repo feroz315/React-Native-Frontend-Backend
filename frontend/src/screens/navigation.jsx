@@ -19,6 +19,7 @@ import ChangePassword from './changepass';
 import ProfileContact from './contact';
 import ChangeEmail from './changeEmail';
 import OrderForm from './order';
+import ResponsiveScreen from './test';
 
 const Stack = createStackNavigator();
 
@@ -33,7 +34,7 @@ const Navigation = () => {
         <Stack.Screen name="board" component={BoardScreen} />
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName="bottomNav">
+        initialRouteName="test">
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="bottomNav" component={BottomNavigator} />
         <Stack.Screen name="login" component={Login} />
@@ -49,6 +50,8 @@ const Navigation = () => {
         <Stack.Screen name="contact" component={ProfileContact} />
         <Stack.Screen name="change-email" component={ChangeEmail} />
         <Stack.Screen name="order" component={OrderForm} />
+        <Stack.Screen name="test" component={ResponsiveScreen} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
