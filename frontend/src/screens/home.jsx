@@ -105,7 +105,9 @@ return (
  <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F2F2" />
       
-  <ScrollView showsVerticalScrollIndicator={false}>
+  <ScrollView showsVerticalScrollIndicator={false} 
+  contentContainerStyle={styles.scrollContent}
+  >
     
       {/* --- HEADER --- */}
         <View style={styles.header}>
@@ -203,7 +205,7 @@ return (
         numColumns={2}
         scrollEnabled={false}
         keyExtractor={(item) => item.id.toString()}
-        columnWrapperStyle={{ justifyContent:"space-between", marginBottom: 20 }}
+        columnWrapperStyle={{ justifyContent:"space-between", marginBottom: verticalScale(20) }}
         renderItem={({ index, item }) => (      
         
      <TouchableOpacity style={styles.productCard} onPress={() => {
@@ -237,51 +239,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F2F2F2',
-    paddingTop: 20, // Adjust for status bar
+    paddingTop: verticalScale(20), // Adjust for status bar
   },
   
+  scrollContent: {
+    paddingHorizontal: scale(5),
+    paddingBottom: verticalScale(50),
+  },
   // Header Styles
 
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingHorizontal: scale(20),
+    paddingTop: verticalScale(10),
+    paddingBottom: verticalScale(10),
   },
   greeting: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: '#8D8D8D',
   },
   username: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#1A1A1A',
   },
-  profileButton: {
-    borderRadius: 20,
-    overflow: 'hidden',
-  },
-  profileImage: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    // backgroundColor:"#FF6B6B",
-    borderWidth: 4,
-    borderColor: COLORS.navy,
   
-  },
-
-  // Category Styles
+// Category Styles
 
 sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 15,
+    paddingHorizontal: scale(20),
+    marginTop: verticalScale(20),
+    marginBottom: verticalScale(10),
   },
   sectionTitle: {
     fontSize: moderateScale(18),
@@ -294,17 +287,17 @@ sectionHeader: {
     fontWeight: '600',
   },
   categoryList: {
-    paddingHorizontal: 20,
-    marginVertical:5
+    paddingHorizontal: scale(15),
+    marginVertical: verticalScale(5)
   },
   categoryItem: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    marginRight: 12,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: scale(12),
+    borderRadius: moderateScale(12),
+    marginRight: scale(12),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.05,
@@ -315,8 +308,8 @@ sectionHeader: {
     backgroundColor: '#FF6B6B',
   },
   categoryText: {
-    marginLeft: 8,
-    fontSize: 14,
+    marginLeft: scale(5),
+    fontSize: moderateScale(13),
     fontWeight: '600',
     color: '#8D8D8D',
   },
@@ -324,65 +317,13 @@ sectionHeader: {
     color: '#FFFFFF',
   },
 
- // Banner Styles
-
- bannerContainer: {
-    margin: 20,
-    height: 160,
-    borderRadius: 20,
-    backgroundColor: '#4A4E69',
-    flexDirection: 'row',
-    overflow: 'hidden',
-  },
-  bannerContent: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-  },
-  bannerTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 5,
-  },
-  bannerSubtitle: {
-    fontSize: 16,
-    color: '#E0E0E0',
-    marginBottom: 15,
-  },
-  bannerButton: {
-    backgroundColor: '#FF6B6B',
-    width: 100,
-    paddingVertical: 10,
-    borderRadius: 20,
-    alignItems: 'center',
-  },
-  bannerButtonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontSize: 12,
-  },
-  bannerImageContainer: {
-    width: 120,
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  // Product Styles
-  productGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: 20,
-    justifyContent: 'space-between',
-    paddingBottom: 20,
-  },
-  productCard: {
-    width: '48%',
+   // Product Styles
+    productCard: {
+    width: scale(48),
     backgroundColor: '#FFFFFF',
-    borderRadius: 25,
-    marginLeft:10,
-    marginBottom: 20,
+    borderRadius: moderateScale(25),
+    marginLeft:scale(10),
+    marginBottom: verticalScale(20),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -391,23 +332,23 @@ sectionHeader: {
     overflow: 'hidden',
   },
   productImage: {
-    width: '100%',
-    height: 150,
+    width: scale('100%'),
+    height: verticalScale(150),
     resizeMode: 'cover',
   },
   productInfo: {
-    padding: 12,
+    padding: verticalScale(12),
   },
   productCategory: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#8D8D8D',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
   productTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
     color: '#1A1A1A',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
   productFooter: {
     flexDirection: 'row',
@@ -415,7 +356,7 @@ sectionHeader: {
     alignItems: 'center',
   },
   productPrice: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
     color: '#FF6B6B',
   },
@@ -423,33 +364,33 @@ sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFF5E6',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 6,
+    paddingHorizontal: scale(6),
+    paddingVertical: verticalScale(2),
+    borderRadius: moderateScale(6),
   },
   ratingText: {
-    fontSize: 10,
+    fontSize: moderateScale(10),
     fontWeight: 'bold',
     color: '#FFB800',
-    marginLeft: 2,
+    marginLeft: scale(2),
   },
   itemContainer: {
-    padding: 15,
-    borderBottomWidth: 1,
+    padding: verticalScale(15),
+    borderBottomWidth: verticalScale(1),
     borderBottomColor: '#eee',
   },
   productName: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
   },
   productDescription: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#666',
   },
   noResults: {
     textAlign: 'center',
-    marginTop: 20,
-    fontSize: 16,
+    marginTop: verticalScale(20),
+    fontSize: moderateScale(16),
   }
 
 });
