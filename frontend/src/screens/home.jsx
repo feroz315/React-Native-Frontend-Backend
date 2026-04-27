@@ -141,7 +141,7 @@ return (
   
     <Carousel
         width={screenWidth}
-        height={250}
+        height={verticalScale(250)}
         data={data}
         renderItem={({ item, index }) => (
           <View
@@ -149,15 +149,15 @@ return (
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-              padding: 20,
+              padding: scale(20),
               
             }}
           >
           <Image 
             source={item.source} 
-            style={{ width: 350, height: 280,borderRadius:15 }} 
+            style={{ width: scale(330), height: verticalScale(250),borderRadius:moderateScale(15) }} 
           />
-            <Text style={{ color: 'rgba(255,255,255,0.8)', marginTop: 10 }}>
+            <Text style={{ color: 'rgba(255,255,255,0.8)', marginTop: verticalScale(10) }}>
               Index: {index + 1}
             </Text>
           </View>
@@ -273,7 +273,7 @@ sectionHeader: {
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: scale(20),
-    marginTop: verticalScale(20),
+    marginTop: verticalScale(10),
     marginBottom: verticalScale(10),
   },
   sectionTitle: {
@@ -319,11 +319,12 @@ sectionHeader: {
 
    // Product Styles
     productCard: {
-    width: scale(48),
+    width: scale(160),
+    height:verticalScale(235),
     backgroundColor: '#FFFFFF',
     borderRadius: moderateScale(25),
-    marginLeft:scale(10),
-    marginBottom: verticalScale(20),
+    marginLeft:scale(5),
+    marginRight:scale(5),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -333,19 +334,19 @@ sectionHeader: {
   },
   productImage: {
     width: scale('100%'),
-    height: verticalScale(150),
+    height: verticalScale(130),
     resizeMode: 'cover',
   },
   productInfo: {
-    padding: verticalScale(12),
+    padding: verticalScale(8),
   },
   productCategory: {
     fontSize: moderateScale(12),
     color: '#8D8D8D',
-    marginBottom: verticalScale(4),
+    marginBottom: verticalScale(3),
   },
   productTitle: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     color: '#1A1A1A',
     marginBottom: verticalScale(8),
@@ -356,7 +357,7 @@ sectionHeader: {
     alignItems: 'center',
   },
   productPrice: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     color: '#FF6B6B',
   },
@@ -374,25 +375,7 @@ sectionHeader: {
     color: '#FFB800',
     marginLeft: scale(2),
   },
-  itemContainer: {
-    padding: verticalScale(15),
-    borderBottomWidth: verticalScale(1),
-    borderBottomColor: '#eee',
-  },
-  productName: {
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
-  },
-  productDescription: {
-    fontSize: moderateScale(14),
-    color: '#666',
-  },
-  noResults: {
-    textAlign: 'center',
-    marginTop: verticalScale(20),
-    fontSize: moderateScale(16),
-  }
-
+  
 });
 
 
