@@ -1,3 +1,5 @@
+import React, {useMemo, useState} from 'react';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import {
   View,
   StyleSheet,
@@ -5,10 +7,8 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  StatusBar,
   SafeAreaView,
 } from 'react-native';
-import React, {useMemo, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   removetoCart,
@@ -69,9 +69,9 @@ export default function Cart() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{backgroundColor: COLORS.white, marginVertical: 100}}
+        style={{backgroundColor: COLORS.white, marginVertical: verticalScale(100)}}
         contentContainerStyle={{
-          paddingBottom: 20,
+          paddingBottom: verticalScale(20),
         }}>
         {Object.entries(cartItems).map(([index, item]) => {
           return (
@@ -120,7 +120,7 @@ export default function Cart() {
           );
         })}
         
-     </ScrollView>
+        </ScrollView>
   
       {/* Footer / Checkout */}
 
@@ -156,9 +156,9 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    marginTop:25,
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(15),
+    marginTop:verticalScale(25),
     backgroundColor: '#f8f9fa',
     position: 'absolute',
     top: 0,
@@ -167,12 +167,12 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   headeritemtext:{
-    marginHorizontal:80
+    marginHorizontal:scale(80)
   },
   iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: scale(40),
+    height: verticalScale(40),
+    borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -183,33 +183,32 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: '#333',
   },
   headerTitle: {
-    fontSize: 26,
+    fontSize: moderateScale(26),
     fontWeight: 'bold',
     color: '#333',
   },
   headerSubtitle: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#888',
-    marginTop: 4,
-    marginLeft:30
+    marginTop: verticalScale(4),
+    marginLeft:scale(30)
   },
   listContent: {
-    padding: 16,
-    paddingBottom: 100, // Space for footer
+    padding: scale(16),
+    paddingBottom: verticalScale(100), // Space for footer
   },
 
   // Card Item
   card: {
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 12,
-    // marginBottom: 16,
-    marginTop: 20,
+    borderRadius: moderateScale(12),
+    padding: scale(12),
+    marginTop: verticalScale(20),
     shadowColor: '#000',
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
@@ -217,14 +216,14 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: scale(80),
+    height: verticalScale(80),
+    borderRadius: moderateScale(8),
     backgroundColor: '#eee',
   },
   detailsContainer: {
     flex: 1,
-    marginLeft: 12,
+    marginLeft: scale(12),
     justifyContent: 'space-between',
   },
   headerRow: {
@@ -233,25 +232,25 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   title: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
     color: '#333',
     flex: 1,
-    marginRight: 8,
+    marginRight: scale(8),
   },
   subtitle: {
-    fontSize: 13,
+    fontSize: moderateScale(13),
     color: '#888',
-    marginTop: 2,
+    marginTop: verticalScale(2),
   },
   footerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: verticalScale(8),
   },
   price: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -261,14 +260,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
-    borderRadius: 8,
+    borderRadius: moderateScale(8),
   },
   stepperBtn: {
-    padding: 6,
+    padding: scale(6),
   },
   qtyText: {
-    paddingHorizontal: 10,
-    fontSize: 14,
+    paddingHorizontal: scale(10),
+    fontSize: moderateScale(14),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -280,11 +279,11 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 30, // Safe area padding
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
+    paddingHorizontal: scale(20),
+    paddingTop: verticalScale(20),
+    paddingBottom: verticalScale(30), // Safe area padding
+    borderTopLeftRadius: moderateScale(24),
+    borderTopRightRadius: moderateScale(24),
     shadowColor: '#000',
     shadowOffset: {width: 0, height: -4},
     shadowOpacity: 0.1,
@@ -294,31 +293,31 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
   label: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#888',
   },
   value: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '500',
     color: '#333',
   },
   totalRow: {
-    marginTop: 8,
-    paddingTop: 12,
+    marginTop: verticalScale(8),
+    paddingTop: verticalScale(12),
     borderTopWidth: 1,
     borderTopColor: '#eee',
-    marginBottom: 16,
+    marginBottom: verticalScale(16),
   },
   totalLabel: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#333',
   },
   totalValue: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -327,28 +326,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom:25
+    padding: scale(16),
+    borderRadius: moderateScale(12),
+    marginBottom:verticalScale(25)
   },
   checkoutBtnText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-    marginRight: 8,
-  },
-
-  // Empty State
-  emptyContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 100,
-  },
-  emptyText: {
-    marginTop: 16,
-    fontSize: 18,
-    color: '#888',
+    marginRight: scale(8),
   },
 
 });

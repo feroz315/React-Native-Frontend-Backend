@@ -1,4 +1,5 @@
 import React, {useState, useMemo} from 'react';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import {
   SafeAreaView,
   ScrollView,
@@ -67,7 +68,7 @@ const Checkout = () => {
           {/* <Icon name="arrow-back" size={24} color="#333" /> */}
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
-        <View style={{width: 24}} />
+        <View style={{width: scale(24)}} />
       </View>
 
       {/* Order Items */}
@@ -80,7 +81,7 @@ const Checkout = () => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
-              paddingBottom: 10,
+              paddingBottom: verticalScale(10),
             }}>
             {Object.entries(cartItems).map(([index, item]) => {
               return (
@@ -199,28 +200,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    // marginVertical:10,
-    // backgroundColor: '#FFF',
-    // borderBottomWidth: 1,
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(20),
     borderBottomColor: '#E0E0E0',
-    // elevation: 2,
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.1,
-    // shadowRadius: 2,
-    marginTop:20
+    marginTop:verticalScale(20)
   },
   headerTitle: {
-    fontSize: 26,
+    fontSize: moderateScale(26),
     fontWeight: 'bold',
     color: '#333',
   },
   iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: scale(40),
+    height: verticalScale(40),
+    borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -231,63 +224,63 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: '#333',
   },
 
   // --- section order ---
 
   scrollContent: {
-    paddingBottom: 100,
+    paddingBottom: verticalScale(100),
   },
   section: {
     backgroundColor: '#FFF',
-    marginTop: 10,
-    paddingHorizontal: 25,
-    paddingVertical: 10,
+    marginTop: verticalScale(10),
+    paddingHorizontal: scale(25),
+    paddingVertical: verticalScale(10),
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#F0F0F0',
-    borderRadius: 10,
+    borderRadius: moderateScale(10),
   },
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
     color: '#333',
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
   },
   cartItem: {
     flexDirection: 'row',
-    marginBottom: 15,
+    marginBottom: verticalScale(15),
     backgroundColor: '#F8F9FA',
-    borderRadius: 10,
-    padding: 10,
+    borderRadius: moderateScale(10),
+    padding: scale(10),
   },
   itemImage: {
-    width: 65,
-    height: 65,
-    borderRadius: 8,
-    marginRight: 12,
+    width: scale(65),
+    height: verticalScale(65),
+    borderRadius: moderateScale(8),
+    marginRight: scale(12),
   },
   itemDetails: {
     flex: 1,
   },
   itemName: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '500',
     color: '#333',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
   itemVariants: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#999',
-    marginBottom: 4,
+    marginBottom: verticalScale(4),
   },
   itemPriceRow: {
     flexDirection: 'row',
@@ -295,13 +288,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemPrice: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: '600',
-    marginTop: 5,
+    marginTop: verticalScale(5),
     color: '#4A90E2',
   },
   itemQuantity: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#666',
   },
 
@@ -311,7 +304,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: 12,
+    paddingVertical: verticalScale(12),
     borderBottomWidth: 1,
     borderBottomColor: '#F0F0F0',
   },
@@ -320,9 +313,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   paymentText: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#666',
-    marginLeft: 12,
+    marginLeft: scale(12),
   },
   selectedPayment: {
     backgroundColor: '#F0F7FF',
@@ -332,9 +325,9 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   logo: {
-    width: 20,
-    height: 20,
-    marginBottom: 5,
+    width: scale(20),
+    height: verticalScale(20),
+    marginBottom: verticalScale(5),
     alignSelf: 'center',
   },
 
@@ -343,38 +336,38 @@ const styles = StyleSheet.create({
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
+    marginBottom: verticalScale(8),
   },
   summaryLabel: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#666',
   },
   summaryValue: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#333',
     fontWeight: '500',
   },
   discountLabel: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#4CAF50',
   },
   discountValue: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#4CAF50',
     fontWeight: '500',
   },
   divider: {
-    height: 1,
+    height: verticalScale(1),
     backgroundColor: '#E0E0E0',
-    marginVertical: 10,
+    marginVertical: verticalScale(10),
   },
   totalLabel: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
     color: '#333',
   },
   totalValue: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: '700',
     color: '#4A90E2',
   },
@@ -386,16 +379,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
-    borderRadius: 12,
-    marginBottom: 15,
-    marginTop: 10,
+    padding: scale(16),
+    borderRadius: moderateScale(12),
+    marginBottom: verticalScale(15),
+    marginTop: verticalScale(10),
   },
   checkoutBtnText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-    marginRight: 8,
+    marginRight: scale(8),
   },
 });
 

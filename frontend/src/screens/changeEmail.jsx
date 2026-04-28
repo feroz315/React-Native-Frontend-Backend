@@ -8,7 +8,7 @@ import {
   Dimensions,
   Alert
 } from 'react-native';
-
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {COLORS} from '../const/colors';
 import api from '../config/api';
@@ -145,23 +145,23 @@ const ChangeEmail = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
-  container: {flex: 0.75, justifyContent: 'center', padding: 20},
-  title: {fontSize: 24, marginBottom: 20, textAlign: 'center'},
+  container: {flex: 0.75, justifyContent: 'center', padding: scale(20)},
+  title: {fontSize: moderateScale(24), marginBottom: verticalScale(20), textAlign: 'center'},
 
   signupButton: {
     // backgroundColor: '#FF6B35',
-    width: width * 0.75,
-    height: 45,
+    width: scale(width * 0.75),
+    height: verticalScale(45),
     backgroundColor: COLORS.navy,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 20,
-    marginTop: 50,
-    marginHorizontal: 25,
+    borderRadius: moderateScale(20),
+    marginTop: verticalScale(50),
+    marginHorizontal: scale(25),
   },
   signupButtonText: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: COLORS.white,
     textAlign: 'center',
   },
@@ -170,10 +170,9 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    marginTop: 25,
-    // backgroundColor: '#f8f9fa',
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(15),
+    marginTop: verticalScale(25),
     position: 'absolute',
     top: 0,
     left: 0,
@@ -181,9 +180,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: scale(40),
+    height: verticalScale(40),
+    borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -194,26 +193,26 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: '#333',
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
     color: '#333',
-    marginHorizontal: 60,
+    marginHorizontal: scale(60),
   },
   inputContainer: {
-    width: '100%',
-    marginBottom: 15,
+    width: scale('100%'),
+    marginBottom: verticalScale(15),
   },
   input: {
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 15,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    fontSize: 16,
+    borderRadius: moderateScale(15),
+    paddingHorizontal: scale(15),
+    paddingVertical: verticalScale(12),
+    fontSize: moderateScale(16),
     backgroundColor: '#f9f9f9',
   },
 });

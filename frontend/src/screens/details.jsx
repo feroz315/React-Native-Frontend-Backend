@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import {
   View,
   StatusBar,
@@ -84,17 +85,17 @@ const ProductDetail = ({route}) => {
            <TouchableOpacity
            source={cart}
            style={{
-             height: SPACING * 4.2,
-             width: SPACING * 4.2,
+             height: verticalScale(SPACING * 4.2),
+             width: scale(SPACING * 4.2),
              marginRight:5,
              backgroundColor: COLORS.white,
              justifyContent: 'center',
              alignItems: 'center',
-             borderRadius: SPACING * 2.5,
+             borderRadius: moderateScale(SPACING * 2.5),
            }}
            onPress={() => navigation.navigate('cart')}>
            <View>
-             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
+             <Text style={{color: 'black', fontSize: moderateScale(18), fontWeight: 'bold'}}>
                {cartItems.length}
              </Text>
            </View>         
@@ -137,16 +138,8 @@ const ProductDetail = ({route}) => {
           <Text style={styles.sectionTitle}>Description</Text>
           <Text style={styles.description}>{product.description}</Text>
 
-          {/* <Text style={styles.sectionTitle}>Key Features</Text>
-          {product.features.map((feature, index) => (
-            <View key={index} style={styles.featureItem}>
-              <Text style={styles.bulletPoint}>•</Text>
-              <Text style={styles.featureText}>{feature}</Text>
-            </View>
-          ))}
-           */}
           {/* Extra spacing at bottom for the sticky bar */}
-          <View style={{ height: 100 }} /> 
+          <View style={{ height: verticalScale(100) }} /> 
         </View>
       </ScrollView>
 
@@ -172,26 +165,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa', // Light gray background
-    // paddingTop: 10, // Adjust for status bar
-    // marginTop:20    
+    
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(15),
     // backgroundColor: '#f8f9fa',
     position: 'absolute',
-    top: 20,
+    top: verticalScale(20),
     left: 0,
     right: 0,
     zIndex: 1,
   },
   iconButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: scale(40),
+    height: verticalScale(40),
+    borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
@@ -202,11 +194,11 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: '#333',
   },
   headerTitle: {
-    fontSize: 26,
+    fontSize: moderateScale(26),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -214,133 +206,103 @@ const styles = StyleSheet.create({
   // ScrollView
 
 scrollContent: {
-    paddingBottom: 20,
+    paddingBottom: verticalScale(20),
   },
-  // imageContainer: {
-  //   // width: width,
-  //   height: width * 0.9, // Square-ish aspect ratio
-  //   // backgroundColor: '#fff',
-  // },
-  // heroImage: {
-  //   width: windowWidth,
-  //   height: '100%',
-  //   marginVertical:40
-  // },
+  
   heroImage: {
     ...StyleSheet.absoluteFillObject,
-    width: '100%',
-    height: 280
+    width: scale('100%'),
+    height: verticalScale(280)
   },
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
-    width: viewportWidth,
+    width: scale(viewportWidth),
     
   },
   infoContainer: {
-    padding: 20,
+    padding: scale(20),
     backgroundColor: '#fff',
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    marginTop: 250, // Overlap effect
-    minHeight: height * 0.6,
+    borderTopLeftRadius: moderateScale(40),
+    borderTopRightRadius: moderateScale(40),
+    marginTop: verticalScale(250), // Overlap effect
+    minHeight: verticalScale(height * 0.6),
   },
   categoryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: verticalScale(10),
   },
   category: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#888',
     fontWeight: '600',
     textTransform: 'uppercase',
-    letterSpacing: 1,
+    letterSpacing: verticalScale(1),
   },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff8f0',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 8,
+    paddingHorizontal: scale(8),
+    paddingVertical: verticalScale(4),
+    borderRadius: moderateScale(8),
   },
   starIcon: {
     color: '#FFB800',
-    fontSize: 14,
-    marginRight: 4,
+    fontSize: moderateScale(14),
+    marginRight: scale(4),
   },
   ratingText: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     fontWeight: 'bold',
     color: '#333',
   },
-  reviewCount: {
-    fontSize: 12,
-    color: '#888',
-    marginLeft: 2,
-  },
-  title: {
-    fontSize: 26,
+   title: {
+    fontSize: moderateScale(26),
     fontWeight: 'bold',
     color: '#1a1a1a',
-    marginBottom: 10,
-    lineHeight: 34,
+    marginBottom: verticalScale(10),
+    lineHeight: verticalScale(34),
   },
   price: {
-    fontSize: 24,
+    fontSize: moderateScale(24),
     fontWeight: '700',
     color: '#FF6F61', // Primary accent color (Coral)
   },
   divider: {
-    height: 1,
+    height: verticalScale(1),
     backgroundColor: '#eee',
-    marginVertical: 20,
+    marginVertical: verticalScale(20),
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 12,
+    marginBottom: verticalScale(12),
   },
   description: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: '#555',
-    lineHeight: 24,
-    marginBottom: 20,
+    lineHeight: verticalScale(24),
+    marginBottom: verticalScale(20),
   },
-  featureItem: {
-    flexDirection: 'row',
-    marginBottom: 8,
-    alignItems: 'flex-start',
-  },
-  bulletPoint: {
-    fontSize: 16,
-    color: '#FF6F61',
-    marginRight: 10,
-    lineHeight: 24,
-  },
-  featureText: {
-    fontSize: 16,
-    color: '#555',
-    flex: 1,
-    lineHeight: 24,
-  }, 
- 
+    
   // Bottom Bar Styles
+  
   bottomBar: {
     position: 'absolute',
-    bottom: 30,
+    bottom: verticalScale(30),
     left: 0,
     right: 0,
     backgroundColor: '#fff',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
-    borderTopWidth: 1,
+    paddingHorizontal: scale(20),
+    paddingVertical: verticalScale(20),
+    borderTopWidth: scale(1),
     borderTopColor: '#eee',
     elevation: 10,
     shadowColor: '#000',
@@ -352,28 +314,28 @@ scrollContent: {
     flex: 1,
   },
   bottomPriceLabel: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#888',
-    marginBottom: 2,
+    marginBottom: verticalScale(2),
   },
   bottomPrice: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#333',
   },
   addToCartButton: {
     backgroundColor: '#1a1a1a', // Black/Dark button
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 12,
+    paddingVertical: verticalScale(16),
+    paddingHorizontal: scale(32),
+    borderRadius: moderateScale(12),
     flex: 1.5,
     alignItems: 'center',
   },
   addToCartText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-    letterSpacing: 0.5,
+    letterSpacing: scale(0.5),
   },
 
   // image: {

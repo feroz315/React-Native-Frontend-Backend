@@ -3,6 +3,7 @@ import { View, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Toast from 'react-native-toast-message';
 import {useNavigation} from '@react-navigation/native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
 
@@ -80,7 +81,7 @@ const Delivery = () => {
             pinColor="red"
           />
         ))}
-      </MapView>
+       </MapView>
 
       {/* Control Buttons */}
       <View style={styles.buttonContainer}>
@@ -104,7 +105,7 @@ const Delivery = () => {
           </TouchableOpacity>        
         {/* <Button title="Drop Pin" onPress={() => showPinToast(newPin, coordinate)} /> */}
 
-      </View>
+       </View>
     </View>
   );
 };
@@ -118,16 +119,16 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     position: 'absolute',
-    bottom: 30,
-    left: 20,
-    right: 20,
+    bottom: verticalScale(30),
+    left: scale(20),
+    right: scale(20),
     gap: 10,
   },
   button: {
     backgroundColor: 'rgba(255,255,255,0.9)',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    borderRadius: 10,
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: scale(20),
+    borderRadius: moderateScale(10),
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ddd',
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#333',
     fontWeight: '600',
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
 });
 
