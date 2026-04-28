@@ -6,7 +6,6 @@ import {
   Dimensions,
   Text,
   StyleSheet,
-  FlatList,
   Image,
   TouchableOpacity,
   ScrollView,
@@ -14,10 +13,8 @@ import {
   
 } from 'react-native';
 import {COLORS, FONTS, SIZES} from '../const/colors';
-import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {back,star,cart } from '../const/icons';
+import { cart } from '../const/icons';
 import {  useDispatch, useSelector } from 'react-redux';
 import { addMyCart, selectcartItems } from '../state/CartSlics';
 import api from '../config/api';

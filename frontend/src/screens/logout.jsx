@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For storing tokens
 import { useNavigation } from '@react-navigation/native'; // Assuming React Navigation
@@ -23,7 +24,7 @@ const handleContinue = () => {
       const token = await AsyncStorage.getItem('authToken');
       
       // API call to logout endpoint
-      const response = await axios.post('http://192.168.1.10:3000/api/logout', {}, {
+      const response = await axios.post('http://192.168.1.7:3000/api/logout', {}, {
         headers: {
           Authorization: `Bearer ${token}`, // Include token if required
         },
@@ -66,20 +67,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: scale(20),
   },
   title: {
-    fontSize: 18,
-    marginBottom: 20,
+    fontSize: moderateScale(18),
+    marginBottom: verticalScale(20),
   },
   button: {
     backgroundColor: '#ff4444',
-    padding: 10,
-    borderRadius: 5,
+    padding: scale(10),
+    borderRadius: moderateScale(5),
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
 });
 

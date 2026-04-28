@@ -10,6 +10,7 @@ import {
   StatusBar,
   Dimensions, 
 } from 'react-native';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import api from '../config/api';
@@ -39,8 +40,8 @@ const navigation = useNavigation();
 
 const options = {
   mediaType: 'photo',
-  maxWidth: 300,
-  maxHeight: 400,
+  maxWidth: scale(300),
+  maxHeight: verticalScale(400),
   quality: 1,
   includeBase64: false,
 };
@@ -266,7 +267,7 @@ const selectImage = async () => {
           <Text style={styles.logoutText}>Log Out</Text>
          </TouchableOpacity>
         
-        <View style={{ height: 40 }} /> 
+        <View style={{ height: verticalScale(40) }} /> 
       </ScrollView>
      </SafeAreaView>
   );
@@ -281,11 +282,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   headerContainer: {
-    paddingTop: 30,
-    paddingBottom: 20,
-    paddingHorizontal: 20,
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
+    paddingTop: verticalScale(30),
+    paddingBottom: verticalScale(20),
+    paddingHorizontal: scale(20),
+    borderBottomLeftRadius: moderateScale(24),
+    borderBottomRightRadius: moderateScale(24),
     // Elevation for Android shadow
     elevation: 4, 
     // Shadow for iOS
@@ -299,123 +300,99 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   profileButton: {
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
     overflow: 'hidden',
   },
   avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: scale(80),
+    height: verticalScale(80),
+    borderRadius: moderateScale(40),
     borderWidth: 4,
     borderColor: COLORS.navy,
   },
   textContainer: {
     flex: 1,
-    marginLeft: 16,
+    marginLeft: scale(16),
   },
   userName: {
-    fontSize: 22,
+    fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#1A1A1A',
   },
   userEmail: {
-    fontSize: 14,
+    fontSize: moderateScale(14),
     color: '#666',
-    marginTop: 2,
+    marginTop: verticalScale(2),
   },
   
   editButton: {
     backgroundColor: '#E0F7FA',
-    padding: 10,
-    borderRadius: 20,
+    padding: scale(10),
+    borderRadius: moderateScale(20),
   },
   
   // Stats Section
-  statsContainer: {
-    marginTop: 24,
-    paddingHorizontal: 20,
-  },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#1A1A1A',
-    marginBottom: 16,
+    marginBottom: verticalScale(16),
   },
   statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   logo: {
-    width: 20,
-    height: 20,
-    marginBottom: 5,
+    width: scale(20),
+    height: verticalScale(20),
+    marginBottom: verticalScale(5),
     alignSelf: 'center',
   },
- 
-  statIconBackground: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 8,
-  },
-  statCount: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1A1A1A',
-  },
-  statLabel: {
-    fontSize: 11,
-    color: '#666',
-    marginTop: 2,
-  },
+   
 
   // Menu Section
   menuContainer: {
-    marginTop: 24,
-    paddingHorizontal: 20,
+    marginTop: verticalScale(24),
+    paddingHorizontal: scale(20),
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: '#FFFFFF',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    marginBottom: 10,
+    paddingVertical: verticalScale(16),
+    paddingHorizontal: scale(16),
+    borderRadius: moderateScale(12),
+    marginBottom: verticalScale(10),
   },
-  lastMenuItem: {
-    marginBottom: 0,
-  },
+  
   menuLeft: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
   },
   menuIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 10,
+    width: scale(40),
+    height: verticalScale(40),
+    borderRadius: moderateScale(10),
     backgroundColor: '#F2F5F8',
     alignItems: 'center',
     justifyContent: 'center',
   },
   menuTextContainer: {
-    marginLeft: 12,
+    marginLeft: scale(12),
     flex: 1,
   },
   menuTitle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
     color: '#1A1A1A',
-    marginTop:5
+    marginTop:verticalScale(5)
   },
   menuSubtitle: {
-    fontSize: 12,
+    fontSize: moderateScale(12),
     color: '#999',
-    marginTop: 2,
+    marginTop: verticalScale(2),
   },
 
   // Logout
@@ -423,18 +400,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 30,
-    marginHorizontal: 20,
-    paddingVertical: 14,
+    marginTop: verticalScale(30),
+    marginHorizontal: scale(20),
+    paddingVertical: verticalScale(14),
     backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    borderRadius: moderateScale(12),
   },
   logoutText: {
     color: '#FF5252',
-    fontSize: 16,
+    fontSize: moderateScale(16),
     fontWeight: '600',
-    marginLeft: 8,
-    marginBottom:5
+    marginLeft: scale(8),
+    marginBottom: verticalScale(5)
   },
 });
 
