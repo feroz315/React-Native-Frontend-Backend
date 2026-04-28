@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
 
@@ -83,22 +84,22 @@ const ResetPassword = ({route, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {flex: 1, justifyContent: 'center', padding: 20},
-  title: {fontSize: 24, marginBottom: 20, textAlign: 'center'},
-  subtext: {textAlign: 'center', marginBottom: 20, color: 'gray'},
-  input: {borderWidth: 1, padding: 10, marginBottom: 15, borderRadius: 5},
+  container: {flex: 1, justifyContent: 'center', padding: scale(20)},
+  title: {fontSize: moderateScale(24), marginBottom: verticalScale(20), textAlign: 'center'},
+  subtext: {textAlign: 'center', marginBottom: verticalScale(20), color: 'gray'},
+  input: {borderWidth: 1, padding: scale(10), marginBottom: verticalScale(15), borderRadius: moderateScale(5)},
   signupButton: {
     backgroundColor: '#FF6B35', // Orange theme for food app
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 10,
-    marginTop: 10,
-    width: '100%',
+    paddingVertical: verticalScale(15),
+    paddingHorizontal: scale(40),
+    borderRadius: moderateScale(10),
+    marginTop: verticalScale(10),
+    width: scale('100%'),
     alignItems: 'center',
   },
   signupButtonText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
   },
 });

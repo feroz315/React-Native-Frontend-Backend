@@ -3,6 +3,7 @@ import { View, Text, TextInput, FlatList,TouchableOpacity,Image ,SafeAreaView, S
 import { useNavigation } from '@react-navigation/native';
 import api from '../config/api';
 import { COLORS } from '../const/colors';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
 
@@ -64,9 +65,6 @@ const Search = () => {
     
   }, []);
 
-
-
-
   if (isLoading) {
     return <Text>Loading products...</Text>;
   }
@@ -103,8 +101,8 @@ const Search = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
-    marginHorizontal: 10,
+    paddingTop: scale(20),
+    marginHorizontal: scale(10),
   },
   // Search Styles
 
@@ -112,11 +110,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginVertical: 15,
-    borderRadius: 15,
-    paddingHorizontal: 15,
-    height: 55,
+    marginHorizontal: scale(20),
+    marginVertical: verticalScale(15),
+    borderRadius: moderateScale(15),
+    paddingHorizontal: scale(15),
+    height: verticalScale(55),
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
@@ -124,53 +122,52 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   searchIcon: {
-    marginRight: 10,
+    marginRight: scale(10),
   },
   searchInput: {
     flex: 1,
-    fontSize: 16,
+    fontSize: moderateScale(16),
     color: '#1A1A1A',
   },
   filterButton: {
     backgroundColor: '#FF6B6B', // Primary Accent Color
-    padding: 10,
-    borderRadius: 12,
+    padding: scale(10),
+    borderRadius: moderateScale(12),
   },
   itemContainer:{
-    // backgroundColor:"#000",
     alignItems:'center',
-    margin:10
+    margin:scale(10)
   },
   productName: {
-    fontSize: 17,
+    fontSize: moderateScale(17),
     fontWeight: 'bold',
-    margin:5,
+    margin:scale(5),
     fontFamily:"Poppins",
   },
   productDescription: {
-    fontSize: 13,
+    fontSize: moderateScale(13),
     color: COLORS.dark,
     fontFamily:"Poppins",
-    margin:3,
+    margin:scale(3),
     letterSpacing: 1
   },
    productcategory:{
-    fontSize: 15,
+    fontSize: moderateScale(15),
     fontWeight:"600",
     color: COLORS.dark,
     fontFamily:"Poppins",
-    margin:3, 
+    margin:scale(3), 
    },
  
   productImage: {
-    width: '50%',
-    height: 150,
+    width: scale('50%'),
+    height: verticalScale(150),
     resizeMode: 'cover',
   },
   noResults: {
     textAlign: 'center',
-    marginTop: 20,
-    fontSize: 16,
+    marginTop: verticalScale(20),
+    fontSize: moderateScale(16),
   }
 });
 
