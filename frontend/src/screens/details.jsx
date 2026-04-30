@@ -82,17 +82,17 @@ const ProductDetail = ({route}) => {
            <TouchableOpacity
            source={cart}
            style={{
-             height: SPACING * 4.2,
-             width: SPACING * 4.2,
-             marginRight:5,
+             height: verticalScale(SPACING * 3.2),
+             width: scale(SPACING * 3.5),
+             marginRight:scale(5),
              backgroundColor: COLORS.white,
              justifyContent: 'center',
              alignItems: 'center',
-             borderRadius: SPACING * 2.5,
+             borderRadius: moderateScale(SPACING * 2.5),
            }}
            onPress={() => navigation.navigate('cart')}>
            <View>
-             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
+             <Text style={{color: 'black', fontSize: moderateScale(18), fontWeight: 'bold'}}>
                {cartItems.length}
              </Text>
            </View>         
@@ -117,13 +117,15 @@ const ProductDetail = ({route}) => {
         <View style={styles.infoContainer}>
           <View style={styles.categoryRow}>
             <Text style={styles.category}>{product.category}</Text>
-            <View style={styles.ratingContainer}>
+            <View style={styles.allratingContainer}>
+             <View style={styles.ratingContainer}>
               <Text style={styles.starIcon}>★</Text>
               <Text style={styles.ratingText}>{product.rating}4.7</Text>
             </View>
-                        <TouchableOpacity style={styles.iconButton}>
+              <TouchableOpacity style={styles.iconButton}>
               <Text style={styles.iconText}>♡</Text>
             </TouchableOpacity>
+            </View>
 
           </View>
 
@@ -136,7 +138,7 @@ const ProductDetail = ({route}) => {
           <Text style={styles.description}>{product.description}</Text>
 
           {/* Extra spacing at bottom for the sticky bar */}
-          <View style={{ height: 100 }} /> 
+          <View style={{ height: verticalScale(100) }} /> 
         </View>
       </ScrollView>
 
@@ -170,7 +172,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: scale(20),
     paddingVertical: verticalScale(15),
-    // backgroundColor: '#f8f9fa',
     position: 'absolute',
     top: verticalScale(20),
     left: 0,
@@ -178,8 +179,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   iconButton: {
-    width: scale(40),
-    height: verticalScale(40),
+    width: scale(35),
+    height: verticalScale(30),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
@@ -238,12 +239,19 @@ scrollContent: {
     textTransform: 'uppercase',
     letterSpacing: verticalScale(1),
   },
+  allratingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:'space-between',
+    
+  },
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff8f0',
-    paddingHorizontal: scale(8),
+    paddingHorizontal: scale(5),
     paddingVertical: verticalScale(4),
+    marginRight:scale(5),
     borderRadius: moderateScale(8),
   },
   starIcon: {

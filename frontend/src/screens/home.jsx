@@ -93,8 +93,8 @@ const navigation = useNavigation();
 
 const options = {
   mediaType: 'photo',
-  maxWidth: 300,
-  maxHeight: 400,
+  maxWidth: scale(300),
+  maxHeight: verticalScale(400),
   quality: 1,
   includeBase64: false,
 };
@@ -118,18 +118,18 @@ return (
       
               <TouchableOpacity
                       style={{
-                        height: SPACING * 4.2,
-                        width: SPACING * 4.2,
-                        marginRight:5,
+                        height: verticalScale(SPACING * 3.4),
+                        width: scale(SPACING * 3.7),
+                        marginRight:scale(5),
                         backgroundColor: COLORS.white,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        borderRadius: SPACING * 2.5,
+                        borderRadius: moderateScale(SPACING * 2),
                       }}
                       onPress={() => navigation.navigate('cart')}>
                       
                       <View>
-                        <Text style={{color: 'black', fontSize: 17, fontWeight: 'bold'}}>
+                        <Text style={{color: 'black', fontSize: moderateScale(17), fontWeight: 'bold'}}>
                           {cartItems.length}
                         </Text>
                         

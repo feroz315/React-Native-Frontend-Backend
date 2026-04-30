@@ -167,8 +167,8 @@ const styles = StyleSheet.create({
     marginHorizontal:scale(80)
   },
   iconButton: {
-    width: scale(40),
-    height: verticalScale(40),
+    width: scale(35),
+    height: verticalScale(30),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     backgroundColor: '#fff',
-    borderRadius: moderateScale(12),
+    borderRadius: moderateScale(10),
     padding: scale(12),
     marginTop: verticalScale(20),
     shadowColor: '#000',

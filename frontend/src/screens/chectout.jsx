@@ -211,8 +211,8 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   iconButton: {
-    width: scale(40),
-    height: verticalScale(40),
+    width: scale(35),
+    height: verticalScale(30),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',

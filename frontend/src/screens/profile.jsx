@@ -267,7 +267,7 @@ const selectImage = async () => {
           <Text style={styles.logoutText}>Log Out</Text>
          </TouchableOpacity>
         
-        <View style={{ height: 40 }} /> 
+        <View style={{ height: verticalScale(40) }} /> 
       </ScrollView>
      </SafeAreaView>
   );
@@ -304,8 +304,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   avatar: {
-    width: scale(80),
-    height: verticalScale(80),
+    width: scale(60),
+    height: verticalScale(50),
     borderRadius: moderateScale(40),
     borderWidth: 4,
     borderColor: COLORS.navy,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View,Image } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { COLORS } from '../const/colors';
 import Home from '../screens/home';
 import Cart from '../screens/cart';
@@ -18,7 +19,7 @@ const BottomNavigator = () => {
     <Tab.Navigator
       tabBarOptions={{
         style: {
-          height: 40,
+          height: verticalScale(30),
           borderTopWidth: 0,
           elevation: 0,
         },
@@ -33,7 +34,7 @@ const BottomNavigator = () => {
           tabBarIcon: ({focused}) => (
               <View>
                 <Image source={require('../assets/images/home.png')} 
-                style={{width: 22,height: 22,tintColor: focused ? COLORS.navy : COLORS.dark, }}/>
+                style={{width: scale(22),height: verticalScale(22),tintColor: focused ? COLORS.navy : COLORS.dark, }}/>
             </View>
 
           ),headerShown: false
@@ -47,7 +48,8 @@ const BottomNavigator = () => {
           tabBarActiveTintColor:COLORS.navy,
           tabBarIcon: ({focused}) => (
               <View>
-                <Image source={require('../assets/images/user1.png')} style={{width: 24,height: 24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/user1.png')} 
+                style={{width: scale(22),height: verticalScale(22),tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>            
             
           ),headerShown: false
@@ -62,7 +64,7 @@ const BottomNavigator = () => {
             tabBarIcon: ({czolor}) => (
             <View>
                 <Image source={require('../assets/images/search1.png')}
-                 style={{width: 28,height: 28,marginRight:5}}
+                 style={{width: scale(22),height: verticalScale(22),marginRight:scale(5)}}
                  />
             </View>
           ),headerShown: false
@@ -77,7 +79,8 @@ const BottomNavigator = () => {
           tabBarActiveTintColor:COLORS.navy,
           tabBarIcon: ({focused}) => (
             <View>
-                <Image source={require('../assets/images/shopping-cart.png')} style={{width: 22,height: 24,tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
+                <Image source={require('../assets/images/shopping-cart.png')} 
+                style={{width: scale(22),height: verticalScale(22),tintColor: focused ? COLORS.Teal : COLORS.dark }}/>
             </View>
 
           ),headerShown: false

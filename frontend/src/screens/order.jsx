@@ -107,7 +107,7 @@ const OrderForm = () => {
                 {/* <Icon name="arrow-back" size={24} color="#333" /> */}
               </TouchableOpacity>
               <Text style={styles.headerTitle}>Order Place</Text>
-              <View style={{ width: 24 }} />    
+              <View style={{ width: scale(24) }} />    
             
        </View>
           
@@ -141,9 +141,9 @@ const OrderForm = () => {
         onPress={() => setShow(true)}
         style={{
             width: '20%',
-            height: 50,
+            height: verticalScale(50),
             backgroundColor: 'white',
-            borderRadius: 10,
+            borderRadius: moderateScale(10),
             borderWidth: 1,
             borderColor: '#ddd',
 
@@ -151,9 +151,9 @@ const OrderForm = () => {
       >
         <Text style={{
             color: 'black',
-            fontSize: 20,
-            marginTop: 10,
-            marginLeft: 8
+            fontSize: moderateScale(20),
+            marginTop: verticalScale(10),
+            marginLeft: scale(8)
         }}>
             {countryCode}
         </Text>
@@ -237,8 +237,8 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   iconButton: {
-    width: scale(40),
-    height: verticalScale(40),
+    width: scale(35),
+    height: verticalScale(30),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',

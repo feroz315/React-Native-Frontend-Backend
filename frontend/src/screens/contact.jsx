@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
 
   signupButton: {
     // backgroundColor: '#FF6B35',
-    width: width * 0.75,
+    width: scale(width * 0.75),
     height: verticalScale(45),
     backgroundColor: COLORS.navy,
     flexDirection: 'row',
