@@ -91,7 +91,7 @@ const Login = () => {
           style={styles.logo}
         />
 
-        <Text style={styles.title}>Login</Text>
+        <Text style={styles.title}>User Login</Text>
 
         {/* Email Input */}
         <View style={styles.inputContainer}>
@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     padding: scale(20),
   },
   logo: {
-    width: scale(200),
-    height: verticalScale(250),
+    width: scale(100),
+    height: verticalScale(150),
     marginBottom: verticalScale(5),
     alignSelf: 'center',
   },
@@ -196,7 +196,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
   },
   signupButton: {
-    // backgroundColor: '#FF6B35',
     width: scale(width * 0.75),
     height: verticalScale(45),
     backgroundColor: COLORS.navy,
@@ -216,7 +215,6 @@ const styles = StyleSheet.create({
     color: COLORS.navy,
     textAlign: 'center',
   },
-
   loginText: {
     marginTop: verticalScale(20),
     fontSize: moderateScale(14),
@@ -240,8 +238,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   GmailButton: {
-    // backgroundColor: '#FF6B35',
-    width: scale(width * 0.75),
+    width: scale(width * 0.70),
     height: verticalScale(45),
     flexDirection: 'row',
     alignItems: 'center',

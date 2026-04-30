@@ -130,7 +130,7 @@ const BoardScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   slide: {
-    flex: 1,
+    flex: 0.75,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: scale(40),
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   image: {
     width: scale(300),
     height: verticalScale(300),
-    marginBottom: verticalScale(40),
+    marginBottom: verticalScale(10),
     resizeMode: "contain",
   },
   title: {

@@ -162,8 +162,8 @@ const styles = StyleSheet.create({
     padding: scale(20),
   },
   logo: {
-    width: scale(200),
-    height: verticalScale(220),
+    width: scale(100),
+    height: verticalScale(140),
     marginBottom: verticalScale(5),
     alignSelf: 'center',
   },
@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
   },
   signupButton: {
-    // backgroundColor: '#FF6B35',
     width: scale(width * 0.75),
     height: verticalScale(45),
     backgroundColor: COLORS.navy,
@@ -203,23 +202,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: moderateScale(20),
-    marginTop: verticalScale(30),
+    marginTop: verticalScale(10),
   },
   signupButtonText: {
     fontSize: moderateScale(16),
     color: COLORS.white,
     textAlign: 'center',
   },
-  loginText: {
-    marginTop: verticalScale(20),
-    fontSize: moderateScale(14),
-    color: '#666',
-    textAlign: 'center',
-  },
-  loginLink: {
-    color: '#FF6B35',
-    fontWeight: 'bold',
-  },
+  
   accountsign: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -233,14 +223,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   GmailButton: {
-    // backgroundColor: '#FF6B35',
-    width: scale(width * 0.75),
+    width: scale(width * 0.70),
     height: verticalScale(45),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: moderateScale(15),
-    marginTop: verticalScale(30),
+    marginTop: verticalScale(10),
     borderWidth: 2,
     borderColor: '#000',
   },

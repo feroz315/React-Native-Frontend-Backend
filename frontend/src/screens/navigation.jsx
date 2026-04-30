@@ -31,10 +31,10 @@ const Navigation = () => {
           backgroundColor="transparent"
           translucent={true}
         />
-        <Stack.Screen name="board" component={BoardScreen} />
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName="bottomNav">
+        initialRouteName="board">
+        <Stack.Screen name="board" component={BoardScreen} />
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="bottomNav" component={BottomNavigator} />
         <Stack.Screen name="login" component={Login} />
