@@ -1,7 +1,6 @@
 import React from 'react';
 import { View,Image } from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { COLORS } from '../const/colors';
 import Home from '../screens/home';
 import Cart from '../screens/cart';

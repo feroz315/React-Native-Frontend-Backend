@@ -69,9 +69,9 @@ export default function Cart() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{backgroundColor: COLORS.white, marginVertical: 100}}
+        style={{backgroundColor: COLORS.white, marginVertical: verticalScale(100)}}
         contentContainerStyle={{
-          paddingBottom: 20,
+          paddingBottom: verticalScale(20),
         }}>
         {Object.entries(cartItems).map(([index, item]) => {
           return (
@@ -84,7 +84,6 @@ export default function Cart() {
                   </Text>
                   <TouchableOpacity
                     onPress={() => dispatch(DeleteMyCart(item.id))}>
-                    {/* <Icon name="trash-outline" size={20} color="#ff3b30" /> */}
                   </TouchableOpacity>
                 </View>
                 <Text style={styles.subtitle}>{item[0].category}</Text>
@@ -97,21 +96,19 @@ export default function Cart() {
                     <TouchableOpacity
                       style={styles.stepperBtn}
                       onPress={() => dispatch(removetoCart({id: item[0].id}))}>
-                      <Text style={{fontSize: 20, color: COLORS.dark}}>
+                      <Text style={{fontSize: moderateScale(20), color: COLORS.dark}}>
                         {' '}
                         -{' '}
                       </Text>
-                      {/* <Icon name="remove" size={16} color="#333" /> */}
                     </TouchableOpacity>
                     <Text style={styles.qtyText}>{item.length}</Text>
                     <TouchableOpacity
                       style={styles.stepperBtn}
                       onPress={() => dispatch(addMyCart(item[0]))}>
-                      <Text style={{fontSize: 20, color: COLORS.dark}}>
+                      <Text style={{fontSize: moderateScale(20), color: COLORS.dark}}>
                         {' '}
                         +{' '}
                       </Text>
-                      {/* <Icon name="add" size={16} color="#333" /> */}
                     </TouchableOpacity>
                   </View>
                 </View>

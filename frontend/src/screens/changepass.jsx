@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     marginHorizontal: scale(25),
   },
   signupButtonText: {
-    fontSize: moderateScale(16)``,
+    fontSize: moderateScale(16),
     color: COLORS.white,
     textAlign: 'center',
   },
