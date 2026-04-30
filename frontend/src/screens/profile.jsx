@@ -267,7 +267,7 @@ const selectImage = async () => {
           <Text style={styles.logoutText}>Log Out</Text>
          </TouchableOpacity>
         
-        <View style={{ height: verticalScale(40) }} /> 
+        <View style={{ height: 40 }} /> 
       </ScrollView>
      </SafeAreaView>
   );

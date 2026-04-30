@@ -69,9 +69,9 @@ export default function Cart() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{backgroundColor: COLORS.white, marginVertical: verticalScale(100)}}
+        style={{backgroundColor: COLORS.white, marginVertical: 100}}
         contentContainerStyle={{
-          paddingBottom: verticalScale(20),
+          paddingBottom: 20,
         }}>
         {Object.entries(cartItems).map(([index, item]) => {
           return (

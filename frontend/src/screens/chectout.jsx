@@ -68,7 +68,7 @@ const Checkout = () => {
           {/* <Icon name="arrow-back" size={24} color="#333" /> */}
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
-        <View style={{width: scale(24)}} />
+        <View style={{width: 24}} />
       </View>
 
       {/* Order Items */}
@@ -81,7 +81,7 @@ const Checkout = () => {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{
-              paddingBottom: verticalScale(10),
+              paddingBottom: 10,
             }}>
             {Object.entries(cartItems).map(([index, item]) => {
               return (

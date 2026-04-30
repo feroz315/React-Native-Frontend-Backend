@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
    },
  
   productImage: {
-    width: scale('50%'),
+    width: '50%',
     height: verticalScale(150),
     resizeMode: 'cover',
   },

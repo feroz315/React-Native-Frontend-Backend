@@ -82,17 +82,17 @@ const ProductDetail = ({route}) => {
            <TouchableOpacity
            source={cart}
            style={{
-             height: verticalScale(SPACING * 4.2),
-             width: scale(SPACING * 4.2),
+             height: SPACING * 4.2,
+             width: SPACING * 4.2,
              marginRight:5,
              backgroundColor: COLORS.white,
              justifyContent: 'center',
              alignItems: 'center',
-             borderRadius: moderateScale(SPACING * 2.5),
+             borderRadius: SPACING * 2.5,
            }}
            onPress={() => navigation.navigate('cart')}>
            <View>
-             <Text style={{color: 'black', fontSize: moderateScale(18), fontWeight: 'bold'}}>
+             <Text style={{color: 'black', fontSize: 18, fontWeight: 'bold'}}>
                {cartItems.length}
              </Text>
            </View>         
@@ -136,7 +136,7 @@ const ProductDetail = ({route}) => {
           <Text style={styles.description}>{product.description}</Text>
 
           {/* Extra spacing at bottom for the sticky bar */}
-          <View style={{ height: verticalScale(100) }} /> 
+          <View style={{ height: 100 }} /> 
         </View>
       </ScrollView>
 
@@ -208,13 +208,13 @@ scrollContent: {
   
   heroImage: {
     ...StyleSheet.absoluteFillObject,
-    width: scale('100%'),
+    width: '100%',
     height: verticalScale(280)
   },
   imageContainer: {
     flex: 1,
     justifyContent: 'center',
-    width: scale(viewportWidth),
+    width: viewportWidth,
     
   },
   infoContainer: {
@@ -223,7 +223,7 @@ scrollContent: {
     borderTopLeftRadius: moderateScale(40),
     borderTopRightRadius: moderateScale(40),
     marginTop: verticalScale(250), // Overlap effect
-    minHeight: verticalScale(height * 0.6),
+    minHeight: height * 0.6,
   },
   categoryRow: {
     flexDirection: 'row',
@@ -334,146 +334,6 @@ scrollContent: {
     fontWeight: 'bold',
     letterSpacing: scale(0.5),
   },
-
-  // image: {
-  //   width: '80%',
-  //   height: 350,
-  //   borderRadius: 10,
-  //   marginHorizontal: 35,
-  // },
-  // title: {
-  //   fontSize: 20,
-  //   fontWeight: '500',
-  //   color: COLORS.dark,
-  //   letterSpacing: 0.6,
-  //   lineHeight: 32,
-  // },
-  // productInfo: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   marginBottom: 8,
-  // },
-  // priceWrapper: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   marginTop: 10,
-  //   gap: 5,
-  // },
-  // price: {
-  //   fontSize: 15,
-  //   fontWeight: '500',
-  //   color: COLORS.dark,
-  // },
-  // priceDiscount: {
-  //   backgroundColor: COLORS.lightyellow,
-  //   padding: 5,
-  //   borderRadius: 5,
-  // },
-  // priceDiscountText: {
-  //   fontSize: 14,
-  //   fontWeight: '500',
-  //   color: COLORS.dark,
-  // },
-  // description: {
-  //   marginTop: 15,
-  //   fontSize: 14,
-  //   fontFamily: FONTS.body5.fontFamily,
-  //   fontWeight: '400',
-  //   color: COLORS.dark,
-  //   letterSpacing: 0.6,
-  //   lineHeight: 20,
-  // },
-
-  // middlecontainer: {
-  //   paddingHorizontal: 20,
-  // },
-
-  // ratingWrapper: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   justifyContent: 'space-between',
-  //   marginBottom: 5,
-  // },
-  // rating: {
-  //   marginLeft: 5,
-  //   fontSize: 14,
-  //   fontWeight: '400',
-  //   color: COLORS.gray,
-  // },
-  // productVariationWrapper: {
-  //   flexDirection: 'row',
-  //   marginTop: 20,
-  //   flexWrap: 'wrap',
-  // },
-  // productVariationType: {
-  //   width: '50%',
-  //   gap: 5,
-  //   marginBottom: 10,
-  // },
-  // productVariationTitle: {
-  //   fontSize: 16,
-  //   fontWeight: '500',
-  //   color: COLORS.dark,
-  // },
-  // productVariationValueWrapper: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   gap: 5,
-  //   flexWrap: 'wrap',
-  // },
-
-  // productVariationColorValue: {
-  //   width: 30,
-  //   height: 30,
-  //   borderRadius: 15,
-  //   backgroundColor: COLORS.lightgary,
-  // },
-
-  // productVariationSizeValue: {
-  //   width: 50,
-  //   height: 30,
-  //   borderRadius: 5,
-  //   backgroundColor: COLORS.lightgary,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   borderWidth: 1,
-  // },
-
-  // productVariationSizeValueText: {
-  //   fontSize: 12,
-  //   fontWeight: '500',
-  //   color: COLORS.dark,
-  // },
-  // go_back: {
-  //   width: 30,
-  //   paddingLeft: SIZES.padding * 2,
-  //   justifyContent: 'center',
-  // },
-  // // category: {
-  //   // height: '50%',
-  //   // width: '50%',
-  //   // // backgroundColor: COLORS.lightgary,
-  //   // paddingHorizontal: SIZES.padding * 3,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   // borderRadius: SIZES.radius
-  // },
-
-  // AddtoCart: {
-  //   backgroundColor: '#ff9900', // Amazon-style orange
-  //   paddingVertical: 12,
-  //   marginHorizontal: 60,
-  //   width: "60%",
-  //   borderRadius: 8,
-  //   alignItems: 'center',
-  //   marginVertical: 20,
-  // },
-  
-  // AddtoCartText: {
-  //   color: '#fff',
-  //   fontSize: 18,
-  //   fontWeight: '500',
-  // },
 
 });
 

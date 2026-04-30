@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(40),
     borderRadius: moderateScale(10),
     marginTop: verticalScale(10),
-    width: scale('100%'),
+    width: '100%',
     alignItems: 'center',
   },
   signupButtonText: {

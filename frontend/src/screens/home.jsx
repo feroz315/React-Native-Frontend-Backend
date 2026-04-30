@@ -141,7 +141,7 @@ return (
   
     <Carousel
         width={screenWidth}
-        height={verticalScale(250)}
+        height={250}
         data={data}
         renderItem={({ item, index }) => (
           <View
@@ -333,7 +333,7 @@ sectionHeader: {
     overflow: 'hidden',
   },
   productImage: {
-    width: scale('100%'),
+    width: '100%',
     height: verticalScale(130),
     resizeMode: 'cover',
   },
