@@ -64,8 +64,9 @@ const Checkout = () => {
         <TouchableOpacity
           style={styles.iconButton}
           onPress={() => navigation.replace('cart')}>
-          <Text style={styles.iconText}>←</Text>
-          {/* <Icon name="arrow-back" size={24} color="#333" /> */}
+           <Image source={require("../assets/images/arrowl.png")}
+             style={styles.icon}
+             /> 
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Checkout</Text>
         <View style={{width: 24}} />
@@ -211,8 +212,8 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   iconButton: {
-    width: scale(35),
-    height: verticalScale(30),
+    width: scale(30),
+    height: verticalScale(28),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
@@ -227,7 +228,10 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(20),
     color: '#333',
   },
-
+icon: {
+    width:scale(15),
+    height:verticalScale(16),  
+  },
   // --- section order ---
 
   scrollContent: {

@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   StyleSheet,
+  Image,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
@@ -70,7 +71,9 @@ const ProfileContact = ({navigation}) => {
         <TouchableOpacity
           style={styles.iconButton}
           onPress={() => navigation.goBack()}>
-          <Text style={styles.iconText}>←</Text>
+           <Image source={require("../assets/images/arrowl.png")}
+             style={styles.icon}
+             />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>New Contact</Text>
       </View>
@@ -140,8 +143,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   iconButton: {
-    width: scale(40),
-    height: verticalScale(40),
+    width: scale(30),
+    height: verticalScale(28),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
@@ -155,6 +158,10 @@ const styles = StyleSheet.create({
   iconText: {
     fontSize: moderateScale(20),
     color: '#333',
+  },
+  icon: {
+    width:scale(15),
+    height:verticalScale(16), 
   },
   headerTitle: {
     fontSize: moderateScale(20),

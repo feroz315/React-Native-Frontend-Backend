@@ -20,12 +20,8 @@ import { addMyCart, selectcartItems } from '../state/CartSlics';
 import api from '../config/api';
 
 
-const SPACING = 10;
 
-
-const {width, height} = Dimensions.get('window');
-
-const { width: viewportWidth } = Dimensions.get("window");
+const { width: viewportWidth, height } = Dimensions.get("window");
 
 const ProductDetail = ({route}) => {
   const [product, setProduct] = useState({});
@@ -71,10 +67,12 @@ const ProductDetail = ({route}) => {
           <View style={styles.header}>
             <TouchableOpacity 
               style={styles.iconButton} 
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={styles.iconText}>←</Text>
-              {/* <Image source={require("../assets/images/arrowleft.png")}></Image> */}
+              onPress={() => navigation.goBack()}>
+              
+              {/* <Text style={styles.iconText}>←</Text> */}
+              <Image source={require("../assets/images/arrowl.png")}
+              style={styles.icon}
+              /> 
             </TouchableOpacity>
   
            <Text style={styles.headerTitle}>Product Details</Text>
@@ -83,17 +81,17 @@ const ProductDetail = ({route}) => {
            <TouchableOpacity
            source={cart}
            style={{
-             height: verticalScale(SPACING * 2.8),
-             width: scale(SPACING * 3.0),
+             height: verticalScale(28),
+             width: scale(30),
              marginRight:scale(5),
              backgroundColor: COLORS.white,
              justifyContent: 'center',
              alignItems: 'center',
-             borderRadius: moderateScale(SPACING * 2.5),
+             borderRadius: moderateScale(25),
            }}
            onPress={() => navigation.navigate('cart')}>
            <View>
-             <Text style={{color: 'black', fontSize: moderateScale(15), fontWeight: 'bold'}}>
+             <Text style={{color: 'black', fontSize: moderateScale(16), fontWeight: 'bold'}}>
                {cartItems.length}
              </Text>
            </View>         
@@ -165,7 +163,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa', // Light gray background
-    
   },
   header: {
     flexDirection: 'row',
@@ -193,9 +190,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: moderateScale(23),
+    fontSize: moderateScale(20),
     color: '#333',
-    
+  },
+  icon: {
+    width:scale(15),
+    height:verticalScale(16), 
   },
   headerTitle: {
     fontSize: moderateScale(23),
@@ -212,7 +212,7 @@ scrollContent: {
   heroImage: {
     ...StyleSheet.absoluteFillObject,
     width: '100%',
-    height: verticalScale(260)
+    height: verticalScale(280)
   },
   imageContainer: {
     flex: 1,
@@ -267,14 +267,14 @@ scrollContent: {
     color: '#333',
   },
    title: {
-    fontSize: moderateScale(26),
+    fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#1a1a1a',
     marginBottom: verticalScale(10),
     lineHeight: verticalScale(34),
   },
   price: {
-    fontSize: moderateScale(24),
+    fontSize: moderateScale(18),
     fontWeight: '700',
     color: '#FF6F61', // Primary accent color (Coral)
   },
@@ -290,7 +290,7 @@ scrollContent: {
     marginBottom: verticalScale(12),
   },
   description: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     color: '#555',
     lineHeight: verticalScale(24),
     marginBottom: verticalScale(20),
@@ -308,7 +308,7 @@ scrollContent: {
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: scale(20),
-    paddingVertical: verticalScale(20),
+    paddingVertical: verticalScale(15),
     borderTopWidth: scale(1),
     borderTopColor: '#eee',
     elevation: 10,
@@ -321,12 +321,12 @@ scrollContent: {
     flex: 1,
   },
   bottomPriceLabel: {
-    fontSize: moderateScale(12),
+    fontSize: moderateScale(14),
     color: '#888',
     marginBottom: verticalScale(2),
   },
   bottomPrice: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#333',
   },

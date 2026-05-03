@@ -55,7 +55,10 @@ export default function Cart() {
         <TouchableOpacity
           style={styles.iconButton}
           onPress={() => navigation.goBack()}>
-          <Text style={styles.iconText}>←</Text>
+            <Image source={require("../assets/images/arrowl.png")}
+             style={styles.icon}
+             />
+                     
         </TouchableOpacity>
       <View style={styles.headeritemtext}>
         <Text style={styles.headerTitle}>My Cart</Text>
@@ -167,8 +170,8 @@ const styles = StyleSheet.create({
     marginHorizontal:scale(80)
   },
   iconButton: {
-    width: scale(35),
-    height: verticalScale(30),
+    width: scale(30),
+    height: verticalScale(28),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
@@ -182,6 +185,10 @@ const styles = StyleSheet.create({
   iconText: {
     fontSize: moderateScale(20), 
     color: '#333',
+  },
+  icon: {
+    width:scale(15),
+    height:verticalScale(16),  
   },
   headerTitle: {
     fontSize: moderateScale(26),

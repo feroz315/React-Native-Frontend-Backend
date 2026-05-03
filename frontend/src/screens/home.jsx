@@ -21,11 +21,6 @@ import Carousel from 'react-native-reanimated-carousel';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const SPACING = 10;
-
-// const { width, height } = Dimensions.get("window").width - 40
-const {width} = Dimensions.get('window');
-
 // --- MOCK DATA ---
 const categories = [
   {id: '1', name: 'Electronics', icon: 'phone-portrait-outline'},
@@ -117,20 +112,20 @@ const Home = () => {
 
           <TouchableOpacity
             style={{
-              height: verticalScale(SPACING * 3.4),
-              width: scale(SPACING * 3.7),
+              height: verticalScale(28),
+              width: scale(30),
               marginRight: scale(5),
               backgroundColor: COLORS.white,
               justifyContent: 'center',
               alignItems: 'center',
-              borderRadius: moderateScale(SPACING * 2),
+              borderRadius: moderateScale(25),
             }}
             onPress={() => navigation.navigate('cart')}>
             <View>
               <Text
                 style={{
                   color: 'black',
-                  fontSize: moderateScale(17),
+                  fontSize: moderateScale(16),
                   fontWeight: 'bold',
                 }}>
                 {cartItems.length}

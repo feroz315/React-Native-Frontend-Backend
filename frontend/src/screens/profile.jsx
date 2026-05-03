@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F5F8',
   },
   headerContainer: {
-    paddingTop: verticalScale(30),
+    paddingTop: verticalScale(40),
     paddingBottom: verticalScale(20),
     paddingHorizontal: scale(20),
     borderBottomLeftRadius: moderateScale(24),
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   avatar: {
-    width: scale(60),
+    width: scale(55),
     height: verticalScale(50),
     borderRadius: moderateScale(40),
     borderWidth: 4,

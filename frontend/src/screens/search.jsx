@@ -82,7 +82,6 @@ const Search = () => {
         autoCorrect={false}
       />
        <View style={styles.filterButton}>
-            {/* <Icon name="options-outline" size={20} color="#FFFFFF" /> */}
           </View>        
         </View>
 
@@ -163,6 +162,7 @@ const styles = StyleSheet.create({
     width: '50%',
     height: verticalScale(150),
     resizeMode: 'cover',
+    borderRadius:moderateScale(10)
   },
   noResults: {
     textAlign: 'center',
