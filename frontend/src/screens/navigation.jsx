@@ -33,7 +33,7 @@ const Navigation = () => {
         />
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName="bottomNav">
+        initialRouteName="board">
         <Stack.Screen name="board" component={BoardScreen} />
         <Stack.Screen name="signup" component={Signup} />
         <Stack.Screen name="bottomNav" component={BottomNavigator} />

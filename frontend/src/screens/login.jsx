@@ -38,7 +38,7 @@ const Login = () => {
       });
     }
     try {
-      const response = await fetch('http://192.168.1.4:3000/api/login', {
+      const response = await fetch('http://192.168.1.7:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,13 +49,13 @@ const Login = () => {
         }),
       });
       if (response.ok) {
-        console.log('login', response.token);
+        console.log('login', response.ok);
+        // await AsyncStorage.setItem('authToken', response.token);
         Toast.show({
           type: 'success', // Type of toast: 'success', 'error', 'info'
           text1: 'Successfully!', // Main message (header)
           text2: 'Login get successfully!',
         });
-        await AsyncStorage.setItem('authToken', response.token);
         setFormData(response);
         navigation.navigate('bottomNav');
       }

@@ -284,6 +284,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(18),
     fontWeight: 'bold',
     color: '#1A1A1A',
+    fontFamily: 'Roboto-Bold'
   },
   seeAll: {
     fontSize: moderateScale(14),
@@ -352,6 +353,7 @@ const styles = StyleSheet.create({
   productTitle: {
     fontSize: moderateScale(15),
     fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold',
     color: '#1A1A1A',
     marginBottom: verticalScale(8),
   },
@@ -363,6 +365,8 @@ const styles = StyleSheet.create({
   productPrice: {
     fontSize: moderateScale(15),
     fontWeight: 'bold',
+    letterSpacing: 0.5,
+    textAlign: 'center',
     color: '#FF6B6B',
   },
   ratingContainer: {
