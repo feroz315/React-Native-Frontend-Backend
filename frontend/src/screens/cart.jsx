@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(20), 
     color: '#333',
   },
   headerTitle: {

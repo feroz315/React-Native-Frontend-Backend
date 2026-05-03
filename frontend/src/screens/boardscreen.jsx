@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, SafeAreaView } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { COLORS } from '../const/colors';
@@ -108,6 +108,7 @@ const BoardScreen = ({ navigation }) => {
   };
 
   return (
+    
     <AppIntroSlider
       data={slides}
       renderItem={_renderItem}
@@ -125,52 +126,53 @@ const BoardScreen = ({ navigation }) => {
       inactiveDotStyle={styles.inactiveDot}
       dotStyle={styles.dot}
     />
+    
   );
 };
 
 const styles = StyleSheet.create({
+ 
   slide: {
-    flex: 0.75,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: scale(40),
     paddingVertical: verticalScale(40),
   },
+  
   image: {
     width: scale(300),
     height: verticalScale(300),
-    marginBottom: verticalScale(10),
     resizeMode: "contain",
   },
   title: {
-    fontSize: moderateScale(29),
+    fontSize: moderateScale(24),
     fontWeight: 'bold',
     color: COLORS.navy,
     textAlign: 'center',
-    marginBottom: verticalScale(15),
+    marginBottom: verticalScale(10),
   },
   text: {
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(14),
     color: COLORS.dark,
     textAlign: 'center',
     lineHeight: verticalScale(24),
+    marginBottom: verticalScale(50),
   },
   button: {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    paddingHorizontal: scale(24),
-    paddingVertical: verticalScale(12),
+    paddingHorizontal: scale(24),   
     borderRadius: moderateScale(25),
   },
   buttonText: {
     color: '#000',
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: '600',
   },
   doneButton: {
-    backgroundColor: '#FFFFFF',
     paddingHorizontal: scale(32),
-    paddingVertical: verticalScale(14),
-    borderRadius: moderateScale(25),
+    paddingVertical: verticalScale(30),
+    
   },
   doneButtonText: {
     color: '#000',
@@ -180,8 +182,8 @@ const styles = StyleSheet.create({
   skipButton: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     paddingHorizontal: scale(20),
-    paddingVertical: verticalScale(10),
-    borderRadius: moderateScale(20),
+    paddingVertical: verticalScale(30),
+    
   },
   skipButtonText: {
     color: '#000',

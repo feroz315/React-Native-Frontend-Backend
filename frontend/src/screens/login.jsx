@@ -91,7 +91,7 @@ const Login = () => {
           style={styles.logo}
         />
 
-        <Text style={styles.title}>User Login</Text>
+        <Text style={styles.title}> Login</Text>
 
         {/* Email Input */}
         <View style={styles.inputContainer}>

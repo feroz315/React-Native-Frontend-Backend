@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(12),
     fontSize: moderateScale(16),
     backgroundColor: '#f9f9f9',
+    
   },
   signupButton: {
     width: scale(width * 0.75),

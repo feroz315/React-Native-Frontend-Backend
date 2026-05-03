@@ -74,6 +74,7 @@ const ProductDetail = ({route}) => {
               onPress={() => navigation.goBack()}
             >
               <Text style={styles.iconText}>←</Text>
+              {/* <Image source={require("../assets/images/arrowleft.png")}></Image> */}
             </TouchableOpacity>
   
            <Text style={styles.headerTitle}>Product Details</Text>
@@ -82,8 +83,8 @@ const ProductDetail = ({route}) => {
            <TouchableOpacity
            source={cart}
            style={{
-             height: verticalScale(SPACING * 3.2),
-             width: scale(SPACING * 3.5),
+             height: verticalScale(SPACING * 2.8),
+             width: scale(SPACING * 3.0),
              marginRight:scale(5),
              backgroundColor: COLORS.white,
              justifyContent: 'center',
@@ -92,7 +93,7 @@ const ProductDetail = ({route}) => {
            }}
            onPress={() => navigation.navigate('cart')}>
            <View>
-             <Text style={{color: 'black', fontSize: moderateScale(18), fontWeight: 'bold'}}>
+             <Text style={{color: 'black', fontSize: moderateScale(15), fontWeight: 'bold'}}>
                {cartItems.length}
              </Text>
            </View>         
@@ -152,7 +153,7 @@ const ProductDetail = ({route}) => {
         <TouchableOpacity style={styles.addToCartButton} onPress={handleAddToCart}>
           <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
-      </View>
+        </View>
       
       </SafeAreaView>
     </>
@@ -179,8 +180,8 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   iconButton: {
-    width: scale(35),
-    height: verticalScale(30),
+    width: scale(30),
+    height: verticalScale(28),
     borderRadius: moderateScale(20),
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
     justifyContent: 'center',
@@ -192,11 +193,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   iconText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(23),
     color: '#333',
+    
   },
   headerTitle: {
-    fontSize: moderateScale(26),
+    fontSize: moderateScale(23),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -210,7 +212,7 @@ scrollContent: {
   heroImage: {
     ...StyleSheet.absoluteFillObject,
     width: '100%',
-    height: verticalScale(280)
+    height: verticalScale(260)
   },
   imageContainer: {
     flex: 1,
