@@ -29,6 +29,17 @@ const Login = () => {
 
   const navigation = useNavigation();
 
+
+const storeToken = async ( token, userdata ) => {
+  try {
+      await AsyncStorage.setItem('authtoken', token);
+      await AsyncStorage.setItem("userdata", JSON.stringify(userdata))
+    } catch (error) {
+      console.error('Error storing token:', error);
+  }
+}
+ 
+
   const handleSubmit = async () => {
     if (!formData.name || !formData.password) {
       Toast.show({
@@ -48,15 +59,19 @@ const Login = () => {
           password: formData.password,
         }),
       });
-      if (response.ok) {
-        console.log('login', response.ok);
-        // await AsyncStorage.setItem('authToken', response.token);
+
+      const data = await response.json();
+      
+      if (data.token) {
+        console.log('login', data.token);
+        console.log('login', data.user);
+        await storeToken( data.token, data.user)
         Toast.show({
           type: 'success', // Type of toast: 'success', 'error', 'info'
           text1: 'Successfully!', // Main message (header)
           text2: 'Login get successfully!',
         });
-        setFormData(response);
+        setFormData(data);
         navigation.navigate('bottomNav');
       }
     } catch (e) {

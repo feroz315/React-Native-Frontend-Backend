@@ -49,7 +49,7 @@ const CategoryItem = ({item, active, onPress}) => (
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState('1');
-  const [user, setUser] = useState(null);
+  const [username, setUsername] = useState(null);
 
   const cartItems = useSelector(selectcartItems);
   const navigation = useNavigation();
@@ -62,17 +62,12 @@ const Home = () => {
     {id: 5, source: require('../assets/images/whiteglasses.jpg')},
   ];
 
-  // Api data for products Items
-
-  useEffect(() => {
-    getdata();
-    fetchProfile();
-  }, []);
 
   const fetchProfile = async () => {
     try {
       const res = await api.get('/profile');
-      setUser(res.data);
+      console.log(res.user);
+      setUsername(res.user);
     } catch (err) {
       console.log(err, 'Failed');
     }
@@ -96,6 +91,15 @@ const Home = () => {
     includeBase64: false,
   };
 
+  // Api data for products Items
+
+  useEffect(() => {
+    getdata();
+    fetchProfile();
+  }, []);
+
+
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F2F2" />
@@ -107,7 +111,7 @@ const Home = () => {
         <View style={styles.header}>
           <View>
             <Text style={styles.greeting}>Hello, 👋</Text>
-            <Text style={styles.username}>{user?.name} </Text>
+            <Text style={styles.username}>{username?.name} </Text>
           </View>
 
           <TouchableOpacity
