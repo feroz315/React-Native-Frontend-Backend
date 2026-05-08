@@ -110,7 +110,7 @@ const Home = () => {
         {/* --- HEADER --- */}
         <View style={styles.header}>
           <View>
-            <Text style={styles.greeting}>Hello, 👋</Text>
+            {/* <Text style={styles.greeting}>Hello, 👋</Text> */}
             <Text style={styles.username}>{username?.name} </Text>
           </View>
 
