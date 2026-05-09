@@ -45,7 +45,6 @@ const ProductDetail = ({route}) => {
   // Api productGetbyId
 
   const ProductgetID = async () => {
-    // const URL = `http://192.168.1.11:3000/api`;
     try {
       const res = await api.get(`/product/${id}`);
       console.log('product', res.data);
@@ -62,7 +61,6 @@ const ProductDetail = ({route}) => {
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#f8f9fa" translucent={true} />
         
-  
           {/* Header / Navbar */}
           <View style={styles.header}>
             <TouchableOpacity 

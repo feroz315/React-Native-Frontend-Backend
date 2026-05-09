@@ -18,8 +18,13 @@ import api from '../config/api';
 import {useSelector} from 'react-redux';
 import {selectcartItems} from '../state/CartSlics';
 import Carousel from 'react-native-reanimated-carousel';
+import axios from 'axios';
 
 const {width: screenWidth} = Dimensions.get('window');
+
+
+// const URL_API = "https://mocki.io/v1/c7f5df25-14d3-4c00-966d-d54558f8685f";
+
 
 // --- MOCK DATA ---
 const categories = [
@@ -62,7 +67,6 @@ const Home = () => {
     {id: 5, source: require('../assets/images/whiteglasses.jpg')},
   ];
 
-
   const fetchProfile = async () => {
     try {
       const res = await api.get('/profile');
@@ -71,6 +75,14 @@ const Home = () => {
     } catch (err) {
       console.log(err, 'Failed');
     }
+  };
+
+  const options = {
+    mediaType: 'photo',
+    maxWidth: scale(300),
+    maxHeight: verticalScale(400),
+    quality: 1,
+    includeBase64: false,
   };
 
   const getdata = async () => {
@@ -83,21 +95,36 @@ const Home = () => {
     }
   };
 
-  const options = {
-    mediaType: 'photo',
-    maxWidth: scale(300),
-    maxHeight: verticalScale(400),
-    quality: 1,
-    includeBase64: false,
-  };
+//   useEffect(() => {
+//  fetch('http://192.168.1.8:3000/api/products', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json', // Inform server it is receiving JSON
+//   },
+//   body: JSON.stringify(URL_API), // Convert JS object to JSON string
+// })
+// .then(response => response.json())
+// .then(data => console.log('Success:', data))
+//  setProducts(data)
+// .catch(error => console.error('Error:', error));
+//   },[]);
 
+
+  // useEffect(() => {
+  //   axios.get(URL_API)
+  //     .then(res => {
+  //       console.log(res.data);
+  //       setProducts(res.data);      
+  //     })
+  //     .catch(err => console.log(err));
+  // }, []); // Empty arra
+  
   // Api data for products Items
 
   useEffect(() => {
-    getdata();
+     getdata();
     fetchProfile();
   }, []);
-
 
 
   return (
@@ -184,7 +211,7 @@ const Home = () => {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Category</Text>
           <Text style={styles.seeAll}>See All</Text>
-        </View>
+          </View>
 
         <FlatList
           horizontal
@@ -205,7 +232,7 @@ const Home = () => {
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Popular Products</Text>
           <Text style={styles.seeAll}>See All</Text>
-        </View>
+         </View>
 
         <FlatList
           data={products}
