@@ -18,7 +18,6 @@ import api from '../config/api';
 import {useSelector} from 'react-redux';
 import {selectcartItems} from '../state/CartSlics';
 import Carousel from 'react-native-reanimated-carousel';
-import axios from 'axios';
 
 const {width: screenWidth} = Dimensions.get('window');
 
