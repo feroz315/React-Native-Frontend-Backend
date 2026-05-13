@@ -6,6 +6,8 @@ import { COLORS } from '../const/colors';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 
+const URL_API = "https://mocki.io/v1/c7f5df25-14d3-4c00-966d-d54558f8685f";
+
 
 const Search = () => {
   
@@ -20,7 +22,7 @@ const Search = () => {
   const getproducts = async () => {
     
     try {
-      const res = await api.get('/allproducts');
+      const res = await api.get(URL_API);   // '/allproducts'
       console.log(res.data);
       setFullData(res.data);
         

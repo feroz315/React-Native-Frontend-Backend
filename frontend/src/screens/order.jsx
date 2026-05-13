@@ -51,7 +51,7 @@ const OrderForm = () => {
     setLoading(true);
     try { 
       const response = await   
-       fetch("http://192.168.1.4:3000/api/submit-order",{
+       fetch("http://192.168.1.9:3000/api/submit-order",{
        method:"POST",
        headers: {
         'Content-Type': 'application/json'

@@ -24,7 +24,7 @@ import api from '../config/api';
 const { width: viewportWidth, height } = Dimensions.get("window");
 
 const ProductDetail = ({route}) => {
-  const [product, setProduct] = useState({});
+  // const [product, setProduct] = useState({});
   const navigation = useNavigation();
   const item = route.params;
 
@@ -38,8 +38,8 @@ const ProductDetail = ({route}) => {
 
 
   const handleAddToCart = () => {
-    dispatch(addMyCart(product)); 
-    console.log("add cart", product);
+    dispatch(addMyCart(item)); 
+    console.log("add cart", item);
   };
   
   // Api productGetbyId
