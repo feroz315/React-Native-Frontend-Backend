@@ -26,15 +26,15 @@ const { width: viewportWidth, height } = Dimensions.get("window");
 const ProductDetail = ({route}) => {
   const [product, setProduct] = useState({});
   const navigation = useNavigation();
-  const {id} = route.params;
+  const item = route.params;
 
   const dispatch = useDispatch();
    const cartItems = useSelector(selectcartItems);
 
 
-  useEffect(() => {
-    ProductgetID();
-  }, [])
+  // useEffect(() => {
+  //   ProductgetID();
+  // }, [])
 
 
   const handleAddToCart = () => {
@@ -44,15 +44,15 @@ const ProductDetail = ({route}) => {
   
   // Api productGetbyId
 
-  const ProductgetID = async () => {
-    try {
-      const res = await api.get(`/product/${id}`);
-      console.log('product', res.data);
-      setProduct(res.data);
-    } catch (error) {
-      console.log('error', error);
-    }
-  };
+  // const ProductgetID = async () => {
+  //   try {
+  //     const res = await api.get(`/product/${id}`);
+  //     console.log('product', res.data);
+  //     setProduct(res.data);
+  //   } catch (error) {
+  //     console.log('error', error);
+  //   }
+  // };
 
   return (
     <>
@@ -101,7 +101,7 @@ const ProductDetail = ({route}) => {
    
         <View style={styles.imageContainer}>
           <Image 
-            source={{ uri: product.images }} 
+            source={{uri: item.images}} 
             style={styles.heroImage} 
             resizeMode="cover"
           />
@@ -113,11 +113,11 @@ const ProductDetail = ({route}) => {
         {/* Product Info */}
         <View style={styles.infoContainer}>
           <View style={styles.categoryRow}>
-            <Text style={styles.category}>{product.category}</Text>
+            <Text style={styles.category}>{item.category}</Text>
             <View style={styles.allratingContainer}>
              <View style={styles.ratingContainer}>
               <Text style={styles.starIcon}>★</Text>
-              <Text style={styles.ratingText}>{product.rating}4.7</Text>
+              <Text style={styles.ratingText}>{item.rating}4.7</Text>
             </View>
               <TouchableOpacity style={styles.iconButton}>
               <Text style={styles.iconText}>♡</Text>
@@ -126,13 +126,13 @@ const ProductDetail = ({route}) => {
 
           </View>
 
-          <Text style={styles.title}>{product.title}</Text>
-          <Text style={styles.price}>${product.price}</Text>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.price}>${item.price}</Text>
 
           <View style={styles.divider} />
 
           <Text style={styles.sectionTitle}>Description</Text>
-          <Text style={styles.description}>{product.description}</Text>
+          <Text style={styles.description}>{item.description}</Text>
 
           {/* Extra spacing at bottom for the sticky bar */}
           <View style={{ height: verticalScale(100) }} /> 
@@ -144,7 +144,7 @@ const ProductDetail = ({route}) => {
       <View style={styles.bottomBar}>
         <View style={styles.priceContainer}>
             <Text style={styles.bottomPriceLabel}>Total Price</Text>
-            <Text style={styles.bottomPrice}>${product.price}</Text>
+            <Text style={styles.bottomPrice}>${item.price}</Text>
         </View>
         <TouchableOpacity style={styles.addToCartButton} onPress={handleAddToCart}>
           <Text style={styles.addToCartText}>Add to Cart</Text>
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     height:verticalScale(16), 
   },
   headerTitle: {
-    fontSize: moderateScale(23),
+    fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -338,7 +338,7 @@ scrollContent: {
   },
   addToCartText: {
     color: '#fff',
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     letterSpacing: scale(0.5),
   },

@@ -18,11 +18,11 @@ import api from '../config/api';
 import {useSelector} from 'react-redux';
 import {selectcartItems} from '../state/CartSlics';
 import Carousel from 'react-native-reanimated-carousel';
+import axios from 'axios';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-
-// const URL_API = "https://mocki.io/v1/c7f5df25-14d3-4c00-966d-d54558f8685f";
+const URL_API = "https://mocki.io/v1/c7f5df25-14d3-4c00-966d-d54558f8685f";
 
 
 // --- MOCK DATA ---
@@ -86,7 +86,7 @@ const Home = () => {
 
   const getdata = async () => {
     try {
-      const res = await api.get('/allproducts');
+      const res = await axios.get(URL_API);
       console.log(res.data);
       setProducts(res.data);
     } catch (error) {
@@ -94,7 +94,28 @@ const Home = () => {
     }
   };
 
-//   useEffect(() => {
+
+// const fetchProducts = async () => {
+//   try {
+//     const response = await fetch('http://192.168.1.9:3000/api/products', {
+//       method: "POST",
+//       headers:{
+//        'Content-Type': 'application/json', 
+//       },
+//       body:JSON.stringify(URL_API),
+//     })
+//     const data = await response.json();
+//     if(data){
+//       console.log("API", data)
+//       setProducts(data)
+//      }
+//     }catch (error) {
+//     console.log("e", error)
+//   }
+// }
+
+
+  // useEffect(() => {
 //  fetch('http://192.168.1.8:3000/api/products', {
 //   method: 'POST',
 //   headers: {
@@ -106,7 +127,8 @@ const Home = () => {
 // .then(data => console.log('Success:', data))
 //  setProducts(data)
 // .catch(error => console.error('Error:', error));
-//   },[]);
+
+  // },[]);
 
 
   // useEffect(() => {
@@ -121,7 +143,8 @@ const Home = () => {
   // Api data for products Items
 
   useEffect(() => {
-     getdata();
+    getdata();
+    // fetchProducts();
     fetchProfile();
   }, []);
 
