@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList,TouchableOpacity,Image ,SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, TextInput, FlatList,KeyboardAvoidingView,TouchableOpacity,Image ,SafeAreaView, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import api from '../config/api';
 import { COLORS } from '../const/colors';
@@ -19,8 +19,7 @@ const Search = () => {
   const navigation = useNavigation();
 
 
-  const getproducts = async () => {
-    
+  const getproducts = async () => { 
     try {
       const res = await api.get(URL_API);   // '/allproducts'
       console.log(res.data);
@@ -61,7 +60,7 @@ const Search = () => {
 
   useEffect(() => {
     setFullData(fullData);
-    setFilteredData(fullData);
+    setFilteredData('');
     setIsLoading(false);
     getproducts();
     
@@ -73,6 +72,11 @@ const Search = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+    <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        
+          />
+       
        {/* --- SEARCH BAR --- */}
       <View style={styles.searchContainer}>      
       <TextInput

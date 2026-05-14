@@ -117,7 +117,7 @@ const ProductDetail = ({route}) => {
             <View style={styles.allratingContainer}>
              <View style={styles.ratingContainer}>
               <Text style={styles.starIcon}>★</Text>
-              <Text style={styles.ratingText}>{item.rating}4.7</Text>
+              <Text style={styles.ratingText}>{item.rating}</Text>
             </View>
               <TouchableOpacity style={styles.iconButton}>
               <Text style={styles.iconText}>♡</Text>

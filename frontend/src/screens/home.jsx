@@ -115,36 +115,9 @@ const Home = () => {
 // }
 
 
-  // useEffect(() => {
-//  fetch('http://192.168.1.8:3000/api/products', {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json', // Inform server it is receiving JSON
-//   },
-//   body: JSON.stringify(URL_API), // Convert JS object to JSON string
-// })
-// .then(response => response.json())
-// .then(data => console.log('Success:', data))
-//  setProducts(data)
-// .catch(error => console.error('Error:', error));
-
-  // },[]);
-
-
-  // useEffect(() => {
-  //   axios.get(URL_API)
-  //     .then(res => {
-  //       console.log(res.data);
-  //       setProducts(res.data);      
-  //     })
-  //     .catch(err => console.log(err));
-  // }, []); // Empty arra
-  
-  // Api data for products Items
 
   useEffect(() => {
     getdata();
-    // fetchProducts();
     fetchProfile();
   }, []);
 
@@ -152,7 +125,6 @@ const Home = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F2F2F2" />
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}>
