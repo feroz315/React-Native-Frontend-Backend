@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
+  SafeAreaView,
 } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import {  useSelector } from 'react-redux';
@@ -15,7 +16,7 @@ import { useNavigation } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import {CountryPicker} from "react-native-country-codes-picker";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -46,7 +47,6 @@ const OrderForm = () => {
   
   // const handleSubmit = async () => {
     
-  const isFormValid = customerName.trim() !== '' || customerEmail.trim() !== '' || customerAddress.trim() !== '' || customerPhone.trim() !== '';
   //   if (!formData.customerName || !formData.customerEmail ||!formData.customerPhone || !formData.shippingAddress) {
   //       Toast.show({
   //         type: 'error',
@@ -103,6 +103,8 @@ const OrderForm = () => {
   //   }
   // };
 
+const isFormValid = customerName.trim() !== '' && customerEmail.trim() !== '' && customerAddress.trim() !== '' && customerPhone.trim() !== '';
+  
   const handleSubmit = () => {
       if(!isFormValid)
          Toast.show({
@@ -111,18 +113,22 @@ const OrderForm = () => {
          text2: 'Please Fill all!',
        })
        else {
+            console.log("work" )
             navigation.navigate("delivery")
             setCustomerName('');
             setCustomerEmail('');
             setCustomerAddress('');
             setCustomerPhone('');      
           }      
-
+     }
 
   return (
     
-  <ScrollView style={styles.container}>
-        
+  <SafeAreaView style={styles.container}>
+    <ScrollView 
+            showsVerticalScrollIndicator={false} 
+            contentContainerStyle={styles.scrollContent}>
+            
      {/* Header */}
       <View style={styles.header}>
             <TouchableOpacity style={styles.iconButton}
@@ -144,7 +150,7 @@ const OrderForm = () => {
           style={styles.input}
           value={customerName}
           onChangeText={setCustomerName}
-          // onChangeText={(text) => setFormData({ ...formData, customerName: text })}
+          //  onChangeText={(text) => setFormData({ ...formData, customerName: text })}
           placeholder="Enter your name"
         />
        </View>
@@ -199,7 +205,7 @@ const OrderForm = () => {
           style={styles.inputphone}
           value={customerPhone}
           onChangeText={setCustomerPhone}
-          // onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
+          //onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
           placeholder="country code & phone number"
           keyboardType="phone-pad"
           textContentType="telephoneNumber"
@@ -240,10 +246,13 @@ const OrderForm = () => {
          
                  
     </ScrollView>
+    
+    </SafeAreaView>
+
   );
 };
 
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -252,6 +261,10 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(15),
     backgroundColor: '#f5f5f5',
   },
+  scrollContent: {
+    paddingBottom: verticalScale(20),
+  },
+
   // --- header ---
 
   header: {
