@@ -191,15 +191,15 @@ const styles = StyleSheet.create({
     height:verticalScale(16),  
   },
   headerTitle: {
-    fontSize: moderateScale(26),
-    fontWeight: 'bold',
+    fontSize: moderateScale(23),
+    fontWeight: '600',
     color: '#333',
   },
   headerSubtitle: {
     fontSize: moderateScale(14),
     color: '#888',
     marginTop: verticalScale(4),
-    marginLeft:scale(30)
+    marginLeft:scale(25)
   },
   listContent: {
     padding: scale(16),
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   title: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: '600',
     color: '#333',
     flex: 1,
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(8),
   },
   price: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
   },
   checkoutBtnText: {
     color: '#fff',
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     marginRight: scale(8),
   },

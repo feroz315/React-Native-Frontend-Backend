@@ -19,54 +19,75 @@ const {width} = Dimensions.get('screen');
 import {useNavigation} from '@react-navigation/native';
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  // const [formData, setFormData] = useState({
+  //   name: '',
+  //   email: '',
+  //   password: '',
+  // });
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigation = useNavigation();
 
-  const handleSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.password) {
-      Toast.show({
-        type: 'error',
-        text1: 'Validation Error!',
-        text2: 'Register Failed!',
-      });
-    }
-    try {
-      const response = await fetch('http://192.168.1.7:3000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          name: formData.name,
-          password: formData.password,
-        }),
-      });
-      if (response.ok) {
-        console.log('Success', response.ok);
-        Toast.show({
-          type: 'success', // Type of toast: 'success', 'error', 'info'
-          text1: 'Successfully!', // Main message (header)
-          text2: 'Register get successfully!',
-        });
-        setFormData(response);
-        navigation.navigate('login');
-      }
-    } catch (e) {
-      Toast.show({
-        type: 'error',
-        text1: 'Validation Error!',
-        text2: 'Failed!',
-      });
+  // const handleSubmit = async () => {
+  //   if (!formData.name || !formData.email || !formData.password) {
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: 'Validation Error!',
+  //       text2: 'Register Failed!',
+  //     });
+  //   }
+  //   try {
+  //     const response = await fetch('http://192.168.1.7:3000/api/register', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         email: formData.email,
+  //         name: formData.name,
+  //         password: formData.password,
+  //       }),
+  //     });
+  //     if (response.ok) {
+  //       console.log('Success', response.ok);
+  //       Toast.show({
+  //         type: 'success', // Type of toast: 'success', 'error', 'info'
+  //         text1: 'Successfully!', // Main message (header)
+  //         text2: 'Register get successfully!',
+  //       });
+  //       setFormData(response);
+  //       navigation.navigate('login');
+  //     }
+  //   } catch (e) {
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: 'Validation Error!',
+  //       text2: 'Failed!',
+  //     });
 
-      console.log('error hai', e);
-    }
-  };
+  //     console.log('error hai', e);
+  //   }
+  // };
+
+     const isFormValid = email.trim() !== '' && password.trim() !== '' && name.trim() !== '';
+
+     const handleSubmit = () => {
+      if(!isFormValid)
+         Toast.show({
+         type: 'error',
+         text1: 'Validation Error!',
+         text2: 'Login Failed!',
+       })
+       else {
+            navigation.navigate('login');
+            setName('');
+            setEmail('');
+            setPassword('');
+        }
+     }
 
   const openGmail = () => {
     // Use react-native-email-link or custom linking for a better experience
@@ -92,8 +113,9 @@ const Signup = () => {
           <TextInput
             style={styles.input}
             placeholder="Name"
-            value={formData.name}
-            onChangeText={text => setFormData({...formData, name: text})}
+            value={name}
+            onChangeText={setName}
+            // onChangeText={text => setFormData({...formData, name: text})}
             autoCapitalize="words"
           />
         </View>
@@ -103,8 +125,9 @@ const Signup = () => {
           <TextInput
             style={styles.input}
             placeholder="Email"
-            value={formData.email}
-            onChangeText={text => setFormData({...formData, email: text})}
+            value={email}
+            onChangeText={setEmail}
+            // onChangeText={text => setFormData({...formData, email: text})}
             keyboardType="email-address"
             autoCapitalize="none"
           />
@@ -115,8 +138,9 @@ const Signup = () => {
           <TextInput
             style={styles.input}
             placeholder="Password"
-            value={formData.password}
-            onChangeText={text => setFormData({...formData, password: text})}
+            value={password}
+            onChangeText={setPassword}
+            // onChangeText={text => setFormData({...formData, password: text})}
             secureTextEntry
           />
         </View>

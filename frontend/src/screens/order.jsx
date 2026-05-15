@@ -20,13 +20,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const OrderForm = () => {
-  const [formData, setFormData] = useState({
-    customerName: '',
-    customerEmail: '',
-    customerPhone:"",
-    shippingAddress: '',
-    items: basketItems 
-  });
+  // const [formData, setFormData] = useState({
+  //   customerName: '',
+  //   customerEmail: '',
+  //   customerPhone:"",
+  //   shippingAddress: '',
+  //   items: basketItems 
+  // });
+    
+  const [customerName, setCustomerName ] = useState('')
+  const [customerEmail, setCustomerEmail ] = useState('')
+  const [customerPhone, setCustomerPhone ] = useState('')
+  const [customerAddress, setCustomerAddress ] = useState('')
+  
   
   const [show, setShow] = useState(false);  
   const [countryCode, setCountryCode] = useState('');
@@ -37,63 +43,80 @@ const OrderForm = () => {
   const basketItems = useSelector(selectcartItems);
   const basketTotal = useSelector(selectTotal);
 
-
-  const handleSubmit = async () => {
-    if (!formData.customerName || !formData.customerEmail ||!formData.customerPhone || !formData.shippingAddress) {
-        Toast.show({
-          type: 'error',
-          text1: 'Validation Error!',
-          text2: 'Please fill in all required fields.'
-        });
+  
+  // const handleSubmit = async () => {
+    
+  const isFormValid = customerName.trim() !== '' || customerEmail.trim() !== '' || customerAddress.trim() !== '' || customerPhone.trim() !== '';
+  //   if (!formData.customerName || !formData.customerEmail ||!formData.customerPhone || !formData.shippingAddress) {
+  //       Toast.show({
+  //         type: 'error',
+  //         text1: 'Validation Error!',
+  //         text2: 'Please fill in all required fields.'
+  //       });
         
-      return;
-    }
-    setLoading(true);
-    try { 
-      const response = await   
-       fetch("http://192.168.1.9:3000/api/submit-order",{
-       method:"POST",
-       headers: {
-        'Content-Type': 'application/json'
-      },
-      body:JSON.stringify({ 
-        customerName: formData.customerName,
-        customerEmail: formData.customerEmail,
-        customerPhone: formData.customerPhone,     
-        items: basketItems,
-        shippingAddress: formData.shippingAddress,
-        totalAmount: basketTotal,
-       }),       
-    }) 
-        if (response.ok) {
-        console.log('Success', response.ok)
-        Toast.show({
-         type: 'success', // Type of toast: 'success', 'error', 'info'
-         text1: 'Order Placed Successfully!',  // Main message (header)
-         text2: 'Order submitted successfully!' 
-      });   
-        setFormData(response)
-        navigation.navigate("delivery")
-        setFormData({
-          customerName: '',
-          customerEmail: '',
-          customerPhone: '',
-          shippingAddress: '',
-          items: [],
-        });
-      } 
-    } catch (error) {
-      console.error('Order submission error:', error);
-       Toast.show({
-          type: 'error',
-          text1: 'Validation Error!',
-          text2: 'Failed to submit order. Please try again.'
-        });
+  //     return;
+  //   }
+  //   setLoading(true);
+  //   try { 
+  //     const response = await   
+  //      fetch("http://192.168.1.9:3000/api/submit-order",{
+  //      method:"POST",
+  //      headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body:JSON.stringify({ 
+  //       customerName: formData.customerName,
+  //       customerEmail: formData.customerEmail,
+  //       customerPhone: formData.customerPhone,     
+  //       items: basketItems,
+  //       shippingAddress: formData.shippingAddress,
+  //       totalAmount: basketTotal,
+  //      }),       
+  //   }) 
+  //       if (response.ok) {
+  //       console.log('Success', response.ok)
+  //       Toast.show({
+  //        type: 'success', // Type of toast: 'success', 'error', 'info'
+  //        text1: 'Order Placed Successfully!',  // Main message (header)
+  //        text2: 'Order submitted successfully!' 
+  //     });   
+  //       setFormData(response)
+  //       navigation.navigate("delivery")
+  //       setFormData({
+  //         customerName: '',
+  //         customerEmail: '',
+  //         customerPhone: '',
+  //         shippingAddress: '',
+  //         items: [],
+  //       });
+  //     } 
+  //   } catch (error) {
+  //     console.error('Order submission error:', error);
+  //      Toast.show({
+  //         type: 'error',
+  //         text1: 'Validation Error!',
+  //         text2: 'Failed to submit order. Please try again.'
+  //       });
        
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const handleSubmit = () => {
+      if(!isFormValid)
+         Toast.show({
+         type: 'error',
+         text1: 'Validation Error!',
+         text2: 'Please Fill all!',
+       })
+       else {
+            navigation.navigate("delivery")
+            setCustomerName('');
+            setCustomerEmail('');
+            setCustomerAddress('');
+            setCustomerPhone('');      
+          }      
 
 
   return (
@@ -119,8 +142,9 @@ const OrderForm = () => {
         <Text style={styles.label}>Customer Name *</Text>
         <TextInput
           style={styles.input}
-          value={formData.customerName}
-          onChangeText={(text) => setFormData({ ...formData, customerName: text })}
+          value={customerName}
+          onChangeText={setCustomerName}
+          // onChangeText={(text) => setFormData({ ...formData, customerName: text })}
           placeholder="Enter your name"
         />
        </View>
@@ -129,8 +153,9 @@ const OrderForm = () => {
         <Text style={styles.label}>Email *</Text>
         <TextInput
           style={styles.input}
-          value={formData.customerEmail}
-          onChangeText={(text) => setFormData({ ...formData, customerEmail: text })}
+          value={customerEmail}
+          onChangeText={setCustomerEmail}
+          // onChangeText={(text) => setFormData({ ...formData, customerEmail: text })}
           placeholder="Enter your email"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -172,8 +197,9 @@ const OrderForm = () => {
       />    
         <TextInput
           style={styles.inputphone}
-          value={formData.customerPhone}
-          onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
+          value={customerPhone}
+          onChangeText={setCustomerPhone}
+          // onChangeText={(text) => setFormData({ ...formData, customerPhone: text })}
           placeholder="country code & phone number"
           keyboardType="phone-pad"
           textContentType="telephoneNumber"
@@ -186,8 +212,9 @@ const OrderForm = () => {
         <Text style={styles.label}>Shipping Address *</Text>
         <TextInput
           style={[styles.input, styles.textArea]}
-          value={formData.shippingAddress}
-          onChangeText={(text) => setFormData({ ...formData, shippingAddress: text })}
+          value={customerAddress}
+          onChangeText={setCustomerAddress}
+          // onChangeText={(text) => setFormData({ ...formData, shippingAddress: text })}
           placeholder="Enter shipping address"
           multiline
           numberOfLines={4}
@@ -216,7 +243,7 @@ const OrderForm = () => {
   );
 };
 
-
+}
 
 const styles = StyleSheet.create({
   container: {

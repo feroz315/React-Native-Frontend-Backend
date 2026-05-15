@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     height:verticalScale(16), 
   },
   headerTitle: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
     color: '#333',
   },
@@ -260,13 +260,13 @@ scrollContent: {
     marginRight: scale(4),
   },
   ratingText: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(13),
     fontWeight: 'bold',
     color: '#333',
   },
    title: {
-    fontSize: moderateScale(22),
-    fontWeight: 'bold',
+    fontSize: moderateScale(19),
+    fontWeight: '600',
     color: '#1a1a1a',
     marginBottom: verticalScale(10),
     lineHeight: verticalScale(34),
@@ -338,7 +338,7 @@ scrollContent: {
   },
   addToCartText: {
     color: '#fff',
-    fontSize: moderateScale(15),
+    fontSize: moderateScale(14),
     fontWeight: 'bold',
     letterSpacing: scale(0.5),
   },

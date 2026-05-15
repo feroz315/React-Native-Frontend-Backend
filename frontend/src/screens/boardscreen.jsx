@@ -100,11 +100,11 @@ const BoardScreen = ({ navigation }) => {
   };
 
   const onDone = () => {
-    navigation.replace('login'); // Navigate to main app
+    navigation.replace('signup'); // Navigate to main app
   };
 
   const onSkip = () => {
-    navigation.replace('login'); // Navigate to main app
+    navigation.replace('signup'); // Navigate to main app
   };
 
   return (

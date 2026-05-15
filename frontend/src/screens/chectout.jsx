@@ -207,8 +207,8 @@ const styles = StyleSheet.create({
     marginTop:verticalScale(20)
   },
   headerTitle: {
-    fontSize: moderateScale(26),
-    fontWeight: 'bold',
+    fontSize: moderateScale(22),
+    fontWeight: '600',
     color: '#333',
   },
   iconButton: {
@@ -390,7 +390,7 @@ icon: {
   },
   checkoutBtnText: {
     color: '#fff',
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(15),
     fontWeight: 'bold',
     marginRight: scale(8),
   },

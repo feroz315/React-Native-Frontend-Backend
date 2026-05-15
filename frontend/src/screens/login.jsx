@@ -22,67 +22,87 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const {width} = Dimensions.get('screen');
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
-
+  // const [formData, setFormData] = useState({
+  //   email: email,
+  //   password: password,
+  // });
+  
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
+   
   const navigation = useNavigation();
 
 
-const storeToken = async ( token, userdata ) => {
-  try {
-      await AsyncStorage.setItem('authtoken', token);
-      await AsyncStorage.setItem("userdata", JSON.stringify(userdata))
-    } catch (error) {
-      console.error('Error storing token:', error);
-  }
-}
+// const storeToken = async ( token, userdata ) => {
+//   try {
+//       await AsyncStorage.setItem('authtoken', token);
+//       await AsyncStorage.setItem("userdata", JSON.stringify(userdata))
+//     } catch (error) {
+//       console.error('Error storing token:', error);
+//   }
+// }
  
 
-  const handleSubmit = async () => {
-    if (!formData.name || !formData.password) {
-      Toast.show({
-        type: 'error',
-        text1: 'Validation Error!',
-        text2: 'Login Failed!',
-      });
-    }
-    try {
-      const response = await fetch('http://192.168.1.9:3000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
+  // const handleSubmit = async () => {
+  //   if (!formData.name || !formData.password) {
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: 'Validation Error!',
+  //       text2: 'Login Failed!',
+  //     });
+  //   }
+  //   try {
+  //     const response = await fetch('http://192.168.1.9:3000/api/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         email: formData.email,
+  //         password: formData.password,
+  //       }),
+  //     });
 
-      const data = await response.json();
+  //     const data = await response.json();
       
-      if (data.token) {
-        console.log('login', data.token);
-        console.log('login', data.user);
-        await storeToken( data.token, data.user)
-        Toast.show({
-          type: 'success', // Type of toast: 'success', 'error', 'info'
-          text1: 'Successfully!', // Main message (header)
-          text2: 'Login get successfully!',
-        });
-        setFormData(data);
-        navigation.navigate('bottomNav');
-      }
-    } catch (e) {
-      Toast.show({
-        type: 'error',
-        text1: 'Validation Error!',
-        text2: 'Login Failed!',
-      });
-      console.log('error hai', e);
-    }
-  };
+  //     if (data.token) {
+  //       console.log('login', data.token);
+  //       console.log('login', data.user);
+  //       await storeToken( data.token, data.user)
+  //       Toast.show({
+  //         type: 'success', // Type of toast: 'success', 'error', 'info'
+  //         text1: 'Successfully!', // Main message (header)
+  //         text2: 'Login get successfully!',
+  //       });
+  //       setFormData(data);
+  //       navigation.navigate('bottomNav');
+  //     }
+  //   } catch (e) {
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: 'Validation Error!',
+  //       text2: 'Login Failed!',
+  //     });
+  //     console.log('error hai', e);
+  //   }
+  // };
+    const isFormValid = email.trim() !== '' && password.trim() !== '';
+
+     const handleSubmit = () => {
+      if(!isFormValid)
+         Toast.show({
+         type: 'error',
+         text1: 'Validation Error!',
+         text2: 'Login Failed!',
+       })
+       else {
+            navigation.navigate('bottomNav');
+            setEmail('');
+            setPassword('');
+        }
+     }
+
+
 
   const ForgetPass = async () => {
     navigation.navigate('forget');
@@ -113,8 +133,9 @@ const storeToken = async ( token, userdata ) => {
           <TextInput
             style={styles.input}
             placeholder="Email"
-            value={formData.email}
-            onChangeText={text => setFormData({...formData, email: text})}
+            value={email}
+            onChangeText={setEmail}
+            // onChangeText={text => setFormData({...formData, email: text})}
             keyboardType="email-address"
             autoCapitalize="none"
           />
@@ -125,8 +146,9 @@ const storeToken = async ( token, userdata ) => {
           <TextInput
             style={styles.input}
             placeholder="Password"
-            value={formData.password}
-            onChangeText={text => setFormData({...formData, password: text})}
+            value={password}
+            onChangeText={setPassword}
+            // onChangeText={text => setFormData({...formData, password: text})}
             secureTextEntry
           />
         </View>
