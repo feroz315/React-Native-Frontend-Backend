@@ -25,81 +25,101 @@ const ChangeEmail = ({navigation}) => {
   const [currentEmail, setCurrentEmail] = useState('');
 
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
 
 
-  const fetchProfile = async () => {
-    try {
-      const token = await AsyncStorage.getItem('authToken');
-      const response = await api.get('/profile', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      Toast.show({
-      type: 'success', // Type of toast: 'success', 'error', 'info'
-      text1: 'Fetch Successfully!',  // Main message (header)
-      text2: 'profile successfully!' 
-    });         
-      setCurrentEmail(response.data.email);
-    } catch (error) {
-      console.error('Fetch profile error:', error);
-       Toast.show({
-          type: 'error',
-          text1: 'Validation Error!',
-          text2: 'Failed to load profile'
-        });     
-    }
-  };
+  // const fetchProfile = async () => {
+  //   try {
+  //     const token = await AsyncStorage.getItem('authToken');
+  //     const response = await api.get('/profile', {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
+  //     Toast.show({
+  //     type: 'success', // Type of toast: 'success', 'error', 'info'
+  //     text1: 'Fetch Successfully!',  // Main message (header)
+  //     text2: 'profile successfully!' 
+  //   });         
+  //     setCurrentEmail(response.data.email);
+  //   } catch (error) {
+  //     console.error('Fetch profile error:', error);
+  //      Toast.show({
+  //         type: 'error',
+  //         text1: 'Validation Error!',
+  //         text2: 'Failed to load profile'
+  //       });     
+  //   }
+  // };
 
-  const updateEmail = async () => {
-    if (!newEmail || newEmail === currentEmail) {
-      Toast.show({
-          type: 'error',
-          text1: 'Validation Error!',
-          text2: 'Please enter a valid new email.'
-        });
-      return;
-    }
-    try {
-       const token = await AsyncStorage.getItem('authToken');
-       const response = await fetch('http://192.168.1.7:3000/api/profile/update-email',
+  // const updateEmail = async () => {
+  //   if (!newEmail || newEmail === currentEmail) {
+  //     Toast.show({
+  //         type: 'error',
+  //         text1: 'Validation Error!',
+  //         text2: 'Please enter a valid new email.'
+  //       });
+  //     return;
+  //   }
+  //   try {
+  //      const token = await AsyncStorage.getItem('authToken');
+  //      const response = await fetch('http://192.168.1.9:3000/api/profile/update-email',
         
-        {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Send stored token
-        },
-         body:JSON.stringify({ newEmail }),
-      });
+  //       {
+  //       method: 'PUT',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${token}`, // Send stored token
+  //       },
+  //        body:JSON.stringify({ newEmail }),
+  //     });
 
-      const data = await response.json();       
+  //     const data = await response.json();       
 
-      if (response.ok) {
-      console.log('Success', response.data)
-      Toast.show({
+  //     if (response.ok) {
+  //     console.log('Success', response.data)
+  //     Toast.show({
+  //           type: 'success', // Type of toast: 'success', 'error', 'info'
+  //           text1: 'Email update Successfully!',  // Main message (header)
+  //           text2: 'updated successfully!' 
+  //        });
+  //     setCurrentEmail(response.data);
+  //     setNewEmail('');
+  //    } 
+  //    else {
+  //       Alert.alert('Error', data.message);
+  //     } 
+  //   } catch (error) {
+  //     const errorMsg = error.response?.data?.error || 'Failed to update email';
+  //     console.log('Error', errorMsg)
+  //      Toast.show({
+  //         type: 'error',
+  //         text1: 'Validation Error!',
+  //         text2: 'Failed to update email.'
+  //       });   
+  //    }
+  // }
+
+
+  const isFormValid = newEmail.trim() !== '' && currentEmail.trim() !== '';
+
+     const handleSubmit = () => {
+      if(!isFormValid)
+         Toast.show({
+         type: 'error',
+         text1: 'Validation Error!',
+         text2: 'Login Failed!',
+       })
+       else {
+        Toast.show({
             type: 'success', // Type of toast: 'success', 'error', 'info'
             text1: 'Email update Successfully!',  // Main message (header)
             text2: 'updated successfully!' 
          });
-      setCurrentEmail(response.data);
-      setNewEmail('');
-     } 
-     else {
-        Alert.alert('Error', data.message);
-      } 
-    } catch (error) {
-      const errorMsg = error.response?.data?.error || 'Failed to update email';
-      console.log('Error', errorMsg)
-       Toast.show({
-          type: 'error',
-          text1: 'Validation Error!',
-          text2: 'Failed to update email.'
-        });   
-     }
-  }
-     
+          navigation.navigate('profile');
+          setNewEmail('');
+        }
+     }   
  
 
   return (
@@ -121,8 +141,9 @@ const ChangeEmail = ({navigation}) => {
         <TextInput
           style={styles.input}
           placeholder="Current Email"
-          value={currentEmail}  
-          editable={false}
+          value={currentEmail}
+          onChangeText={setCurrentEmail}  
+          // editable={false}
         />
       </View>
 
@@ -140,7 +161,7 @@ const ChangeEmail = ({navigation}) => {
 
     
       {/* Signup Button */}
-      <TouchableOpacity style={styles.signupButton} onPress={updateEmail}>
+      <TouchableOpacity style={styles.signupButton} onPress={handleSubmit}>
         <Text style={styles.signupButtonText}>Update Email </Text>
       </TouchableOpacity>
     </View>

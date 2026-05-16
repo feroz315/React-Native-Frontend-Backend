@@ -8,50 +8,54 @@ import { useNavigation } from '@react-navigation/native'; // Assuming React Navi
 
 
 const Logout = () => {
+
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-const handleContinue = () => {
-      navigation.replace('bottomNav');
+// const handleContinue = () => {
+//       navigation.replace('bottomNav');
   
-}
+// }
 
 
   const handleLogout = async () => {
-    setLoading(true);
-    try {
-      // Retrieve token from storage (adjust based on your auth setup)
-      const token = await AsyncStorage.getItem('authToken');
+      await AsyncStorage.removeItem('authToken');
+      navigation.replace('bottomNav');
+  
+    // setLoading(true);
+    // try {
+    //   // Retrieve token from storage (adjust based on your auth setup)
+    //   const token = await AsyncStorage.getItem('authToken');
       
-      // API call to logout endpoint
-      const response = await axios.post('http://192.168.1.7:3000/api/logout', {}, {
-        headers: {
-          Authorization: `Bearer ${token}`, // Include token if required
-        },
-      });
+    //   // API call to logout endpoint
+    //   const response = await axios.post('http://192.168.1.9:3000/api/logout', {}, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`, // Include token if required
+    //     },
+    //   });
 
-      if (response.status === 200) {
-        // Clear local storage
-        await AsyncStorage.removeItem('authToken');
-        // Navigate to login screen
-        navigation.replace('login'); // Or your login screen name
-      }
-    } catch (error) {
-      Alert.alert('Logout Failed', 'Unable to log out. Please try again.');
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    //   if (response.status === 200) {
+    //     // Clear local storage
+    //     await AsyncStorage.removeItem('authToken');
+    //     // Navigate to login screen
+    //     navigation.replace('login'); // Or your login screen name
+    //   }
+    // } catch (error) {
+    //   Alert.alert('Logout Failed', 'Unable to log out. Please try again.');
+    //   console.error(error);
+    // } finally {
+    //   setLoading(false);
+    // }
   };
 
   return (
     <View style={styles.container}>
      
-      <TouchableOpacity style={styles.button} onPress={handleContinue} disabled={loading}>
+      {/* <TouchableOpacity style={styles.button} onPress={handleContinue} disabled={loading}>
         <Text style={styles.buttonText}>{loading ? 'continue shopping...' : 'Continue'}</Text>
       </TouchableOpacity>
-     
-      <Text style={styles.title}>Are you sure you want to log out?</Text>
+      */}
+      {/* <Text style={styles.title}>Are you sure you want to log out?</Text> */}
   
       <TouchableOpacity style={styles.button} onPress={handleLogout} disabled={loading}>
         <Text style={styles.buttonText}>{loading ? 'Logging out...' : 'Logout'}</Text>

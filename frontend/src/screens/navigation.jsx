@@ -50,7 +50,6 @@ const Navigation = () => {
         <Stack.Screen name="contact" component={ProfileContact} />
         <Stack.Screen name="change-email" component={ChangeEmail} />
         <Stack.Screen name="order" component={OrderForm} />
-        <Stack.Screen name="test" component={ResponsiveScreen} />
         
       </Stack.Navigator>
     </NavigationContainer>

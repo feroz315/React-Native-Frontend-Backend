@@ -21,50 +21,74 @@ const ChangePassword = ({navigation}) => {
 
   
 
-  const handleReset = async () => {
-    if (!password || !newPassword || !confirmPassword) {
-      Toast.show({
-        type: 'error',
-        text1: 'Validation Error!',
-        text2: 'Please fill in all required fields.',
-      });
-      return;
-    }
+  // const handleReset = async () => {
+  //   if (!password || !newPassword || !confirmPassword) {
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: 'Validation Error!',
+  //       text2: 'Please fill in all required fields.',
+  //     });
+  //     return;
+  //   }
 
-    try {
-      fetch('http://192.168.1.12:3000/api/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          newpassword: newPassword,
-          confirmPassword: confirmPassword,
-        }),
-      });
-      console.log('Success', 'Password updated! Please login.');
-      Toast.show({
-        type: 'success', // Type of toast: 'success', 'error', 'info'
-        text1: 'Password updated Successfully!', // Main message (header)
-        text2: 'Password updated! Please login.',
-      });
-      navigation.navigate('profile');
-      setNewPassword('');
-      confirmPassword('');
-    } catch (error) {
-      console.log(
-        'Error',
-        error.response?.data?.message || 'Failed to reset password',
-      );
-      Toast.show({
-        type: 'error',
-        text1: 'Validation Error!',
-        text2: 'Failed to reset password',
-      });
-    }
-  };
+  //   try {
+  //     fetch('http://192.168.1.12:3000/api/reset-password', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         newpassword: newPassword,
+  //         confirmPassword: confirmPassword,
+  //       }),
+  //     });
+  //     console.log('Success', 'Password updated! Please login.');
+  //     Toast.show({
+  //       type: 'success', // Type of toast: 'success', 'error', 'info'
+  //       text1: 'Password updated Successfully!', // Main message (header)
+  //       text2: 'Password updated! Please login.',
+  //     });
+  //     navigation.navigate('profile');
+  //     setNewPassword('');
+  //     confirmPassword('');
+  //   } catch (error) {
+  //     console.log(
+  //       'Error',
+  //       error.response?.data?.message || 'Failed to reset password',
+  //     );
+  //     Toast.show({
+  //       type: 'error',
+  //       text1: 'Validation Error!',
+  //       text2: 'Failed to reset password',
+  //     });
+  //   }
+  // };
 
+  
+  
+      const isFormValid = password.trim() !== '' && newPassword.trim() !== '' && confirmPassword.trim() !== '';
+  
+       const handleSubmit = () => {
+        if(!isFormValid)
+           Toast.show({
+           type: 'error',
+           text1: 'Validation Error!',
+           text2: 'Login Failed!',
+         })
+         else {
+          Toast.show({
+              type: 'success', // Type of toast: 'success', 'error', 'info'
+              text1: 'Password update Successfully!',  // Main message (header)
+              text2: 'updated successfully!' 
+           });
+            navigation.navigate('profile');
+            setPassword('');
+            setNewPassword('');
+            setConfirmPassword('');
+          }
+       }   
 
+       
 
   return (
     <View style={styles.container}>
@@ -111,7 +135,7 @@ const ChangePassword = ({navigation}) => {
       </View>
 
       {/* Signup Button */}
-      <TouchableOpacity style={styles.signupButton} onPress={handleReset}>
+      <TouchableOpacity style={styles.signupButton} onPress={handleSubmit}>
         <Text style={styles.signupButtonText}>Change Password </Text>
       </TouchableOpacity>
     </View>

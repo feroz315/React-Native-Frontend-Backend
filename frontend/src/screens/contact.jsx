@@ -22,46 +22,66 @@ const ProfileContact = ({navigation}) => {
   const [newContact, setNewContact] = useState('');
 
 
-  const handleReset = async () => {
-    if(!contact){
-     Toast.show({
-            type: 'error',
-            text1: 'Validation Error!',
-            text2: 'Please fill contact field.'
-        });
-        return;
-    }
-    try {
-      fetch('http://192.168.1.10:3000/api/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          newContact: newContact,
+  // const handleReset = async () => {
+  //   if(!contact){
+  //    Toast.show({
+  //           type: 'error',
+  //           text1: 'Validation Error!',
+  //           text2: 'Please fill contact field.'
+  //       });
+  //       return;
+  //   }
+  //   try {
+  //     fetch('http://192.168.1.9:3000/api/reset-password', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         newContact: newContact,
           
-        }),
-      });
-      console.log('Success', 'contact updated!');
-      Toast.show({
-            type: 'success', // Type of toast: 'success', 'error', 'info'
-            text1: 'Contact Update Successfully!',  // Main message (header)
-            text2: 'contact updated!' 
-         });
-      navigation.navigate('profile');
-      setNewContact('');  
-    } catch (error) {
-      console.log('Error',
-        error.response?.data?.message || 'Failed to contact',
-      );
-       Toast.show({
-            type: 'error',
-            text1: 'Validation Error!',
-            text2: 'Failed to contact.'
-        });    
-    }
-  };
+  //       }),
+  //     });
+  //     console.log('Success', 'contact updated!');
+  //     Toast.show({
+  //           type: 'success', // Type of toast: 'success', 'error', 'info'
+  //           text1: 'Contact Update Successfully!',  // Main message (header)
+  //           text2: 'contact updated!' 
+  //        });
+  //     navigation.navigate('profile');
+  //     setNewContact('');  
+  //   } catch (error) {
+  //     console.log('Error',
+  //       error.response?.data?.message || 'Failed to contact',
+  //     );
+  //      Toast.show({
+  //           type: 'error',
+  //           text1: 'Validation Error!',
+  //           text2: 'Failed to contact.'
+  //       });    
+  //   }
+  // };
 
+
+  const isFormValid = contact.trim() !== '' && newContact.trim() !== '';
+
+     const handleSubmit = () => {
+      if(!isFormValid)
+         Toast.show({
+         type: 'error',
+         text1: 'Validation Error!',
+         text2: 'Login Failed!',
+       })
+       else {
+        Toast.show({
+            type: 'success', // Type of toast: 'success', 'error', 'info'
+            text1: 'Contact update Successfully!',  // Main message (header)
+            text2: 'updated successfully!' 
+         });
+          navigation.navigate('profile');
+          setNewContact('');
+        }
+     }   
 
 
   return (
@@ -100,7 +120,7 @@ const ProfileContact = ({navigation}) => {
 
     
       {/* Signup Button */}
-      <TouchableOpacity style={styles.signupButton} onPress={handleReset}>
+      <TouchableOpacity style={styles.signupButton} onPress={handleSubmit}>
         <Text style={styles.signupButtonText}>Change Contact Number </Text>
       </TouchableOpacity>
     </View>

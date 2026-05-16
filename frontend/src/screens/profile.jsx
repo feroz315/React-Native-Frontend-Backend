@@ -13,12 +13,11 @@ import {
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import api from '../config/api';
+// import api from '../config/api';
 import { useNavigation } from '@react-navigation/native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import Toast from 'react-native-toast-message';
 import { COLORS } from '../const/colors';
-import Sound from "react-native-sound";
 
 
 const { width } = Dimensions.get('window');
@@ -33,9 +32,9 @@ const navigation = useNavigation();
 
 // Api data for products Items
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
+  // useEffect(() => {
+  //   fetchProfile();
+  // }, []);
 
 
 const options = {
@@ -48,24 +47,24 @@ const options = {
 
 
  // --- Fetch userdata ---
-  const fetchProfile = async () => {
-    try {
-      const res = await api.get('/profile');
-       Toast.show({
-       type: 'success', // Type of toast: 'success', 'error', 'info'
-       text1: 'Successfully!',  // Main message (header)
-       text2: 'profile get successfully!' 
-    });
-      setUser(res.data);   
-    } catch (err) {
-      console.log(err, 'Failed '); 
-      Toast.show({
-       type: 'error',
-       text1: 'Validation Error!',
-       text2: 'profile Failed!'
-     });     
-    }
-  };
+  // const fetchProfile = async () => {
+  //   try {
+  //     const res = await api.get('/profile');
+  //      Toast.show({
+  //      type: 'success', // Type of toast: 'success', 'error', 'info'
+  //      text1: 'Successfully!',  // Main message (header)
+  //      text2: 'profile get successfully!' 
+  //   });
+  //     setUser(res.data);   
+  //   } catch (err) {
+  //     console.log(err, 'Failed '); 
+  //     Toast.show({
+  //      type: 'error',
+  //      text1: 'Validation Error!',
+  //      text2: 'profile Failed!'
+  //    });     
+  //   }
+  // };
 
   const handleUpdatePassword = () => {
     navigation.navigate("changepass")
