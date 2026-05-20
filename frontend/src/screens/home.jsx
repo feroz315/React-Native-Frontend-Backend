@@ -115,7 +115,6 @@ const Home = () => {
 // }
 
 
-
   useEffect(() => {
     getdata();
     fetchProfile();

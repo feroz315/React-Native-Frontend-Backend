@@ -197,7 +197,6 @@ const selectImage = async () => {
                 </View>
                 <View style={styles.menuTextContainer}>
                   <Text style={styles.menuTitle}>Contact</Text>
-                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
                 </View>
               </View>
               <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
@@ -215,7 +214,6 @@ const selectImage = async () => {
                 </View>
                 <View style={styles.menuTextContainer}>
                   <Text style={styles.menuTitle}>Currency</Text>
-                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
                 </View>
               </View>
               <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
@@ -233,7 +231,6 @@ const selectImage = async () => {
                 </View>
                 <View style={styles.menuTextContainer}>
                   <Text style={styles.menuTitle}>Notifications</Text>
-                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
                 </View>
               </View>
               <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
@@ -251,7 +248,6 @@ const selectImage = async () => {
                 </View>
                 <View style={styles.menuTextContainer}>
                   <Text style={styles.menuTitle}>Update Password</Text>
-                  {/* <Text style={styles.menuSubtitle}>{user?.email}</Text> */}
                 </View>
               </View>
               <Image source={require('../assets/images/compose.png')} style={styles.logo} />       
