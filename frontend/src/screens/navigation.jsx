@@ -19,7 +19,6 @@ import ChangePassword from './changepass';
 import ProfileContact from './contact';
 import ChangeEmail from './changeEmail';
 import OrderForm from './order';
-import ResponsiveScreen from './test';
 
 const Stack = createStackNavigator();
 
