@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {scale, verticalScale, moderateScale} from 'react-native-size-matters';
-import {COLORS, SIZES} from '../const/colors';
+import { COLORS } from '../const/colors';
 import {useNavigation} from '@react-navigation/native';
 import api from '../config/api';
 import {useSelector} from 'react-redux';
@@ -22,7 +22,7 @@ import axios from 'axios';
 
 const {width: screenWidth} = Dimensions.get('window');
 
-const URL_API = "https://mocki.io/v1/c7f5df25-14d3-4c00-966d-d54558f8685f";
+const URL_API = "https://mocki.io/v1/9b04472a-fc24-4aa6-9bea-430d649c1415";
 
 
 // --- MOCK DATA ---

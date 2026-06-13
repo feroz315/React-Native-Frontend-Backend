@@ -79,31 +79,33 @@ const options = {
   };
 
   const handleLogout = async () => {
-     try {
-       fetch("http://192.168.1.3:3000/api/logout",{
-       method:"POST",
-       headers: {
-        'Content-Type': 'application/json'
-      },
-    }) 
-      await AsyncStorage.removeItem('authToken');
-      console.log("authtoken")
-       Toast.show({
-       type: 'success', // Type of toast: 'success', 'error', 'info'
-       text1: 'Successfully!',  // Main message (header)
-       text2: 'Logout successfully!' 
-    });
-      navigation.navigate("login")
+    //  try {
+    //    fetch("http://192.168.1.3:3000/api/logout",{
+    //    method:"POST",
+    //    headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    // }) 
+    //   await AsyncStorage.removeItem('authToken');
+    //   console.log("authtoken")
+    //    Toast.show({
+    //    type: 'success', // Type of toast: 'success', 'error', 'info'
+    //    text1: 'Successfully!',  // Main message (header)
+    //    text2: 'Logout successfully!' 
+    // });
+    //   navigation.navigate("login")
     
-    } catch (error) {
-      console.error('Logout error:', error);
-      Toast.show({
-      type: 'error',
-      text1: 'Validation Error!',
-      text2: 'Logout Failed! '
-    });
+    // } catch (error) {
+    //   console.error('Logout error:', error);
+    //   Toast.show({
+    //   type: 'error',
+    //   text1: 'Validation Error!',
+    //   text2: 'Logout Failed! '
+    // });
            
-    }
+    // }
+      navigation.replace('bottomNav');
+  
   };
 
 // Launch image library to select a photo

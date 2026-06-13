@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import axios from 'axios';
+// import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // For storing tokens
 import { useNavigation } from '@react-navigation/native'; // Assuming React Navigation
 
