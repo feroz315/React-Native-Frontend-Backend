@@ -80,7 +80,7 @@ android {
 
     namespace "com.frontend"
     defaultConfig {
-        applicationId "com.frontend"
+        applicationId "com.frontend.myapp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
